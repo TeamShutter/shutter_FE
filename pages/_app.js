@@ -9,7 +9,10 @@
 
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material";
-import {theme} from "../theme"
+import {theme} from "../theme";
+import '../styles/globals.css';
+import Footer from "../components/footer";
+import Header from "../components/header";
 
 const App = (props) => {
   const { Component, pageProps } = props;
@@ -17,7 +20,9 @@ const App = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Header />
       <Component {...pageProps} />
+      <Footer />
     </ThemeProvider>
   );
 };
