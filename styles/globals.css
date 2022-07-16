@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+html {
+  max-width: 640px;
+  margin: auto;
+}
+body {
+  border: 1px solid black;
+}

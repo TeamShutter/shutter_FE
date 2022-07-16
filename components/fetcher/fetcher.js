@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = "http://localhost:8000";
 
 const fetcher = async (...args) => {
     const res = await fetch(...args);
@@ -18,6 +18,17 @@ const fetcher = async (...args) => {
 
 export const GetStudios = () => {
     const {data, error} = useSWR(`${BASE_URL}/getAllStudios`, fetcher);
+    // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
+
+    return {
+        data,
+        isLoading: !error & !data,
+        isError: error,
+    }
+}
+
+export const GetStudio = (studioId) => {
+    const {data, error} = useSWR(`${BASE_URL}/getStudio/${studioId}`, fetcher);
     // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
 
     return {
