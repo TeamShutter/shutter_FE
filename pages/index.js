@@ -1,9 +1,16 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { GetStudios } from '../components/fetcher/fetcher'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  return (
+  const {data, isLoading, isError} = GetStudios();
+
+  if(isLoading) return <div>Loading...</div>
+  if(isError) return <div>Error!!</div>
+  console.log("data: ", data);
+
+  return data && (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -13,43 +20,28 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to LikeLion Hackerthon
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          Photo Platform{' '}
+          <code className={styles.code}>파이팅!!</code>
         </p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        {data.map((studio) => {
+          return (
+            <div key={studio.name} className={styles.grid}>
+              <a href="https://nextjs.org/docs" className={styles.card}>
+                <h2>{studio.name}</h2>
+                <p>{studio.description}</p>
+                <p>{studio.rate}</p>
+                <p>{studio.follow}</p>
+              </a>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+            </div> 
+          )
+        })}
       </main>
 
       <footer className={styles.footer}>
