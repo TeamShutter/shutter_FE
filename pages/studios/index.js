@@ -1,3 +1,4 @@
+
 import Head from 'next/head';
 import { GetStudios } from '../../components/fetcher/fetcher';
 import { Box, Container, Typography } from '@mui/material';
