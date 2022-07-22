@@ -10,6 +10,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import InfoIcon from '@mui/icons-material/Info';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { GetStudios } from "../../components/fetcher/fetcher";
+import { DevicesFold } from "@mui/icons-material";
 
 
 const items = [
