@@ -184,7 +184,7 @@ export default function Studio() {
                             >
                                 {photo.description}
                             </Typography>
-                            <Rating name="read-only" value={3} readOnly />
+                            <Rating name="read-only" value={3} precision={0.5} readOnly />
                         </div>
                     </Box>
                 ))}

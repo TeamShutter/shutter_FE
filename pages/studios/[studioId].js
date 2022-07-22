@@ -85,26 +85,28 @@ export default function Studio() {
                   </Button>
               </Paper> */}
                <Carousel
-                NextIcon={<ArrowForwardIosIcon/>}
-                PrevIcon={<ArrowBackIosNewIcon/>}
-                navButtonsProps={{          
-                  style: {
-                      opacity: 0.5,
-                  }
-              }} 
+              //   NextIcon={<ArrowForwardIosIcon/>}
+              //   PrevIcon={<ArrowBackIosNewIcon/>}
+              //   navButtonsProps={{          
+              //     style: {
+              //         opacity: 0.5,
+              //     }
+              // }} 
                >
                 {
                     items.map( (item, i) => (
-                      <img
-                      key={i}
-                      src={item.url}
-                      srcSet={item.url}
-                      alt={item.name}
-                      loading="lazy"
-                      layout='fill'
-                      objectFit='contain'
-                      height='250'
-                    />
+                    <Box 
+                    key={i}
+                      sx={{
+                          width: '100%',
+                          paddingBottom: "60%",
+                          backgroundImage: `url(${item.url})`,
+                          backgroundSize: 'cover',
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "center center",
+                      }}
+                      >
+                      </Box>
                     ) )
                 }
             </Carousel>
@@ -114,7 +116,7 @@ export default function Studio() {
                   공간사진스튜디오
                 </Typography>
 
-                <Rating name="read-only" value={3} readOnly />
+                <Rating name="read-only" value={3.5} precision={0.5} readOnly />
 
                 <Box
                 sx={{
@@ -236,7 +238,7 @@ export default function Studio() {
                                 </>
                               }
                             />
-                            <Rating name="read-only" value={4} readOnly />
+                            <Rating name="read-only" value={4} precision={0.5} readOnly />
                           </ListItem>
                           
                           <Divider variant="inset" component="li" />
