@@ -70,7 +70,7 @@ const Header = () => {
             cursor: 'pointer',
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'helvetica',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',

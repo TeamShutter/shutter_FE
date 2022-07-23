@@ -6,9 +6,7 @@ import * as React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Margin } from '@mui/icons-material';
 import Link from 'next/link';
-
 
 var items = [
     {
@@ -97,19 +95,19 @@ export default function Studioindex() {
                     <Box>
                         {
                             items.map( (item, i) => (
-                                <Box
+                                <Box 
                                 key={i}
                                 sx={{ mb: 10 }}
                                 >
-                                <Carousel
-                                //     NextIcon={<ArrowForwardIosIcon/>}
-                                //     PrevIcon={<ArrowBackIosNewIcon/>}
-                                //     navButtonsProps={{          
-                                //     style: {
-                                //         opacity: 0.5,
-                                //     }
-                                // }} 
-                                >
+                                    <Carousel
+                                    NextIcon={<ArrowForwardIosIcon/>}
+                                    PrevIcon={<ArrowBackIosNewIcon/>}
+                                    navButtonProps={{
+                                        style: {
+                                            opacity: 0.5,
+                                        }
+                                    }}
+                                    >
                                     {
                                         item.urls.map( (url, i) =>  (
                                         <Box
@@ -132,8 +130,8 @@ export default function Studioindex() {
                                 >
                                     <a>
                                         <div
-                                        sx={{ 
-                                            width : '100%',
+                                        sx={{
+                                            width: '100%',
                                         }}
                                         >
                                             <Typography
@@ -153,10 +151,10 @@ export default function Studioindex() {
                                 </Link>
 
                                 </Box>
-
                             ))
                         }
                         </Box>
+                        
                 </Container>
             </Box>
         </>
