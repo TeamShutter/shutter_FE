@@ -78,7 +78,7 @@ var items = [
 
 
 export default function Studioindex() {
-    const {data, isLoading, isError} = GetStudios();
+    const {data, isLoading, isError} = GetStudios(0, 0, 0);
 
     if(isLoading) return <div>Loading...</div>
     if(isError) return <div>Error!!</div>

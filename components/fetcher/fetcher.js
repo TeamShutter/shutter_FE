@@ -20,7 +20,7 @@ const fetcher = async (...args) => {
 
 export const GetStudios = (price, photoshop, gender) => {
     console.log("FEtcher: ", price, photoshop, gender)
-    const {data, error} = useSWR(`${BASE_URL}/getAllStudios`, fetcher);
+    const {data, error} = useSWR(`${BASE_URL}/studios`, fetcher);
     // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
 
     return {
