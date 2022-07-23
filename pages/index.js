@@ -1,16 +1,16 @@
-import Head from 'next/head'
-import { GetStudios } from '../components/fetcher/fetcher'
+import Head from 'next/head';
+import { GetPhotos } from '../components/fetcher/fetcher';
 import { Box, Container, IconButton, ImageList, ImageListItem, ImageListItemBar, Typography } from '@mui/material';
 import { theme } from '../theme';
 import Link from 'next/link';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 export default function Home() {
-  const {data, isLoading, isError} = GetStudios();
+  const {data, isLoading, isError} = GetPhotos();
 
+  
   if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Error!!</div>
-  console.log("data: ", data);
 
   return data && (
     <>
@@ -33,7 +33,7 @@ export default function Home() {
         </Typography>
 
 
-        <ImageList sx={{ width: '100%', height: 1000 }} cols={3} gap={10}>
+        <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
           
           {data.map((photo) => (
               <Link 
@@ -42,13 +42,15 @@ export default function Home() {
               >
              <a>
              <ImageListItem>
-                <img
-                  src="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                  srcSet="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                  alt={photo.name}
-                  loading="lazy"
-                  layout='fill'
-                  objectFit='contain'
+                <Box 
+                  sx={{
+                    width: "100%",
+                    paddingBottom: "120%",
+                    backgroundImage: `url(${photo.photoUrl})`,
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                  }}
                 />
 
               <ImageListItemBar
