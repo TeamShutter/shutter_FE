@@ -4,8 +4,10 @@ import { GetStudios } from '../../components/fetcher/fetcher';
 import { Box, Container, Typography, Rating} from '@mui/material';
 import * as React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { Margin } from '@mui/icons-material';
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { Key } from '@mui/icons-material';
+import Link from 'next/link';
 
 var items = [
     {
@@ -94,12 +96,23 @@ export default function Studioindex() {
                     <Box>
                         {
                             items.map( (item, i) => (
-                                <>
-                                <Carousel>
+                                <Box 
+                                key={i}
+                                sx={{ mb: 10 }}
+                                >
+                                    <Carousel
+                                    NextIcon={<ArrowForwardIosIcon/>}
+                                    PrevIcon={<ArrowBackIosNewIcon/>}
+                                    navButtonProps={{
+                                        style: {
+                                            opacity: 0.5,
+                                        }
+                                    }}
+                                    >
                                     {
                                         item.urls.map( (url, i) =>  (
-                                        <>
                                         <Box
+                                        key={i}
                                         sx={{
                                             
                                             width: '100%',
@@ -111,30 +124,40 @@ export default function Studioindex() {
                                         }}
                                         >
                                         </Box>
-                                        </>
                                         ))
                                     }
-                                </Carousel>
-                                <Typography
-                                variant='h5' fontWeight='bold' >
-                                    {item.name}
-                                    <Rating name="half-rating" defaultValue={4.5} precision={0.5} />
-                                </Typography>
-                            
-                                <Typography
-                                variant='h7'>
-                                    {item.address}<br></br>
-                                    {item.number}<br></br>
-                                    {item.hour}
-                                </Typography>
+                                    </Carousel>
+                                
+                                <Link
+                                href={`/studios/${item.id}`}
+                                >
+                                    <a>
+                                        <div
+                                        sx={{
+                                            width: '100%',
+                                        }}
+                                        >
+                                            <Typography
+                                            variant='h5' fontWeight='bold' >
+                                                {item.name}
+                                                <Rating name="half-rating" defaultValue={4.5} precision={0.5} />
+                                            </Typography>
+                                        
+                                            <Typography
+                                            variant='h7'>
+                                                {item.address}<br></br>
+                                                {item.number}<br></br>
+                                                {item.hour}
+                                            </Typography>
+                                        </div>
+                                    </a>
+                                </Link>
 
-                                <Box margin={10}>
                                 </Box>
-                                </>
-
                             ))
                         }
                         </Box>
+                        
                 </Container>
             </Box>
         </>
