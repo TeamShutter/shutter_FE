@@ -5,7 +5,6 @@ import { theme } from '../theme';
 import Link from 'next/link';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState } from 'react';
-import { display } from '@mui/system';
 
 export default function Home() {
   
