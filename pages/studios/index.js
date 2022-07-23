@@ -6,7 +6,6 @@ import * as React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Key } from '@mui/icons-material';
 import Link from 'next/link';
 
 var items = [
@@ -114,7 +113,6 @@ export default function Studioindex() {
                                         <Box
                                         key={i}
                                         sx={{
-                                            
                                             width: '100%',
                                             paddingBottom: "60%",
                                             backgroundImage: `url(${url})`,
@@ -126,9 +124,8 @@ export default function Studioindex() {
                                         </Box>
                                         ))
                                     }
-                                    </Carousel>
-                                
-                                <Link
+                                </Carousel>
+                                <Link 
                                 href={`/studios/${item.id}`}
                                 >
                                     <a>
@@ -140,7 +137,7 @@ export default function Studioindex() {
                                             <Typography
                                             variant='h5' fontWeight='bold' >
                                                 {item.name}
-                                                <Rating name="half-rating" defaultValue={4.5} precision={0.5} />
+                                                <Rating name="read-only" value={4.5} precision={0.5} readOnly />
                                             </Typography>
                                         
                                             <Typography

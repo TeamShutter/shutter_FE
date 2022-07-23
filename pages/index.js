@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { GetStudios } from '../components/fetcher/fetcher'
+import { GetPhotos } from '../components/fetcher/fetcher'
 import { Box, Button, Container, FormControl, IconButton, ImageList, ImageListItem, ImageListItemBar, InputLabel, NativeSelect, Typography } from '@mui/material';
 import { theme } from '../theme';
 import Link from 'next/link';
@@ -12,16 +12,12 @@ export default function Home() {
   const [price, setPrice] = useState(0);
   const [photoshop, setPhotoshop] = useState(0);
   const [gender, setGender] = useState(0);
+  
+  const {data, isLoading, isError} = GetPhotos();
 
-  const {data, isLoading, isError} = GetStudios(price, photoshop, gender);
-
-  console.log(price);
-  console.log(photoshop);
-  console.log(gender);
-
+  
   if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Error!!</div>
-  console.log("data: ", data);
 
 
   return data && (
@@ -138,7 +134,7 @@ export default function Home() {
       </Box>
 
 
-        <ImageList sx={{ width: '100%', height: 1000 }} cols={3} gap={10}>
+        <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
           
           {data.map((photo) => (
               <Link 
@@ -147,13 +143,15 @@ export default function Home() {
               >
              <a>
              <ImageListItem>
-                <img
-                  src="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                  srcSet="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                  alt={photo.name}
-                  loading="lazy"
-                  layout='fill'
-                  objectFit='contain'
+                <Box 
+                  sx={{
+                    width: "100%",
+                    paddingBottom: "120%",
+                    backgroundImage: `url(${photo.photoUrl})`,
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                  }}
                 />
 
               <ImageListItemBar

@@ -21,7 +21,7 @@ const pages = [
     },
     {
         title: 'studios',
-        link: '/studios/1',
+        link: '/studios',
     }
 ];
 // const pages = ['Photos', 'Studios'];
