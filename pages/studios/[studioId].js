@@ -9,7 +9,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import InfoIcon from '@mui/icons-material/Info';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { GetStudios } from "../../components/fetcher/fetcher";
+import { GetPhotos, GetStudio } from "../../components/fetcher/fetcher";
 import { DevicesFold } from "@mui/icons-material";
 
 
@@ -41,13 +41,14 @@ export default function Studio() {
     const router = useRouter();
     const {studioId} = router.query;
 
-    const {data, isLoading, isError} = GetStudios();
+    const {studio, isLoading, isError} = GetStudio(studioId);
+    const {photos, photosLoading, photosError} = GetPhotos(studioId);
 
-    if(isLoading) return <div>Loading...</div>
-    if(isError) return <div>Error!!</div>
+    if(isLoading || photosLoading) return <div>Loading...</div>
+    if(isError || photosError) return <div>Error!!</div>
 
 
-    return (
+    return studio && photos && (
 
         <>
         <Head>
@@ -94,13 +95,13 @@ export default function Studio() {
               // }} 
                >
                 {
-                    items.map( (item, i) => (
+                    studio.images.map( (image, i) => (
                     <Box 
                     key={i}
                       sx={{
                           width: '100%',
                           paddingBottom: "60%",
-                          backgroundImage: `url(${item.url})`,
+                          backgroundImage: `url(${image.url})`,
                           backgroundSize: 'cover',
                           backgroundRepeat: "no-repeat",
                           backgroundPosition: "center center",
@@ -111,10 +112,30 @@ export default function Studio() {
                 }
             </Carousel>
 
-            <Box>
+            <Box
+            >
+              <Box
+              sx={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'space-between',
+              }}
+              >
                 <Typography>
-                  공간사진스튜디오
+                  {studio.name}
                 </Typography>
+                <a href="https://map.naver.com/v5/search/%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84/place/37213183?placePath=%3Fentry=pll%26from=nx%26fromNxList=true&n_ad_group_type=10&n_query=%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84&c=14131393.0499970,4506254.8175541,15,0,0,0,dh"
+                target="_blank" rel="noreferrer"
+                >
+                  <Button
+                  variant="contained"
+                  color="info"
+                  >
+                    예약하기
+                  </Button>
+                </a>
+              </Box>
+                
 
                 <Rating name="read-only" value={3.5} precision={0.5} readOnly />
 
@@ -134,7 +155,27 @@ export default function Studio() {
                   </Box>
                   
                   <Typography>
-                    08:00 ~ 17:00
+                    {studio.openTime} ~ {studio.closeTime}
+                  </Typography>
+                </Box>
+
+                <Box
+                sx={{
+                  mb: 3,
+                }}>
+
+                  <Box
+                  sx={{
+                    display: 'flex',
+                  }}>
+                    <AccessTimeIcon sx={{ mr: 1 }} />
+                    <Typography>
+                      위치
+                    </Typography>
+                  </Box>
+                  
+                  <Typography>
+                    {studio.address}
                   </Typography>
                 </Box>
 
@@ -151,7 +192,7 @@ export default function Studio() {
                   </Box>
                   
                   <Typography>
-                    우리 사진관 짱짱 좋아요~~!
+                    {studio.description}
                   </Typography>
                 </Box>
 
@@ -164,23 +205,26 @@ export default function Studio() {
                     Photos
                   </Typography>
 
-            <ImageList sx={{ width: '100%', height: 1000 }} cols={3} gap={10}>
-                {data.map((photo) => (
+            <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
+                {photos.map((photo) => (
                   <Link 
                   href={`photos/${photo.id}`}
                   key={photo.name}
                   >
                 <a>
                 <ImageListItem>
-                    <img
-                      src="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                      srcSet="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                      alt={photo.name}
-                      loading="lazy"
-                      layout='fill'
-                      objectFit='contain'
-                    />
+                  <Box 
+                    sx={{
+                      width: "100%",
+                      paddingBottom: "120%",
+                      backgroundImage: `url(${photo.photoUrl})`,
+                      backgroundPosition: "center center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                    }}
+                  />
 
+{/* 
                   <ImageListItemBar
                   sx={{
                     background:
@@ -198,7 +242,7 @@ export default function Studio() {
                     </IconButton>
                   }
                   actionPosition="left"
-                />
+                /> */}
 
                   </ImageListItem>
                 </a>
@@ -215,7 +259,7 @@ export default function Studio() {
                   </Typography>
 
                   <List sx={{ width: '100%', maxWidth: '100%', bgcolor: 'background.paper' }}>
-                    {data.map((photo) => {
+                    {photos.map((photo) => {
                       return (
                         <>
                            <ListItem alignItems="flex-start">

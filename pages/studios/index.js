@@ -78,7 +78,7 @@ var items = [
 
 
 export default function Studioindex() {
-    const {data, isLoading, isError} = GetStudios();
+    const {data, isLoading, isError} = GetStudios(0, 0, 0);
 
     if(isLoading) return <div>Loading...</div>
     if(isError) return <div>Error!!</div>
@@ -94,7 +94,7 @@ export default function Studioindex() {
                 <Container>
                     <Box>
                         {
-                            items.map( (item, i) => (
+                            data.map( (studio, i) => (
                                 <Box 
                                 key={i}
                                 sx={{ mb: 10 }}
@@ -109,13 +109,13 @@ export default function Studioindex() {
                                     }}
                                     >
                                     {
-                                        item.urls.map( (url, i) =>  (
+                                        studio.images.map( (image, i) =>  (
                                         <Box
                                         key={i}
                                         sx={{
                                             width: '100%',
                                             paddingBottom: "60%",
-                                            backgroundImage: `url(${url})`,
+                                            backgroundImage: `url(${image.url})`,
                                             backgroundSize: 'cover',
                                             backgroundRepeat: "no-repeat",
                                             backgroundPosition: "center center",
@@ -126,7 +126,7 @@ export default function Studioindex() {
                                     }
                                 </Carousel>
                                 <Link 
-                                href={`/studios/${item.id}`}
+                                href={`/studios/${studio.id}`}
                                 >
                                     <a>
                                         <div
@@ -136,15 +136,15 @@ export default function Studioindex() {
                                         >
                                             <Typography
                                             variant='h5' fontWeight='bold' >
-                                                {item.name}
+                                                {studio.name}
                                                 <Rating name="read-only" value={4.5} precision={0.5} readOnly />
                                             </Typography>
                                         
                                             <Typography
                                             variant='h7'>
-                                                {item.address}<br></br>
-                                                {item.number}<br></br>
-                                                {item.hour}
+                                                {studio.address}<br></br>
+                                                {/* {studio?.number}<br></br> */}
+                                                {studio.openTime} : {studio.closeTime}
                                             </Typography>
                                         </div>
                                     </a>

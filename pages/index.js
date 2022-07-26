@@ -12,14 +12,14 @@ export default function Home() {
   const [photoshop, setPhotoshop] = useState(0);
   const [gender, setGender] = useState(0);
   
-  const {data, isLoading, isError} = GetPhotos();
+  const {photos, isLoading, isError} = GetPhotos();
 
   
   if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Error!!</div>
 
 
-  return data && (
+  return photos && (
     <>
       <Head>
         <title>Shutter | Home</title>
@@ -135,7 +135,7 @@ export default function Home() {
 
         <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
           
-          {data.map((photo) => (
+          {photos.map((photo) => (
               <Link 
               href={`photos/${photo.id}`}
               key={photo.name}
@@ -153,7 +153,7 @@ export default function Home() {
                   }}
                 />
 
-              <ImageListItemBar
+              {/* <ImageListItemBar
               sx={{
                 background:
                   'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
@@ -170,7 +170,7 @@ export default function Home() {
                 </IconButton>
               }
               actionPosition="left"
-            />
+            /> */}
 
               </ImageListItem>
              </a>
