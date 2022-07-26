@@ -35,18 +35,18 @@ export const GetStudio = (studioId) => {
     // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
 
     return {
-        data,
+        studio: data,
         isLoading: !error & !data,
         isError: error,
     }
 }
 
-export const GetPhotos = () => {
+export const GetPhotos = (studioId) => {
     const {data, error} = useSWR(`${BASE_URL}/photos`, fetcher);
     // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
 
     return {
-        data,
+        photos: data,
         isLoading: !error & !data,
         isError: error,
     }
