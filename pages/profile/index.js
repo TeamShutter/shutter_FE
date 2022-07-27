@@ -57,7 +57,7 @@ export default function Studio() {
             >
                 <Avatar 
                 alt="Seungoh" 
-                src="/static/images/avatar/1.jpg"
+                // src="/static/images/avatar/1.jpg"
                 sx={{ width: 80, height: 80, mr: 3 }}
                 />
                 <Box>
