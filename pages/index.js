@@ -5,21 +5,16 @@ import { theme } from '../theme';
 import Link from 'next/link';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState } from 'react';
+import PhotoList from '../components/photos/photoList';
 
 export default function Home() {
   
   const [price, setPrice] = useState(0);
   const [photoshop, setPhotoshop] = useState(0);
-  const [gender, setGender] = useState(0);
-  
-  const {photos, isLoading, isError} = GetPhotos();
-
-  
-  if(isLoading) return <div>Loading...</div>
-  if(isError) return <div>Error!!</div>
+  const [sex, setSex] = useState(0);
 
 
-  return photos && (
+  return (
     <>
       <Head>
         <title>Shutter | Home</title>
@@ -46,30 +41,39 @@ export default function Home() {
         display: 'flex',
         justifyContent: 'space-around',
       }}>
-        <FormControl Width='50%'>
+        <FormControl width='50%'>
           <InputLabel variant="standard" htmlFor="uncontrolled-native">
             Price
           </InputLabel>
           <NativeSelect
-            onChange={(event) => setPrice(event.target.value)}
-            defaultValue={0}
+            onChange={
+              (event) => {
+                event.preventDefault();
+                setPrice(event.target.value);
+            }}
             inputProps={{
               name: 'price',
               id: 'uncontrolled-native',
             }}
           >
             <option 
+            value={0}
+            >All</option>
+            <option 
             value={1}
-            // onClick={()=> setPrice(1)}
-            >0 ~ 30,000</option>
+            >~ 10,000</option>
             <option 
             value={2}
-            // onClick={()=> setPrice(2)}
-            >30,000 ~ 50,000</option>
+            >~ 20,000</option>
             <option 
             value={3}
-            // onClick={()=> setPrice(3)}
-            >50,000 ~ 70,000</option>
+            >~ 30,000</option>
+            <option 
+            value={4}
+            >~ 40,000</option>
+            <option 
+            value={5}
+            >~ 50,000</option>
           </NativeSelect>
         </FormControl>
       
@@ -80,25 +84,27 @@ export default function Home() {
             Photoshop
           </InputLabel>
           <NativeSelect
-            onChange={(event) => setPhotoshop(event.target.value)}
-            defaultValue={0}
+            onChange={(event) => {
+              event.preventDefault();
+              setPhotoshop(event.target.value)
+            }}
             inputProps={{
               name: 'photoshop',
               id: 'uncontrolled-native',
             }}
           >
+             <option 
+            value={0}
+            >All</option>
             <option 
             value={1}
-            // onClick={()=> setPhotoshop(1)}
-            >약함</option>
+            >자연스럽게</option>
             <option 
             value={2}
-            // onClick={()=> setPhotoshop(2)}
-            >보통</option>
+            >적당히</option>
             <option 
             value={3}
-            // onClick={()=> setPhotoshop(3)}
-            >강함</option>
+            >빵빵하게</option>
           </NativeSelect>
         </FormControl>
       
@@ -109,31 +115,32 @@ export default function Home() {
             Gender
           </InputLabel>
           <NativeSelect
-            onChange={(event) => setGender(event.target.value)}
-            defaultValue={0}
+            onChange={(event) => {
+              event.preventDefault();
+              setSex(event.target.value)
+            }}
             inputProps={{
-              name: 'gender',
+              name: 'sex',
               id: 'uncontrolled-native',
             }}
           >
             <option 
+            value={0}
+            >All</option>
+            <option 
             value={1}
-            // onClick={()=> setGender(1)}
-            >Male</option>
+            >남자</option>
             <option 
             value={2}
-            // onClick={()=> setGender(2)}
-            >Female</option>
-            <option 
-            value={3}
-            // onClick={()=> setGender(3)}
-            >Group</option>
+            >여자</option>
           </NativeSelect>
         </FormControl>
       </Box>
 
+      <PhotoList price={price} photoshop={photoshop} sex={sex} />
 
-        <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
+
+        {/* <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
           
           {photos.map((photo) => (
               <Link 
@@ -152,32 +159,12 @@ export default function Home() {
                     backgroundSize: "cover",
                   }}
                 />
-
-              {/* <ImageListItemBar
-              sx={{
-                background:
-                  'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                  'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-              }}
-              title={photo.name}
-              position="bottom"
-              actionIcon={
-                <IconButton
-                  sx={{ color: 'white' }}
-                  aria-label={`star ${photo.name}`}
-                >
-                  <StarBorderIcon />
-                </IconButton>
-              }
-              actionPosition="left"
-            /> */}
-
               </ImageListItem>
              </a>
             </Link>
           ))}
 
-        </ImageList>
+        </ImageList> */}
 
         </Container>
       </Box>

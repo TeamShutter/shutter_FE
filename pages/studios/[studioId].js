@@ -9,7 +9,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import InfoIcon from '@mui/icons-material/Info';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { GetPhotos, GetStudio } from "../../components/fetcher/fetcher";
+import { GetPhotos, GetStudio, GetStudioReviews } from "../../components/fetcher/fetcher";
 import { DevicesFold } from "@mui/icons-material";
 
 
@@ -41,14 +41,15 @@ export default function Studio() {
     const router = useRouter();
     const {studioId} = router.query;
 
-    const {studio, isLoading, isError} = GetStudio(studioId);
+    const {studio, studioLoading, studioError} = GetStudio(studioId);
     const {photos, photosLoading, photosError} = GetPhotos(studioId);
+    const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
 
-    if(isLoading || photosLoading) return <div>Loading...</div>
-    if(isError || photosError) return <div>Error!!</div>
+    if(studioLoading || photosLoading || reviewsLoading) return <div>Loading...</div>
+    if(studioError || photosError || reviewsError) return <div>Error!!</div>
 
 
-    return studio && photos && (
+    return studio && photos && reviews && (
 
         <>
         <Head>
@@ -208,8 +209,8 @@ export default function Studio() {
             <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
                 {photos.map((photo) => (
                   <Link 
-                  href={`photos/${photo.id}`}
-                  key={photo.name}
+                  href={`/photos/${photo.id}`}
+                  key={photo.id}
                   >
                 <a>
                 <ImageListItem>
@@ -259,7 +260,7 @@ export default function Studio() {
                   </Typography>
 
                   <List sx={{ width: '100%', maxWidth: '100%', bgcolor: 'background.paper' }}>
-                    {photos.map((photo) => {
+                    {reviews.map((review) => {
                       return (
                         <>
                            <ListItem alignItems="flex-start">
@@ -267,22 +268,22 @@ export default function Studio() {
                               <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
                             <ListItemText
-                              primary="남자 취업사진"
+                              primary={review.author.email}
                               secondary={
                                 <>
                                   <Typography
-                                    sx={{ display: 'inline' }}
+                                    sx={{ display: 'inline', mr : 2 }}
                                     component="span"
                                     variant="body2"
                                     color="text.primary"
                                   >
-                                    이*현
+                                    {review.author.username}
                                   </Typography>
-                                  {" : 이 집 보정 잘하네"}
+                                  {review.content}
                                 </>
                               }
                             />
-                            <Rating name="read-only" value={4} precision={0.5} readOnly />
+                            <Rating name="read-only" value={review.rating} precision={0.5} readOnly />
                           </ListItem>
                           
                           <Divider variant="inset" component="li" />

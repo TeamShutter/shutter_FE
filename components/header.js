@@ -26,15 +26,25 @@ const pages = [
 ];
 // const pages = ['Photos', 'Studios'];
 const settings = [
-    {
-        title: 'Profile',
-        link: '/profile',
-    },
-    {
-        title: 'Logout',
-        link: '/logout',
-    }
+  {
+      title: 'Login',
+      link: '/login',
+  },
+  {
+    title: 'Sign Up',
+    link: '/signup',
+},
 ];
+// const settings = [
+//     {
+//         title: 'Profile',
+//         link: '/profile',
+//     },
+//     {
+//         title: 'Logout',
+//         link: '/logout',
+//     }
+// ];
 // const settings = ['Profile', 'Logout'];
 
 const Header = () => {
@@ -160,7 +170,7 @@ const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="" />
               </IconButton>
             </Tooltip>
             <Menu

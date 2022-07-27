@@ -18,8 +18,7 @@ const fetcher = async (...args) => {
     return data;
 }
 
-export const GetStudios = (price, photoshop, gender) => {
-    console.log("FEtcher: ", price, photoshop, gender)
+export const GetStudios = () => {
     const {data, error} = useSWR(`${BASE_URL}/studios`, fetcher);
     // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
 
@@ -36,19 +35,30 @@ export const GetStudio = (studioId) => {
 
     return {
         studio: data,
-        isLoading: !error & !data,
-        isError: error,
+        studioLoading: !error & !data,
+        studioError: error,
     }
 }
 
-export const GetPhotos = (studioId) => {
-    const {data, error} = useSWR(`${BASE_URL}/photos`, fetcher);
+export const GetStudioReviews = (studioId) => {
+    const {data, error} = useSWR(`${BASE_URL}/studios/${studioId}/review`, fetcher);
+    // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
+
+    return {
+        reviews: data,
+        reviewsLoading: !error & !data,
+        reviewsError: error,
+    }
+}
+
+export const GetPhotos = (studioId, price, photoshop, sex) => {
+    const {data, error} = useSWR(`${BASE_URL}/photos?studioId=${studioId}&price=${price}&photoshop=${photoshop}&sex=${sex}`, fetcher);
     // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
 
     return {
         photos: data,
-        isLoading: !error & !data,
-        isError: error,
+        photosLoading: !error & !data,
+        photosError: error,
     }
 }
 

@@ -39,61 +39,61 @@ export default function Studio() {
               </Link>
 
 
-               <ImageListItem>
-                  <img
-                    src={data.photoUrl}
-                    srcSet={data.photoUrl}
-                    alt={data.name}
-                    loading="lazy"
-                    layout='fill'
-                    objectFit='contain'
-                  />
-  
-                <Link href={`/studios/${data.studio.id}`}>
-                <a>
-                  <ImageListItemBar
-                  sx={{
-                    height: '70px',
-                    background:
-                      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                  }}
-                  title={data.name}
-                  position="top"
-                  actionIcon={
-                    <Box
+                  <Box
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center'
+                      width: '100%',
+                      paddingBottom: "120%",
+                      backgroundImage: `url(${data.photoUrl})`,
+                      backgroundSize: 'cover',
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center center",
+                      position: 'relative'
                     }}
-                    >
-                    <Avatar
-                      alt={data.studio.name}
-                      src={data.studio.thumbnail}
-                      sx={{ width: 35, height: 35, ml: 2, mr: 2 }}
-                    />
-                      <Typography
-                      variant="subtitle2"
-                      sx={{
-                        color: 'white'
-                      }}
-                      >
-                        {data.studio.name}
-                      </Typography>
-                      <IconButton
-                    sx={{ color: 'white' }}
-                    aria-label={`star ${data.name}`}
                   >
-                    <FavoriteBorderIcon />
-                  </IconButton>
+                    <Link href={`/studios/${data.studio.id}`}>
+                    <a>
+                      <ImageListItemBar
+                      sx={{
+                        height: '70px',
+                        background:
+                          'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+                          'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                      }}
+                      title={data.name}
+                      position="top"
+                      actionIcon={
+                        <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                        >
+                        <Avatar
+                          alt={data.studio.name}
+                          src={data.studio.thumbnail}
+                          sx={{ width: 35, height: 35, ml: 2, mr: 2 }}
+                        />
+                          <Typography
+                          variant="subtitle2"
+                          sx={{
+                            color: 'white'
+                          }}
+                          >
+                            {data.studio.name}
+                          </Typography>
+                          <IconButton
+                        sx={{ color: 'white' }}
+                        aria-label={`star ${data.name}`}
+                      >
+                        <FavoriteBorderIcon />
+                      </IconButton>
+                      </Box>
+                        }
+                      actionPosition="left"
+                    />
+                    </a>
+                    </Link>
                   </Box>
-                    }
-                  actionPosition="left"
-                />
-                </a>
-                </Link>
-  
-                </ImageListItem>
 
           </Container>
         </Box>
