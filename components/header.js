@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,10 +13,31 @@ import MenuItem from '@mui/material/MenuItem';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Link from 'next/link';
 import { getCookie } from './cookie';
+import { useEffect, useState } from 'react';
 
 
 
-const pages = [
+
+// const settings = [
+//     {
+//         title: 'Profile',
+//         link: '/profile',
+//     },
+//     {
+//         title: 'Logout',
+//         link: '/logout',
+//     }
+// ];
+// const settings = ['Profile', 'Logout'];
+
+const Header = () => {
+  const [user, setUser] = useState(getCookie("user"));
+  useEffect(() => {
+    setUser(getCookie("user"));
+  }, []);
+  console.log("user", user);
+
+  const pages = [
     {
         title: 'photos',
         link: '/',
@@ -27,8 +47,8 @@ const pages = [
         link: '/studios',
     }
 ];
-// const pages = ['Photos', 'Studios'];
-const settings = getCookie("user") ? [
+
+const settings = user ? [
   {
       title: 'Profile',
       link: '/profile',
@@ -47,21 +67,9 @@ const settings = getCookie("user") ? [
     link: '/signup',
 },
 ]
-// const settings = [
-//     {
-//         title: 'Profile',
-//         link: '/profile',
-//     },
-//     {
-//         title: 'Logout',
-//         link: '/logout',
-//     }
-// ];
-// const settings = ['Profile', 'Logout'];
 
-const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -182,7 +190,7 @@ const Header = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
+                <Avatar alt={user ? user.username : ""} src="" />
               </IconButton>
             </Tooltip>
             <Menu

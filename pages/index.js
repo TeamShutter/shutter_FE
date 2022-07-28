@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import { GetPhotos } from '../components/fetcher/fetcher'
-import { Box, Button, Container, FormControl, IconButton, ImageList, ImageListItem, ImageListItemBar, InputLabel, NativeSelect, Typography } from '@mui/material';
+import { GetPhotos, GetTags } from '../components/fetcher/fetcher'
+import { Box, Button, Chip, Container, FormControl, IconButton, ImageList, ImageListItem, ImageListItemBar, InputLabel, NativeSelect, Typography } from '@mui/material';
 import { theme } from '../theme';
 import Link from 'next/link';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -12,8 +12,22 @@ export default function Home() {
   const [price, setPrice] = useState(0);
   const [photoshop, setPhotoshop] = useState(0);
   const [sex, setSex] = useState(0);
+  const [tagList, setTagList] = useState([]);
 
-  return (
+  const {tags, tagsLoading, tagsError} = GetTags();
+  
+  const handleTag = (id) => {
+    tagList.includes(id) ? (
+      setTagList((prev) => prev.filter(x => x != id))
+    ) : (
+      setTagList((prev) => [...prev, id])
+    )
+  }
+
+    if(tagsLoading) return <div>Loading...</div>
+    if(tagsError) return <div>Error!!</div>
+
+  return tags && (
     <>
       <Head>
         <title>Shutter | Home</title>
@@ -29,7 +43,7 @@ export default function Home() {
         variant='h2'
         sx={{
           textAlign: 'center',
-          mb: 5,
+          mb: 3,
           }}
           >
           Shutter
@@ -58,22 +72,22 @@ export default function Home() {
           >
             <option 
             value={0}
-            >All</option>
+            >선택</option>
             <option 
             value={1}
-            >~ 10,000</option>
+            >10,000 ~</option>
             <option 
             value={2}
-            >~ 20,000</option>
+            >20,000 ~</option>
             <option 
             value={3}
-            >~ 30,000</option>
+            >30,000 ~</option>
             <option 
             value={4}
-            >~ 40,000</option>
+            >40,000 ~</option>
             <option 
             value={5}
-            >~ 50,000</option>
+            >50,000 ~</option>
           </NativeSelect>
         </FormControl>
       
@@ -95,7 +109,7 @@ export default function Home() {
           >
              <option 
             value={0}
-            >All</option>
+            >선택</option>
             <option 
             value={1}
             >자연스럽게</option>
@@ -126,7 +140,7 @@ export default function Home() {
           >
             <option 
             value={0}
-            >All</option>
+            >선택</option>
             <option 
             value={1}
             >남자</option>
@@ -137,7 +151,30 @@ export default function Home() {
         </FormControl>
       </Box>
 
-      <PhotoList price={price} photoshop={photoshop} sex={sex} />
+      <Box
+      display='flex'
+      alignItems='center'
+      sx={{
+        mt: 2
+      }}
+      >
+        {tags.map((tag) => {
+          return (
+            <Chip
+            sx={{
+              mr: 1
+            }}
+            key={tag.id}
+            label={`# ${tag.content}`}
+            variant={tagList.includes(tag.id) ? "contained" : "outlined"}
+            color="primary"
+            onClick={() => handleTag(tag.id)}
+             />
+          )
+        })}
+      </Box>
+
+      <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />
 
 
         {/* <ImageList sx={{ width: '100%' }} cols={3} gap={10}>

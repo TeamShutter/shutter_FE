@@ -6,22 +6,29 @@ import HomeIcon from '@mui/icons-material/Home';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import InfoIcon from '@mui/icons-material/Info';
-import { GetStudios } from "../../components/fetcher/fetcher";
+import { GetProfile, GetStudios } from "../../components/fetcher/fetcher";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { getCookie } from "../../components/cookie";
+import { useEffect, useState } from "react";
 
 
 
 export default function Studio() {
     const router = useRouter();
     const {studioId} = router.query;
+    const [userId, setUserId] = useState(getCookie("user").id);
+    
+    useEffect(() => {
+        setUserId(getCookie("user").id);
+    }, []);
 
-    const {data, isLoading, isError} = GetStudios();
+    const {profile, profileLoading, profileError} = GetProfile(userId);
 
-    if(isLoading) return <div>Loading...</div>
-    if(isError) return <div>Error!!</div>
+    if(profileLoading) return <div>Loading...</div>
+    if(profileError) return <div>Error!!</div>
 
 
-    return (
+    return profile && (
 
         <>
         <Head>
@@ -33,13 +40,9 @@ export default function Studio() {
         >
           <Container maxWidth="lg">
 
-            <Link 
-              href="/studios"
-              >
-                <a>
-                  <ArrowBackIosNewIcon sx={{ mb : 2}} /> 
-                </a>
-              </Link>
+            <ArrowBackIosNewIcon 
+            onClick={() => router.back()}
+            sx={{ mb : 2, cursor: 'pointer'}} /> 
 
              <Link 
               href="/"
@@ -63,11 +66,11 @@ export default function Studio() {
                 <Box>
                     <Typography
                     variant="h6">
-                    승오
+                    {profile.profile.user.username}
                     </Typography>
                     <Typography
                     variant="subtitle1">
-                    서울시 관악구
+                    {profile.profile.town}
                     </Typography>
                    <Box
                    sx={{
@@ -95,47 +98,39 @@ export default function Studio() {
 
                 <Typography
                 variant='h5'
-                sx={{ mt:3 }}
+                sx={{ mt:3, mb:2 }}
                 >
                     관심 사진
                 </Typography>
 
                 <ImageList sx={{ width: '100%' }} cols={2} gap={10}>
                     
-                    {data.map((photo) => (
+                    {profile.like_photos.map((photo) => (
                         <Link 
                         href={`photos/${photo.id}`}
                         key={photo.name}
                         >
                         <a>
+                        
                         <ImageListItem>
-                            <img
-                            src="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                            srcSet="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
+                            <Box    
+                                sx={{
+                                    paddingBottom: "120%",
+                                    backgroundImage: `url(${photo.photoUrl})`,
+                                    borderRadius: '15px',
+                                    backgroundPosition: "center center",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "cover",
+                                }}
+                            />
+                            {/* <img
+                            src={photo.photoUrl}
+                            srcSet={photo.photoUrl}
                             alt={photo.name}
                             loading="lazy"
                             layout='fill'
                             objectFit='contain'
-                            />
-
-                        <ImageListItemBar
-                        sx={{
-                            background:
-                            'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                            'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                        }}
-                        title={photo.name}
-                        position="bottom"
-                        actionIcon={
-                            <IconButton
-                            sx={{ color: 'white' }}
-                            aria-label={`star ${photo.name}`}
-                            >
-                            <StarBorderIcon />
-                            </IconButton>
-                        }
-                        actionPosition="left"
-                        />
+                            /> */}
 
                         </ImageListItem>
                         </a>
@@ -150,43 +145,55 @@ export default function Studio() {
 
                 <Typography
                 variant='h5'
-                sx={{ mt:3 }}
+                sx={{ mt:3, mb:2 }}
                 >
                     관심 매장
                 </Typography>
-                {data.map((photo) => (
-                    <Box 
-                    key={photo.id}
-                    sx={{
-                        display: 'flex'
-                    }}
+                {profile.follow_studios.map((studio) => (
+                    <Link 
+                    key={studio.id}
+                    href={`/studios/${studio.id}`}
                     >
-                        <div>
-                         <img
-                            src="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                            srcSet="https://blog.kakaocdn.net/dn/bAyJve/btqNr8wMiXi/rV0XKPT78iMnmkXlViEmk0/img.jpg"
-                            alt={photo.name}
-                            loading="lazy"
-                            layout='fill'
-                            objectFit='contain'
-                            width='150'
+                    
+                    <a>
+                    <Box 
+                    display= 'flex'
+                    alignItems= 'center'
+                    sx={{ mb:2, cursor: 'pointer' }}
+                    >   
+                    <div>
+                        <Box    
+                            sx={{
+                                width: "200px",
+                                paddingBottom: "100%",
+                                backgroundImage: `url(${studio.thumbnail})`,
+                                borderRadius: '25px',
+                                backgroundPosition: "center center",
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "cover",
+                                marginRight: '20px',
+                            }}
                         />
-                        </div>
+                    </div>
 
-                        <div>
-                            <Typography
-                            variant="h6"
-                            >
-                                {photo.name}
-                            </Typography>
-                            <Typography
-                            variant="subtitle1"
-                            >
-                                {photo.description}
-                            </Typography>
-                            <Rating name="read-only" value={3} precision={0.5} readOnly />
-                        </div>
+                    <div>
+                        <Typography
+                        variant="h6"
+                        >
+                            {studio.name}
+                        </Typography>
+                        <Typography
+                        variant="subtitle1"
+                        >
+                            {studio.description.substr(0, 20)}...
+                        </Typography>
+                        <Rating name="read-only" value={3} precision={0.5} readOnly />
+                    </div>
                     </Box>
+                    </a>
+
+                    </Link>
+                    
                 ))}
             </Box>
            

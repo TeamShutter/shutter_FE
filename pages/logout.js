@@ -6,8 +6,8 @@ import { removeCookie } from "../components/cookie"
 export default function Logout() {
     const router = useRouter();
     useEffect(() => {
-        removeCookie("user", null);
-        router.push("/");
+        removeCookie("user");
+        window.location.href = '/';
     }, []);
 
     return <div>Logout</div> 
