@@ -16,10 +16,10 @@ import { useEffect, useState } from "react";
 export default function Studio() {
     const router = useRouter();
     const {studioId} = router.query;
-    const [userId, setUserId] = useState(getCookie("user").id);
+    const [userId, setUserId] = useState(getCookie("user")?.id);
     
     useEffect(() => {
-        setUserId(getCookie("user").id);
+        setUserId(getCookie("user")?.id);
     }, []);
 
     const {profile, profileLoading, profileError} = GetProfile(userId);
