@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { setCookie } from "../components/cookie";
 
-export default function Signup() {
+export default function CreateReview() {
   const router = useRouter();
 
   const BASE_URL = process.env.NODE_ENV === "development"
@@ -45,12 +45,10 @@ export default function Signup() {
       const data = await res.json();
   
       setCookie("user", data);
-      // router.back();
-      window.location.href = '/';
+      router.push("/");
       
       
     };
-    
     return (
         <>
       <Head>
