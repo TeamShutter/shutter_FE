@@ -9,7 +9,7 @@ export default function CreateReview() {
 
   const BASE_URL = process.env.NODE_ENV === "development"
   ? "http://localhost:8000"
-  : "http://15.164.100.14/:8000"
+  : "http://15.164.100.14:8000"
 
     const [checked, setChecked] = useState(false);
 
