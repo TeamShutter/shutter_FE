@@ -8,7 +8,7 @@ export default function Login() {
   const router = useRouter();
   const BASE_URL = process.env.NODE_ENV === "development"
   ? "http://localhost:8000"
-  : "http://54.180.32.114:8000"
+  : "http://15.164.100.14/:8000"
 
     const [checked, setChecked] = useState(false);
 
