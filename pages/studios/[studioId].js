@@ -1,4 +1,4 @@
-import { Box, Button, Container, Paper, Typography, Rating, ImageList, ImageListItem, IconButton, ImageListItemBar, List, ListItemText, ListItem, ListItemAvatar, Avatar, Divider } from "@mui/material";
+import { Box, Button, Container, Paper, Typography, Rating, ImageList, ImageListItem, IconButton, ImageListItemBar, List, ListItemText, ListItem, ListItemAvatar, Avatar, Divider, FormControl, Grid, TextField } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,6 +11,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { GetPhotos, GetStudio, GetStudioReviews } from "../../components/fetcher/fetcher";
 import { DevicesFold } from "@mui/icons-material";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import { getCookie } from "../../components/cookie";
+import { useEffect, useState } from "react";
+import ReviewList from "../../components/reviews/review-list";
 
 
 const items = [
@@ -38,18 +44,81 @@ const items = [
 
 
 export default function Studio() {
+  const BASE_URL = process.env.NODE_ENV === "development"
+  ? "http://localhost:8000"
+  : "http://54.180.32.114:8000"
+
     const router = useRouter();
     const {studioId} = router.query;
+
+    const [follow, setFollow] = useState(false);
+    const [follows, setFollows] = useState(0);
+    const [user, setUser] = useState(null);
+    const [reviewList, setReviewList] = useState([]);
 
     const {studio, studioLoading, studioError} = GetStudio(studioId);
     const {photos, photosLoading, photosError} = GetPhotos(studioId);
     const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
 
+    useEffect(() => {
+      const curUser = getCookie("user");
+      setFollows(studio?.follows);
+
+      studio?.studio.follow_users.includes(curUser.id) == true ? (
+        setFollow(true)
+      ) : (
+        setFollow(false)
+      )
+      setUser(curUser);
+      setReviewList(reviews);
+    }, [studio, reviews]);
+
     if(studioLoading || photosLoading || reviewsLoading) return <div>Loading...</div>
     if(studioError || photosError || reviewsError) return <div>Error!!</div>
 
 
-    return studio && photos && reviews && (
+    const handleFollow = async () => {
+      await fetch(`${BASE_URL}/studios/${studioId}/follow`, {
+          method: 'GET',
+          headers: {
+            "userid": user.id
+          },
+          withCredentials: true,
+      });
+  
+      follow ? (
+      setFollows((prev) => prev - 1)
+       ) : (
+         setFollows((prev) => prev + 1)
+      )  
+  
+      setFollow((prev) => !prev);
+  
+      }
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+        const formData = {
+          content: e.target.content.value,
+          rating: e.target.rating.value,
+          userId: user.id,
+      }
+
+        const res =  await fetch(`${BASE_URL}/studios/${studioId}/reviews/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+          body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      setReviewList((prev) => [...prev, data]);
+      e.target.content.value = "";
+    };
+
+    return studio.studio && photos && reviews && (
 
         <>
         <Head>
@@ -61,13 +130,9 @@ export default function Studio() {
         >
           <Container maxWidth="lg">
 
-            <Link 
-              href="/studios"
-              >
-                <a>
-                  <ArrowBackIosNewIcon sx={{ mb : 2}} /> 
-                </a>
-              </Link>
+          <ArrowBackIosNewIcon 
+            onClick={() => router.back()}
+            sx={{ mb : 2, cursor: 'pointer'}} /> 
 
              <Link 
               href="/"
@@ -96,7 +161,7 @@ export default function Studio() {
               // }} 
                >
                 {
-                    studio.images.map( (image, i) => (
+                    studio.studio.images.map( (image, i) => (
                     <Box 
                     key={i}
                       sx={{
@@ -123,18 +188,47 @@ export default function Studio() {
               }}
               >
                 <Typography>
-                  {studio.name}
+                  {studio.studio.name}
                 </Typography>
-                <a href="https://map.naver.com/v5/search/%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84/place/37213183?placePath=%3Fentry=pll%26from=nx%26fromNxList=true&n_ad_group_type=10&n_query=%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84&c=14131393.0499970,4506254.8175541,15,0,0,0,dh"
-                target="_blank" rel="noreferrer"
+
+                <Box
+                display= 'flex'
+                alignItems= 'center'
                 >
-                  <Button
-                  variant="contained"
-                  color="info"
+                  <a href="https://map.naver.com/v5/search/%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84/place/37213183?placePath=%3Fentry=pll%26from=nx%26fromNxList=true&n_ad_group_type=10&n_query=%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84&c=14131393.0499970,4506254.8175541,15,0,0,0,dh"
+                  target="_blank" rel="noreferrer"
                   >
-                    예약하기
-                  </Button>
-                </a>
+                    <Button
+                    variant="contained"
+                    color="info"
+                    >
+                      예약하기
+                    </Button>
+                  </a>
+
+                  <Box
+                  display="flex"
+                  alignItems="center"
+                  >
+                    <IconButton
+                          sx={{ color: 'red' }}
+                          aria-label={`follow ${studio?.studio.name}`}
+                          onClick={handleFollow}
+                      >
+                    {
+                    follow
+                    ?  
+                    <FavoriteIcon /> 
+                    : 
+                    <FavoriteBorderIcon />
+                    }
+                    </IconButton>
+                    <Typography>
+                      {follows}
+                    </Typography>
+
+                  </Box>
+                </Box>
               </Box>
                 
 
@@ -156,7 +250,7 @@ export default function Studio() {
                   </Box>
                   
                   <Typography>
-                    {studio.openTime} ~ {studio.closeTime}
+                    {studio.studio.openTime} ~ {studio.studio.closeTime}
                   </Typography>
                 </Box>
 
@@ -176,11 +270,14 @@ export default function Studio() {
                   </Box>
                   
                   <Typography>
-                    {studio.address}
+                    {studio.studio.address}
                   </Typography>
                 </Box>
 
-                <Box>
+                <Box
+                sx={{
+                  mb: 3,
+                }}>
                   <Box
                    sx={{
                     display: 'flex',
@@ -193,7 +290,27 @@ export default function Studio() {
                   </Box>
                   
                   <Typography>
-                    {studio.description}
+                    {studio.studio.description}
+                  </Typography>
+                </Box>
+
+                <Box
+                sx={{
+                  mb: 3,
+                }}>
+                  <Box
+                   sx={{
+                    display: 'flex',
+                  }}
+                  >
+                    <LocalPhoneIcon sx={{mr: 1}} />
+                    <Typography>
+                      전화번호
+                    </Typography>
+                  </Box>
+                  
+                  <Typography>
+                    {studio.studio.phone}
                   </Typography>
                 </Box>
 
@@ -225,26 +342,6 @@ export default function Studio() {
                     }}
                   />
 
-{/* 
-                  <ImageListItemBar
-                  sx={{
-                    background:
-                      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                      'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                  }}
-                  title={photo.name}
-                  position="bottom"
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: 'white' }}
-                      aria-label={`star ${photo.name}`}
-                    >
-                      <StarBorderIcon />
-                    </IconButton>
-                  }
-                  actionPosition="left"
-                /> */}
-
                   </ImageListItem>
                 </a>
                 </Link>
@@ -259,38 +356,45 @@ export default function Studio() {
                     Reviews
                   </Typography>
 
-                  <List sx={{ width: '100%', maxWidth: '100%', bgcolor: 'background.paper' }}>
-                    {reviews.map((review) => {
-                      return (
-                        <>
-                           <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                              primary={review.author.email}
-                              secondary={
-                                <>
-                                  <Typography
-                                    sx={{ display: 'inline', mr : 2 }}
-                                    component="span"
-                                    variant="body2"
-                                    color="text.primary"
-                                  >
-                                    {review.author.username}
-                                  </Typography>
-                                  {review.content}
-                                </>
-                              }
-                            />
-                            <Rating name="read-only" value={review.rating} precision={0.5} readOnly />
-                          </ListItem>
-                          
-                          <Divider variant="inset" component="li" />
-                        </>
-                      )
-                    })}
-                </List>
+            <ReviewList reviews={reviewList} />
+
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
+            <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
+                <Box item xs={9}>
+                  <TextField
+                    required
+                    fullWidth
+                    type="content"
+                    id="content"
+                    name="content"
+                    label="리뷰를 작성해주세요"
+                  />
+                </Box>
+                <Rating name="rating" precision={1} sx={{ width: '100px', margin: 'auto' }}/>
+                <Box item xs={3}>
+                    <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    size="large"
+                  >
+                    리뷰 작성
+                  </Button>
+                </Box>
+             
+            </FormControl>
+          </Box>
+
+                {/* <Box>
+                  
+                    <Button
+                    variant="contained"
+                    color="primary"
+                    >
+                      리뷰 작성
+                    </Button>
+                </Box> */}
             </Box>
 
           </Container>

@@ -2,8 +2,8 @@ import { Box, ImageList, ImageListItem } from "@mui/material";
 import Link from "next/link";
 import { GetPhotos } from "../fetcher/fetcher";
 
-export default function PhotoList({price, photoshop, sex}) {
-    const {photos, photosLoading, photosError} = GetPhotos('0', price, photoshop, sex);
+export default function PhotoList({price, photoshop, sex, tags}) {
+    const {photos, photosLoading, photosError} = GetPhotos('0', price, photoshop, sex, tags);
 
   
     if(photosLoading) return <div>Loading...</div>

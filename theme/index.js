@@ -17,7 +17,10 @@ export const theme = createTheme({
     },
     error: {
         main: '#d63031'
-    }
+    },
+    star: {
+      main: '#ff6b6b'
+    },
   },
 
   button: {

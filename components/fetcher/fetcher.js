@@ -51,8 +51,20 @@ export const GetStudioReviews = (studioId) => {
     }
 }
 
-export const GetPhotos = (studioId, price, photoshop, sex) => {
-    const {data, error} = useSWR(`${BASE_URL}/photos?studioId=${studioId}&price=${price}&photoshop=${photoshop}&sex=${sex}`, fetcher);
+export const GetPhotos = (studioId, price, photoshop, sex, tags) => {
+    let fetchURL;
+    console.log("tags" , tags);
+    if(tags && tags.length > 0) {
+        let tagsString = "";
+        for(let i = 0; i < tags.length; i ++) {
+            tagsString += `tags=${tags[i]}&`;
+        }
+        fetchURL = `${BASE_URL}/photos?studioId=${studioId}&price=${price}&photoshop=${photoshop}&sex=${sex}&${tagsString}`;
+    }   else {
+        fetchURL = `${BASE_URL}/photos?studioId=${studioId}&price=${price}&photoshop=${photoshop}&sex=${sex}`;
+    }
+    
+    const {data, error} = useSWR(fetchURL, fetcher);
     // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
 
     return {
@@ -70,5 +82,27 @@ export const GetPhoto = (photoId) => {
         data,
         isLoading: !error & !data,
         isError: error,
+    }
+}
+
+export const GetTags = () => {
+    const {data, error} = useSWR(`${BASE_URL}/tags`, fetcher);
+    // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
+
+    return {
+        tags: data,
+        tagsLoading: !error & !data,
+        tagsError: error,
+    }
+}
+
+export const GetProfile = (userId) => {
+    const {data, error} = useSWR(`${BASE_URL}/accounts/profile/${userId}`, fetcher);
+    // const {data, error} = useSWR(`https://api.coinpaprika.com/v1/global`, fetcher);
+
+    return {
+        profile: data,
+        profileLoading: !error & !data,
+        profileError: error,
     }
 }
