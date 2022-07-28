@@ -4,7 +4,7 @@ import { Box, Button, Container, FormControl, IconButton, ImageList, ImageListIt
 import { theme } from '../theme';
 import Link from 'next/link';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PhotoList from '../components/photos/photoList';
 
 export default function Home() {
@@ -12,7 +12,6 @@ export default function Home() {
   const [price, setPrice] = useState(0);
   const [photoshop, setPhotoshop] = useState(0);
   const [sex, setSex] = useState(0);
-
 
   return (
     <>
@@ -31,7 +30,8 @@ export default function Home() {
         sx={{
           textAlign: 'center',
           mb: 5,
-          }} >
+          }}
+          >
           Shutter
         </Typography>
 

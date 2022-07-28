@@ -1,8 +1,15 @@
 import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, Grid, TextField } from "@mui/material";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { setCookie } from "../components/cookie";
 
 export default function Signup() {
+  const router = useRouter();
+
+  const BASE_URL = process.env.NODE_ENV === "development"
+  ? "http://localhost:8000"
+  : "http://54.180.32.114:8000"
 
     const [checked, setChecked] = useState(false);
 
@@ -12,8 +19,35 @@ export default function Signup() {
     };
 
     // form 전송
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+      
         e.preventDefault();
+
+        const formData = {
+          email: e.target.email.value,
+          username: e.target.username.value,
+          first_name: e.target.first_name.value,
+          last_name: e.target.last_name.value,
+          sex: e.target.sex.value,
+          town: e.target.town.value,
+          password: e.target.password.value,
+          rePassword: e.target.rePassword.value,
+      }
+
+      const res =  await fetch(`${BASE_URL}/accounts/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+          body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+  
+      setCookie("user", data);
+      router.push("/");
+      
+      
     };
     return (
         <>
@@ -35,10 +69,65 @@ export default function Signup() {
                     required
                     autoFocus
                     fullWidth
+                    type="username"
+                    id="username"
+                    name="username"
+                    label="아이디"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    autoFocus
+                    fullWidth
                     type="email"
                     id="email"
                     name="email"
                     label="이메일 주소"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    required
+                    autoFocus
+                    fullWidth
+                    type="first_name"
+                    id="first_name"
+                    name="first_name"
+                    label="이름"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    required
+                    autoFocus
+                    fullWidth
+                    type="last_name"
+                    id="last_name"
+                    name="last_name"
+                    label="성"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    required
+                    autoFocus
+                    fullWidth
+                    type="sex"
+                    id="sex"
+                    name="sex"
+                    label="성별"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    required
+                    autoFocus
+                    fullWidth
+                    type="town"
+                    id="town"
+                    name="town"
+                    label="동네 - '구' 단위로 적어주세요 ex) 관악구"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -60,9 +149,6 @@ export default function Signup() {
                     name="rePassword"
                     label="비밀번호 재입력"
                   />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField required fullWidth id="name" name="name" label="이름" />
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel

@@ -8,6 +8,7 @@
 
 
 import CssBaseline from "@mui/material/CssBaseline";
+import {CookiesProvider} from 'react-cookie';
 import { ThemeProvider } from "@mui/material";
 import {theme} from "../theme";
 import '../styles/globals.css';
@@ -19,10 +20,12 @@ const App = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+      <CookiesProvider>
+        <CssBaseline />
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </CookiesProvider>
     </ThemeProvider>
   );
 };

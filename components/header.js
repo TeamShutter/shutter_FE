@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Link from 'next/link';
+import { getCookie } from './cookie';
+
+
 
 const pages = [
     {
@@ -25,7 +28,16 @@ const pages = [
     }
 ];
 // const pages = ['Photos', 'Studios'];
-const settings = [
+const settings = getCookie("user") ? [
+  {
+      title: 'Profile',
+      link: '/profile',
+  },
+  {
+    title: 'Log out',
+    link: '/logout',
+},
+] : [
   {
       title: 'Login',
       link: '/login',
@@ -34,7 +46,7 @@ const settings = [
     title: 'Sign Up',
     link: '/signup',
 },
-];
+]
 // const settings = [
 //     {
 //         title: 'Profile',
