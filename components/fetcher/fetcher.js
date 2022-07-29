@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 const BASE_URL = process.env.NODE_ENV === "development"
   ? "http://localhost:8000"
-  : "http://15.164.100.14:8000"
+: "http://15.164.100.14:8000"
 
 const fetcher = async (...args) => {
     const res = await fetch(...args);

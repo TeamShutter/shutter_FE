@@ -13,16 +13,18 @@ import { useEffect, useState } from "react";
 
 
 
-export default function Studio() {
+export default function Profile() {
     const router = useRouter();
     const {studioId} = router.query;
-    const [userId, setUserId] = useState(getCookie("user")?.id);
+    const [user, setUser] = useState(null);
     
     useEffect(() => {
-        setUserId(getCookie("user")?.id);
+        const curUser = getCookie("user");
+        setUser(curUser);
+        console.log(curUser);
     }, []);
 
-    const {profile, profileLoading, profileError} = GetProfile(userId);
+    const {profile, profileLoading, profileError} = GetProfile(user?.id);
 
     if(profileLoading) return <div>Loading...</div>
     if(profileError) return <div>Error!!</div>
