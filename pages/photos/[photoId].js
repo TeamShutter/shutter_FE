@@ -27,7 +27,7 @@ export default function Studio() {
       const curUser = getCookie("user");
       setLikes(data?.like_users.length);
 
-      data?.like_users?.includes(curUser.id) == true ? (
+      data?.like_users?.includes(curUser?.id) == true ? (
         setLike(true)
       ) : (
         setLike(false)
@@ -127,28 +127,30 @@ export default function Studio() {
                     </Link>
                   </Box>
 
-                  <Box
-                  display="flex"
-                  alignItems="center"
-                  >
-                    <IconButton
-                          sx={{ color: 'red' }}
-                          aria-label={`star ${data?.name}`}
-                          onClick={handleLike}
-                      >
-                    {
-                    like 
-                    ?  
-                    <FavoriteIcon /> 
-                    : 
-                    <FavoriteBorderIcon />
-                    }
-                    </IconButton>
-                    <Typography>
-                      {likes}
-                    </Typography>
-
-                  </Box>
+                  {user ? (
+                    <Box
+                    display="flex"
+                    alignItems="center"
+                    >
+                      <IconButton
+                            sx={{ color: 'red' }}
+                            aria-label={`star ${data?.name}`}
+                            onClick={handleLike}
+                        >
+                      {
+                      like 
+                      ?  
+                      <FavoriteIcon /> 
+                      : 
+                      <FavoriteBorderIcon />
+                      }
+                      </IconButton>
+                      <Typography>
+                        {likes}
+                      </Typography>
+  
+                    </Box>
+                  ) : null}
 
           </Container>
         </Box>

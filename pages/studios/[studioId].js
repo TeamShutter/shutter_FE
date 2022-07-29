@@ -64,13 +64,14 @@ export default function Studio() {
       const curUser = getCookie("user");
       setFollows(studio?.follows);
 
-      studio?.studio.follow_users.includes(curUser.id) == true ? (
+      studio?.studio.follow_users.includes(curUser?.id) == true ? (
         setFollow(true)
       ) : (
         setFollow(false)
       )
       setUser(curUser);
       setReviewList(reviews);
+      console.log(curUser);
     }, [studio, reviews]);
 
     if(studioLoading || photosLoading || reviewsLoading) return <div>Loading...</div>
@@ -81,7 +82,7 @@ export default function Studio() {
       await fetch(`${BASE_URL}/studios/${studioId}/follow`, {
           method: 'GET',
           headers: {
-            "userid": user.id
+            "userid": user?.id
           },
           withCredentials: true,
       });
@@ -102,7 +103,7 @@ export default function Studio() {
         const formData = {
           content: e.target.content.value,
           rating: e.target.rating.value,
-          userId: user.id,
+          userId: user?.id,
       }
 
         const res =  await fetch(`${BASE_URL}/studios/${studioId}/reviews/`, {
@@ -187,48 +188,52 @@ export default function Studio() {
                 justifyContent: 'space-between',
               }}
               >
-                <Typography>
+                <Typography
+                variant='h5'
+                >
                   {studio.studio.name}
                 </Typography>
 
-                <Box
-                display= 'flex'
-                alignItems= 'center'
-                >
-                  <a href="https://map.naver.com/v5/search/%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84/place/37213183?placePath=%3Fentry=pll%26from=nx%26fromNxList=true&n_ad_group_type=10&n_query=%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84&c=14131393.0499970,4506254.8175541,15,0,0,0,dh"
-                  target="_blank" rel="noreferrer"
-                  >
-                    <Button
-                    variant="contained"
-                    color="info"
-                    >
-                      예약하기
-                    </Button>
-                  </a>
-
+               {user ? (
                   <Box
-                  display="flex"
-                  alignItems="center"
+                  display= 'flex'
+                  alignItems= 'center'
                   >
-                    <IconButton
-                          sx={{ color: 'red' }}
-                          aria-label={`follow ${studio?.studio.name}`}
-                          onClick={handleFollow}
+                    <a href="https://map.naver.com/v5/search/%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84/place/37213183?placePath=%3Fentry=pll%26from=nx%26fromNxList=true&n_ad_group_type=10&n_query=%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84&c=14131393.0499970,4506254.8175541,15,0,0,0,dh"
+                    target="_blank" rel="noreferrer"
+                    >
+                      <Button
+                      variant="contained"
+                      color="info"
                       >
-                    {
-                    follow
-                    ?  
-                    <FavoriteIcon /> 
-                    : 
-                    <FavoriteBorderIcon />
-                    }
-                    </IconButton>
-                    <Typography>
-                      {follows}
-                    </Typography>
-
+                        예약하기
+                      </Button>
+                    </a>
+  
+                    <Box
+                    display="flex"
+                    alignItems="center"
+                    >
+                      <IconButton
+                            sx={{ color: 'red' }}
+                            aria-label={`follow ${studio?.studio.name}`}
+                            onClick={handleFollow}
+                        >
+                      {
+                      follow
+                      ?  
+                      <FavoriteIcon /> 
+                      : 
+                      <FavoriteBorderIcon />
+                      }
+                      </IconButton>
+                      <Typography>
+                        {follows}
+                      </Typography>
+  
+                    </Box>
                   </Box>
-                </Box>
+               ) : null}
               </Box>
                 
 
@@ -358,33 +363,35 @@ export default function Studio() {
 
             <ReviewList reviews={reviewList} />
 
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
-            <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
-                <Box item xs={9}>
-                  <TextField
-                    required
-                    fullWidth
-                    type="content"
-                    id="content"
-                    name="content"
-                    label="리뷰를 작성해주세요"
-                  />
-                </Box>
-                <Rating name="rating" precision={1} sx={{ width: '100px', margin: 'auto' }}/>
-                <Box item xs={3}>
-                    <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    size="large"
-                  >
-                    리뷰 작성
-                  </Button>
-                </Box>
-             
-            </FormControl>
-          </Box>
+            {user ? (
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
+              <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
+                  <Box item xs={9}>
+                    <TextField
+                      required
+                      fullWidth
+                      type="content"
+                      id="content"
+                      name="content"
+                      label="리뷰를 작성해주세요"
+                    />
+                  </Box>
+                  <Rating name="rating" precision={1} sx={{ width: '100px', margin: 'auto' }}/>
+                  <Box item xs={3}>
+                      <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                      size="large"
+                    >
+                      리뷰 작성
+                    </Button>
+                  </Box>
+               
+              </FormControl>
+            </Box>
+            ) : null}
 
                 {/* <Box>
                   
