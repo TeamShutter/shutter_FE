@@ -199,7 +199,7 @@ export default function Studio() {
                   display= 'flex'
                   alignItems= 'center'
                   >
-                    <a href="https://map.naver.com/v5/search/%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84/place/37213183?placePath=%3Fentry=pll%26from=nx%26fromNxList=true&n_ad_group_type=10&n_query=%EC%A6%9D%EB%AA%85%EC%82%AC%EC%A7%84&c=14131393.0499970,4506254.8175541,15,0,0,0,dh"
+                    <a href={studio.studio.reservation}
                     target="_blank" rel="noreferrer"
                     >
                       <Button
