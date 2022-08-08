@@ -46,7 +46,7 @@ const items = [
 export default function Studio() {
   const BASE_URL = process.env.NODE_ENV === "development"
   ? "http://localhost:8000"
-  : "http://15.164.100.14:8000"
+  : "http://54.180.88.193:8000"
 
     const router = useRouter();
     const {studioId} = router.query;
@@ -119,7 +119,7 @@ export default function Studio() {
       e.target.content.value = "";
     };
 
-    return studio.studio && photos && reviews && (
+    return studio && photos && reviews && (
 
         <>
         <Head>
