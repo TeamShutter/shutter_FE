@@ -17,7 +17,6 @@ import { useEffect, useState } from 'react';
 
 
 
-
 // const settings = [
 //     {
 //         title: 'Profile',
@@ -107,7 +106,7 @@ const settings = user ? [
               textDecoration: 'none',
             }}
           >
-            Shutter
+              Shutter
           </Typography>
           </Link>
 
