@@ -34,7 +34,7 @@ const Header = () => {
   useEffect(() => {
     setUser(getCookie("user"));
   }, []);
-  console.log("user", user);
+
 
   const pages = [
     {
@@ -141,7 +141,11 @@ const settings = user ? [
             >
               {pages.map((page) => (
                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.title}</Typography>
+                  <Link href={page.link}>
+                    <a>
+                      <Typography textAlign="center">{page.title}</Typography>
+                    </a>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
