@@ -13,8 +13,11 @@ export default function FilterTags({ tagList, setTagList, tags }) {
     return (
         <Box
       display='flex'
+      justifyContent='center'
       alignItems='center'
       sx={{
+        width: '100%',
+        flexWrap: "wrap",
         mt: 2
       }}
       >
@@ -22,6 +25,7 @@ export default function FilterTags({ tagList, setTagList, tags }) {
           return (
             <Chip
             sx={{
+              mt: 1,
               mr: 1
             }}
             key={tag.id}
