@@ -4,6 +4,7 @@ import { Box, Chip, Container, Typography } from '@mui/material';
 import { useState } from 'react';
 import PhotoList from '../components/photos/PhotoList';
 import FilterContainer from '../components/filters/FilterContainer';
+import FilterTags from '../components/filters/FilterTags';
 
 export default function Home() {
   
@@ -14,10 +15,8 @@ export default function Home() {
 
   const {tags, tagsLoading, tagsError} = GetTags();
   
-  
-
-    if(tagsLoading) return <div>Loading...</div>
-    if(tagsError) return <div>Error!!</div>
+  if(tagsLoading) return <div>Loading...</div>
+  if(tagsError) return <div>Error!!</div>
 
   return tags && (
     <>
@@ -30,21 +29,22 @@ export default function Home() {
         component='main'
       >
         <Container maxWidth="lg">
-        <Typography 
-        variant='h2'
-        sx={{
-          textAlign: 'center',
-          mb: 3,
-          }}
-          >
-          Shutter
-        </Typography>
-        
-        <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} />
+          
+          <Typography 
+          variant='h2'
+          sx={{
+            textAlign: 'center',
+            mb: 3,
+            }}
+            >
+            Shutter
+          </Typography>
+          
+          <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} />
 
-        <FilterTags setTagList={setTagList} tags={tags} />
+          <FilterTags tagList={tagList} setTagList={setTagList} tags={tags} />
 
-        <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />
+          <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />
 
         </Container>
       </Box>
