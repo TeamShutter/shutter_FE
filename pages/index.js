@@ -1,11 +1,8 @@
 import Head from 'next/head'
-import { GetPhotos, GetTags } from '../components/fetcher/fetcher'
-import { Box, Button, Chip, Container, FormControl, IconButton, ImageList, ImageListItem, ImageListItemBar, InputLabel, NativeSelect, Typography } from '@mui/material';
-import { theme } from '../theme';
-import Link from 'next/link';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { useEffect, useState } from 'react';
-import PhotoList from '../components/photos/photoList';
+import { GetTags } from '../components/fetcher/fetcher'
+import { Box, Chip, Container, Typography } from '@mui/material';
+import { useState } from 'react';
+import PhotoList from '../components/photos/PhotoList';
 import FilterContainer from '../components/filters/FilterContainer';
 
 export default function Home() {
@@ -40,69 +37,42 @@ export default function Home() {
       >
         <Container maxWidth="lg">
 
-        <Typography 
-        variant='h2'
-        sx={{
-          textAlign: 'center',
-          mb: 3,
+          <Typography 
+          variant='h2'
+          sx={{
+            textAlign: 'center',
+            mb: 3,
+            }}
+            >
+            Shutter
+          </Typography>
+
+          <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex}/>
+
+          <Box
+          display='flex'
+          alignItems='center'
+          sx={{
+            mt: 2
           }}
           >
-          Shutter
-        </Typography>
-
-       <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex}/>
-
-      <Box
-      display='flex'
-      alignItems='center'
-      sx={{
-        mt: 2
-      }}
-      >
-        {tags.map((tag) => {
-          return (
-            <Chip
-            sx={{
-              mr: 1
-            }}
-            key={tag.id}
-            label={`# ${tag.content}`}
-            variant={tagList.includes(tag.id) ? "contained" : "outlined"}
-            color="primary"
-            onClick={() => handleTag(tag.id)}
-             />
-          )
-        })}
-      </Box>
-
-      <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />
-
-
-        {/* <ImageList sx={{ width: '100%' }} cols={3} gap={10}>
-          
-          {photos.map((photo) => (
-              <Link 
-              href={`photos/${photo.id}`}
-              key={photo.name}
-              >
-             <a>
-             <ImageListItem>
-                <Box 
-                  sx={{
-                    width: "100%",
-                    paddingBottom: "120%",
-                    backgroundImage: `url(${photo.photoUrl})`,
-                    backgroundPosition: "center center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                  }}
+            {tags.map((tag) => {
+              return (
+                <Chip
+                sx={{
+                  mr: 1
+                }}
+                key={tag.id}
+                label={`# ${tag.content}`}
+                variant={tagList.includes(tag.id) ? "contained" : "outlined"}
+                color="primary"
+                onClick={() => handleTag(tag.id)}
                 />
-              </ImageListItem>
-             </a>
-            </Link>
-          ))}
+              )
+            })}
+          </Box>
 
-        </ImageList> */}
+         <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />
 
         </Container>
       </Box>

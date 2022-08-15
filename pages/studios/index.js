@@ -3,17 +3,15 @@ import Head from 'next/head';
 import { GetStudios } from '../../components/fetcher/fetcher';
 import { Box, Container, Typography, Rating} from '@mui/material';
 import * as React from 'react';
-import Carousel from 'react-material-ui-carousel';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Link from 'next/link';
+import StudioCarousel from '../../components/studios/StudioCarousel';
+import StudioInfo from '../../components/studios/StudioInfo';
 
 export default function Studioindex() {
     const {data, isLoading, isError} = GetStudios(0, 0, 0);
 
     if(isLoading) return <div>Loading...</div>
     if(isError) return <div>Error!!</div>
-    console.log("data: ", data);
 
     return data && (
         <>
@@ -30,32 +28,7 @@ export default function Studioindex() {
                                 key={i}
                                 sx={{ mb: 10 }}
                                 >
-                                    <Carousel
-                                    NextIcon={<ArrowForwardIosIcon/>}
-                                    PrevIcon={<ArrowBackIosNewIcon/>}
-                                    navButtonProps={{
-                                        style: {
-                                            opacity: 0.5,
-                                        }
-                                    }}
-                                    >
-                                    {
-                                        studio.images.map( (image, i) =>  (
-                                        <Box
-                                        key={i}
-                                        sx={{
-                                            width: '100%',
-                                            paddingBottom: "60%",
-                                            backgroundImage: `url(${image.url})`,
-                                            backgroundSize: 'cover',
-                                            backgroundRepeat: "no-repeat",
-                                            backgroundPosition: "center center",
-                                        }}
-                                        >
-                                        </Box>
-                                        ))
-                                    }
-                                </Carousel>
+                                   <StudioCarousel studio={studio} />
                                 <Link 
                                 href={`/studios/${studio.id}`}
                                 >
@@ -71,12 +44,7 @@ export default function Studioindex() {
                                                 <Rating name="read-only" value={4.5} precision={0.5} readOnly />
                                             </Typography>
                                         
-                                            <Typography
-                                            variant='h7'>
-                                                {studio.address}<br></br>
-                                                {/* {studio?.number}<br></br> */}
-                                                {studio.openTime} : {studio.closeTime}
-                                            </Typography>
+                                            <StudioInfo studio={studio}/>
                                         </div>
                                     </a>
                                 </Link>

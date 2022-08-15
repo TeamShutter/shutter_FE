@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, NativeSelect } from "@mui/material";
+import { Box } from "@mui/material";
 import FilterBar from "./FilterBar";
 
 const filters = [
@@ -81,11 +81,17 @@ export default function FilterContainer({ setPrice, setPhotoshop, setSex }) {
           justifyContent: 'space-around',
         }}>
             {filters.map((filter) => {
+                let setFilter;
+                filter.title == 'price' ? setFilter = setPrice : (
+                    filter.title == 'photoshop' ? setFilter = setPhotoshop :
+                    setFilter = setSex
+                )
                 return (
                     <FilterBar
                     key={filter.title}
                     title={filter.title} 
                     options={filter.options}
+                    setFilter={setFilter}
                     />
                 )
             })}

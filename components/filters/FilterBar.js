@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, NativeSelect } from "@mui/material";
 
-export default function FilterBar({title, options}) {
+export default function FilterBar({title, options, setFilter}) {
     return (
         <FormControl width='50%'>
             <InputLabel variant="standard" htmlFor="uncontrolled-native">
@@ -10,7 +10,7 @@ export default function FilterBar({title, options}) {
               onChange={
                 (event) => {
                   event.preventDefault();
-                  setPrice(event.target.value);
+                  setFilter(event.target.value);
               }}
               inputProps={{
                 name: title,
