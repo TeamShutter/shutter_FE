@@ -21,7 +21,6 @@ export default function Profile() {
     useEffect(() => {
         const curUser = getCookie("user");
         setUser(curUser);
-        console.log(curUser);
     }, []);
 
     const {profile, profileLoading, profileError} = GetProfile(user?.id);
@@ -125,14 +124,6 @@ export default function Profile() {
                                     backgroundSize: "cover",
                                 }}
                             />
-                            {/* <img
-                            src={photo.photoUrl}
-                            srcSet={photo.photoUrl}
-                            alt={photo.name}
-                            loading="lazy"
-                            layout='fill'
-                            objectFit='contain'
-                            /> */}
 
                         </ImageListItem>
                         </a>

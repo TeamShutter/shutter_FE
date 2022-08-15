@@ -34,7 +34,7 @@ const Header = () => {
   useEffect(() => {
     setUser(getCookie("user"));
   }, []);
-  console.log("user", user);
+
 
   const pages = [
     {
