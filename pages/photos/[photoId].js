@@ -3,11 +3,10 @@ import { useRouter } from "next/router";
 import { GetPhoto } from "../../components/fetcher/fetcher";
 import Head from "next/head";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../components/cookie";
+import PhotoLike from "../../components/photos/PhotoLike";
 
 
 export default function Studio() {
@@ -35,26 +34,6 @@ export default function Studio() {
       setUser(curUser);
     }, [data]);
 
-    
-
-    const handleLike = async () => {
-    await fetch(`${BASE_URL}/photos/${photoId}/like`, {
-        method: 'GET',
-        headers: {
-          "userid": user.id
-        },
-        withCredentials: true,
-    });
-
-    like ? (
-    setLikes((prev) => prev - 1)
-     ) : (
-       setLikes((prev) => prev + 1)
-    )  
-
-    setLike((prev) => !prev);
-
-    }
 
     if(isLoading) return <div>Loading...</div>
     if(isError) return <div>Error!!</div>
@@ -128,28 +107,7 @@ export default function Studio() {
                   </Box>
 
                   {user ? (
-                    <Box
-                    display="flex"
-                    alignItems="center"
-                    >
-                      <IconButton
-                            sx={{ color: 'red' }}
-                            aria-label={`star ${data?.name}`}
-                            onClick={handleLike}
-                        >
-                      {
-                      like 
-                      ?  
-                      <FavoriteIcon /> 
-                      : 
-                      <FavoriteBorderIcon />
-                      }
-                      </IconButton>
-                      <Typography>
-                        {likes}
-                      </Typography>
-  
-                    </Box>
+                    <PhotoLike setLike={setLike} setLikes={setLikes} />
                   ) : null}
 
           </Container>
