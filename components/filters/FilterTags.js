@@ -1,6 +1,6 @@
 import { Box, Chip } from "@mui/material"
 
-export default function FilterTags({setTagList, tags}) {
+export default function FilterTags({ tagList, setTagList, tags }) {
 
     const handleTag = (id) => {
         tagList.includes(id) ? (

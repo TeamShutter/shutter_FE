@@ -11,7 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import { getCookie } from "../../components/cookie";
 import { useEffect, useState } from "react";
-import ReviewList from "../../components/reviews/review-list";
+import ReviewList from "../../components/reviews/ReviewList";
 import StudioCarousel from "../../components/studios/StudioCarousel";
 import StudioInfo from "../../components/studios/StudioInfo";
 import PhotoList from '../../components/photos/PhotoList';
