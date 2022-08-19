@@ -99,12 +99,12 @@ export const GetTags = () => {
     }
 }
 
-export const GetProfile = (userId) => {
-    const {data, error} = useSWR(`${BASE_URL}/accounts/profile/${userId}`, fetcher);
+// export const GetProfile = () => {
+//     const {data, error} = useSWR(`${BASE_URL}/accounts/profile`, fetcher);
 
-    return {
-        profile: data,
-        profileLoading: !error & !data,
-        profileError: error,
-    }
-}
+//     return {
+//         profile: data,
+//         profileLoading: !error & !data,
+//         profileError: error,
+//     }
+// }

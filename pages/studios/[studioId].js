@@ -9,12 +9,13 @@ import { GetStudio, GetStudioPhotos, GetStudioReviews } from "../../components/f
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import { getCookie } from "../../components/cookie";
 import { useEffect, useState } from "react";
 import ReviewList from "../../components/reviews/ReviewList";
 import StudioCarousel from "../../components/studios/StudioCarousel";
 import StudioInfo from "../../components/studios/StudioInfo";
 import PhotoList from '../../components/photos/PhotoList';
+import Layout from "../../layouts/Layout";
+import { useAuth } from "../../hooks/use-auth";
 
 
 export default function Studio() {
@@ -22,12 +23,13 @@ export default function Studio() {
   ? "http://localhost:8000"
   : "http://54.180.88.193:8000"
 
+    const auth = useAuth();
+
     const router = useRouter();
     const {studioId} = router.query;
 
     const [follow, setFollow] = useState(false);
     const [follows, setFollows] = useState(0);
-    const [user, setUser] = useState(null);
     const [reviewList, setReviewList] = useState([]);
 
     const {studio, studioLoading, studioError} = GetStudio(studioId);
@@ -35,15 +37,13 @@ export default function Studio() {
     const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
 
     useEffect(() => {
-      const curUser = getCookie("user");
       setFollows(studio?.follows);
 
-      studio?.studio.follow_users.includes(curUser?.id) == true ? (
+      studio?.studio.follow_users.includes(auth.user?.id) == true ? (
         setFollow(true)
       ) : (
         setFollow(false)
       )
-      setUser(curUser);
       setReviewList(reviews);
     }, [studio, reviews]);
 
@@ -55,7 +55,7 @@ export default function Studio() {
       await fetch(`${BASE_URL}/studios/${studioId}/follow`, {
           method: 'GET',
           headers: {
-            "userid": user?.id
+            "userid": auth.user.id
           },
           withCredentials: true,
       });
@@ -76,7 +76,7 @@ export default function Studio() {
         const formData = {
           content: e.target.content.value,
           rating: e.target.rating.value,
-          userId: user?.id,
+          userId: auth.user.id,
       }
 
         const res =  await fetch(`${BASE_URL}/studios/${studioId}/reviews/`, {
@@ -93,16 +93,11 @@ export default function Studio() {
     };
 
     return studio && photos && reviews && (
+        <Layout>
 
-        <>
-        <Head>
-          <title>Shutter | Studio</title>
-        </Head>
-  
-        <Box
-          component='main'
-        >
-          <Container maxWidth="lg">
+          <Head>
+            <title>{studio.studio.name} | Shutter</title>
+          </Head>
 
           <ArrowBackIosNewIcon 
             onClick={() => router.back()}
@@ -133,7 +128,7 @@ export default function Studio() {
                   {studio.studio.name}
                 </Typography>
 
-               {user ? (
+               {auth.user ? (
                   <Box
                   display= 'flex'
                   alignItems= 'center'
@@ -241,7 +236,7 @@ export default function Studio() {
 
               <ReviewList reviews={reviewList} studioId={studioId}/>
 
-              {user ? (
+              {auth.user ? (
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
                 <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
                     <Box item xs={9}>
@@ -272,9 +267,6 @@ export default function Studio() {
              ) : null}
                
             </Box>
-
-          </Container>
-        </Box>
-      </>
+        </Layout>
     )
 }

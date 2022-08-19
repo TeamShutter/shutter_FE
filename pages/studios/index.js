@@ -6,6 +6,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import StudioCarousel from '../../components/studios/StudioCarousel';
 import StudioInfo from '../../components/studios/StudioInfo';
+import Layout from '../../layouts/Layout';
 
 export default function Studioindex() {
     const {data, isLoading, isError} = GetStudios(0, 0, 0);
@@ -14,14 +15,13 @@ export default function Studioindex() {
     if(isError) return <div>Error!!</div>
 
     return data && (
-        <>
-            <Head>
-                <title>Studios</title>
-            </Head>
+        <Layout>
 
-            <Box>
-                <Container>
-                    <Box>
+                <Head>
+                    <title>Studios | Shutter</title>
+                </Head>
+
+                <Box>
                         {
                             data.map( (studio, i) => (
                                 <Box 
@@ -53,9 +53,7 @@ export default function Studioindex() {
                             ))
                         }
                         </Box>
-                        
-                </Container>
-            </Box>
-        </>
+
+        </Layout>
       );
 }
