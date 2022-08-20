@@ -14,18 +14,19 @@ import {theme} from "../theme";
 import '../styles/globals.css';
 import Footer from "../components/footer";
 import Header from "../components/header";
+import { ProvideAuth } from "../hooks/use-auth";
 
 const App = (props) => {
   const { Component, pageProps } = props;
 
   return (
     <ThemeProvider theme={theme}>
-      <CookiesProvider>
-        <CssBaseline />
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
-      </CookiesProvider>
+      <ProvideAuth>
+          <CssBaseline />
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+      </ProvideAuth>
     </ThemeProvider>
   );
 };
