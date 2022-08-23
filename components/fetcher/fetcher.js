@@ -18,13 +18,13 @@ const fetcher = async (...args) => {
     return data;
 }
 
-export const GetStudios = () => {
-    const {data, error} = useSWR(`${BASE_URL}/studios`, fetcher);
+export const GetStudios = (price, distance) => {
+    const {data, error} = useSWR(`${BASE_URL}/studios?price=${price}&distance=${distance}`, fetcher);
 
     return {
-        data,
-        isLoading: !error & !data,
-        isError: error,
+        studios: data,
+        studiosLoading: !error & !data,
+        studiosError: error,
     }
 }
 
@@ -55,6 +55,16 @@ export const GetStudioPhotos = (studioId) => {
         photos: data,
         photosLoading: !error & !data,
         photosError: error,
+    }
+}
+
+export const GetSearch = () => {
+    const {data, error} = useSWR(`${BASE_URL}/studios/search`, fetcher);
+
+    return {
+        search: data,
+        searchLoading: !error & !data,
+        searchError: error,
     }
 }
 
@@ -96,6 +106,16 @@ export const GetTags = () => {
         tags: data,
         tagsLoading: !error & !data,
         tagsError: error,
+    }
+}
+
+export const GetProfile = (userId) => {
+    const {data, error} = useSWR(`${BASE_URL}/accounts/profile/${userId}`, fetcher);
+
+    return {
+        profile: data,
+        profileLoading: !error & !data,
+        profileError: error,
     }
 }
 
