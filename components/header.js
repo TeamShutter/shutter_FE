@@ -12,7 +12,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Link from 'next/link';
-import { getCookie } from './cookie';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
 

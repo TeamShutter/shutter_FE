@@ -8,7 +8,6 @@
 
 
 import CssBaseline from "@mui/material/CssBaseline";
-import {CookiesProvider} from 'react-cookie';
 import { ThemeProvider } from "@mui/material";
 import {theme} from "../theme";
 import '../styles/globals.css';
