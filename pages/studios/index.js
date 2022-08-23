@@ -1,13 +1,13 @@
 
 import Head from 'next/head';
 import { Box, Container } from "@mui/material";
-import * as React from 'react'; // 이거 왜 이렇게 하는거지??
 import StudioFilterContainer from '../../components/filters/StudioFilterContainer';
 import StudioList from '../../components/filters/StudioList';
+import { useState } from 'react';
 
 export default function Studioindex() {
-    const [distance, setDistance] = React.useState(0);
-    const [price, setPrice] = React.useState(0);
+    const [distance, setDistance] = useState(0);
+    const [price, setPrice] = useState(0);
 
     return (
         <>
