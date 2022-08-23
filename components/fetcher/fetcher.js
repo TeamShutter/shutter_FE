@@ -18,13 +18,13 @@ const fetcher = async (...args) => {
     return data;
 }
 
-export const GetStudios = () => {
-    const {data, error} = useSWR(`${BASE_URL}/studios`, fetcher);
+export const GetStudios = (price, distance) => {
+    const {data, error} = useSWR(`${BASE_URL}/studios?price=${price}&distance=${distance}`, fetcher);
 
     return {
-        data,
-        isLoading: !error & !data,
-        isError: error,
+        studios: data,
+        studiosLoading: !error & !data,
+        studiosError: error,
     }
 }
 
@@ -108,3 +108,4 @@ export const GetProfile = (userId) => {
         profileError: error,
     }
 }
+

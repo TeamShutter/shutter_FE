@@ -1,19 +1,15 @@
 
 import Head from 'next/head';
-import { GetStudios } from '../../components/fetcher/fetcher';
-import { Box, Container, Typography, Rating} from '@mui/material';
-import * as React from 'react';
-import Link from 'next/link';
-import StudioCarousel from '../../components/studios/StudioCarousel';
-import StudioInfo from '../../components/studios/StudioInfo';
+import { Box, Container } from "@mui/material";
+import * as React from 'react'; // 이거 왜 이렇게 하는거지??
+import StudioFilterContainer from '../../components/filters/StudioFilterContainer';
+import StudioList from '../../components/filters/StudioList';
 
 export default function Studioindex() {
-    const {data, isLoading, isError} = GetStudios(0, 0, 0);
+    const [distance, setDistance] = React.useState(0);
+    const [price, setPrice] = React.useState(0);
 
-    if(isLoading) return <div>Loading...</div>
-    if(isError) return <div>Error!!</div>
-
-    return data && (
+    return (
         <>
             <Head>
                 <title>Studios</title>
@@ -21,39 +17,8 @@ export default function Studioindex() {
 
             <Box>
                 <Container>
-                    <Box>
-                        {
-                            data.map( (studio, i) => (
-                                <Box 
-                                key={i}
-                                sx={{ mb: 10 }}
-                                >
-                                   <StudioCarousel studio={studio} />
-                                <Link 
-                                href={`/studios/${studio.id}`}
-                                >
-                                    <a>
-                                        <div
-                                        sx={{
-                                            width: '100%',
-                                        }}
-                                        >
-                                            <Typography
-                                            variant='h5' fontWeight='bold' >
-                                                {studio.name}
-                                                <Rating name="read-only" value={4.5} precision={0.5} readOnly />
-                                            </Typography>
-                                        
-                                            <StudioInfo studio={studio}/>
-                                        </div>
-                                    </a>
-                                </Link>
-
-                                </Box>
-                            ))
-                        }
-                        </Box>
-                        
+                    <StudioFilterContainer setPrice={setPrice} setDistance={setDistance}/>
+                    <StudioList price={price} distance={distance} />
                 </Container>
             </Box>
         </>
