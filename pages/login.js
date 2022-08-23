@@ -2,10 +2,12 @@ import { Box, Button,  Checkbox,  Container, FormControl, FormControlLabel, Grid
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { setCookie } from "../components/cookie";
+import { useAuth } from "../hooks/use-auth";
+import Layout from "../layouts/Layout";
 
 export default function Login() {
   const router = useRouter();
+  const auth = useAuth();
   const BASE_URL = process.env.NODE_ENV === "development"
   ? "http://localhost:8000"
   : "http://54.180.88.193:8000"
@@ -17,42 +19,35 @@ export default function Login() {
       
       e.preventDefault();
 
-      const formData = {
-        username: e.target.username.value,
-        password: e.target.password.value,
-    }
+      const username = e.target.username.value;
+      const password = e.target.password.value;
+      auth.login(username, password);
+    //   const formData = {
+    //     username: e.target.username.value,
+    //     password: e.target.password.value,
+    // }
 
-    const res =  await fetch(`${BASE_URL}/accounts/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-        body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-
-    setCookie("user", data);
-    // router.back();
-    window.location.href = '/';
+    // fetch(`${BASE_URL}/accounts/login`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     credentials: 'include',
+    //     body: JSON.stringify(formData),
+    // });
+    // router.push("/");
     
     
   };
 
 
     return (
-        <>
-      <Head>
-        <title>Shutter | Login</title>
-      </Head>
+       <Layout>
+         <Head>
+           <title>Login | Shutter</title>
+         </Head>  
 
-
-      <Box
-        component='main'
-      >
-        <Container maxWidth="lg">
-
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
+         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
             <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -90,8 +85,6 @@ export default function Login() {
             </FormControl>
           </Box>
 
-        </Container>
-      </Box>
-    </>
+       </Layout>
     )
 }

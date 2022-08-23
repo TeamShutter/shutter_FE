@@ -1,11 +1,11 @@
 import { Box, Button, Checkbox, Container, FormControl, FormControlLabel, Grid, TextField } from "@mui/material";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState } from "react";
-import { setCookie } from "../components/cookie";
+import { useAuth } from "../hooks/use-auth";
+import Layout from "../layouts/Layout";
 
 export default function Signup() {
-  const router = useRouter();
+  const auth = useAuth();
 
   const BASE_URL = process.env.NODE_ENV === "development"
   ? "http://localhost:8000"
@@ -34,34 +34,29 @@ export default function Signup() {
           rePassword: e.target.rePassword.value,
       }
 
-      const res =  await fetch(`${BASE_URL}/accounts/signup`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-          body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-  
-      setCookie("user", data);
-      // router.back();
-      window.location.href = '/';
+     
+      auth.signup(formData);
+
+      // await fetch(`${BASE_URL}/accounts/signup`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     withCredentials: true,
+      //     body: JSON.stringify(formData),
+      // });
+
+      // router.push('/');
       
       
     };
     
     return (
-        <>
-      <Head>
-        <title>Shutter | Signup</title>
-      </Head>
-
-
-      <Box
-        component='main'
-      >
-        <Container maxWidth="lg">
+      <Layout>
+        
+        <Head>
+          <title>Sign up | Shutter</title>
+        </Head>
 
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <FormControl component="fieldset" variant="standard">
@@ -171,8 +166,6 @@ export default function Signup() {
             </FormControl>
           </Box>
 
-        </Container>
-      </Box>
-    </>
+      </Layout>
     )
 }
