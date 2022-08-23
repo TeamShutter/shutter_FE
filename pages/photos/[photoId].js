@@ -3,11 +3,10 @@ import { useRouter } from "next/router";
 import { GetPhoto } from "../../components/fetcher/fetcher";
 import Head from "next/head";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../components/cookie";
+import PhotoLike from "../../components/photos/PhotoLike";
 import Layout from "../../layouts/Layout";
 import { useAuth } from "../../hooks/use-auth";
 
@@ -35,7 +34,6 @@ export default function Photo() {
       )
     }, [data]);
 
-    
 
     const handleLike = async () => {
     await fetch(`${BASE_URL}/photos/${photoId}/like`, {
@@ -122,6 +120,9 @@ export default function Photo() {
                     </Link>
                   </Box>
 
+
+                  {user ? (
+                    <PhotoLike setLike={setLike} setLikes={setLikes} />
                   {auth.user ? (
                     <Box
                     display="flex"
