@@ -58,6 +58,16 @@ export const GetStudioPhotos = (studioId) => {
     }
 }
 
+export const GetSearch = () => {
+    const {data, error} = useSWR(`${BASE_URL}/studios/search`, fetcher);
+
+    return {
+        search: data,
+        searchLoading: !error & !data,
+        searchError: error,
+    }
+}
+
 export const GetPhotos = (price, photoshop, sex, tags) => {
     let fetchURL;
     if(tags && tags.length > 0) {
