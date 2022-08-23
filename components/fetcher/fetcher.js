@@ -118,3 +118,12 @@ export const GetProfile = (userId) => {
     }
 }
 
+// export const GetProfile = () => {
+//     const {data, error} = useSWR(`${BASE_URL}/accounts/profile`, fetcher);
+
+//     return {
+//         profile: data,
+//         profileLoading: !error & !data,
+//         profileError: error,
+//     }
+// }

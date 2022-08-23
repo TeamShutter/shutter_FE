@@ -12,8 +12,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Link from 'next/link';
-import { getCookie } from './cookie';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../hooks/use-auth';
 
 
 
@@ -30,10 +30,7 @@ import { useEffect, useState } from 'react';
 // const settings = ['Profile', 'Logout'];
 
 const Header = () => {
-  const [user, setUser] = useState(getCookie("user"));
-  useEffect(() => {
-    setUser(getCookie("user"));
-  }, []);
+  const auth = useAuth();
 
 
   const pages = [
@@ -47,9 +44,9 @@ const Header = () => {
     }
 ];
 
-const settings = user ? [
+const settings = auth.user ? [
   {
-      title: 'Profile',
+      title: `${auth.user.username}'s Profile`,
       link: '/profile',
   },
   {
@@ -193,7 +190,7 @@ const settings = user ? [
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user ? user.username : ""} src="" />
+                <Avatar alt={auth.user ? auth.user.username : ""} src="" />
               </IconButton>
             </Tooltip>
             <Menu

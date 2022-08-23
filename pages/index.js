@@ -5,6 +5,8 @@ import { useState } from 'react';
 import PhotoList from '../components/photos/PhotoList';
 import FilterContainer from '../components/filters/FilterContainer';
 import FilterTags from '../components/filters/FilterTags';
+import Layout from '../layouts/Layout';
+import { useAuth } from '../hooks/use-auth';
 
 export default function Home() {
   
@@ -14,23 +16,16 @@ export default function Home() {
   const [tagList, setTagList] = useState([]);
 
   const {tags, tagsLoading, tagsError} = GetTags();
+
+  const auth = useAuth();
   
   if(tagsLoading) return <div>Loading...</div>
   if(tagsError) return <div>Error!!</div>
 
   return tags && (
-    <>
-      <Head>
-        <title>Shutter | Home</title>
-      </Head>
+    <Layout>
 
-
-      <Box
-        component='main'
-      >
-        <Container maxWidth="lg">
-          
-          <Typography 
+      <Typography 
           variant='h2'
           sx={{
             textAlign: 'center',
@@ -46,8 +41,6 @@ export default function Home() {
 
           <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />
 
-        </Container>
-      </Box>
-    </>
+    </Layout>
   )
 }
