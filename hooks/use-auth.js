@@ -42,6 +42,7 @@ function useProvideAuth() {
                 password
             }),
         }).then(async (response) => {
+            console.log("Res: ",response);
             console.log("Login!");
             const data = await response.json();
             setUser(data.user);
@@ -58,6 +59,7 @@ function useProvideAuth() {
         credentials: 'include',
         body: JSON.stringify(formData),
     }).then(async (response) => {
+        console.log("Singup Res: ", response);
         console.log("Signup!");
         const data = await response.json();
         setUser(data.user);

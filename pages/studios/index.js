@@ -7,7 +7,7 @@ import Link from 'next/link';
 import StudioCarousel from '../../components/studios/StudioCarousel';
 import StudioInfo from '../../components/studios/StudioInfo';
 import StudioFilterContainer from '../../components/filters/StudioFilterContainer';
-import StudioList from '../../components/filters/StudioList';
+import StudioList from '../../components/studios/StudioList';
 import Layout from '../../layouts/Layout';
 
 export default function Studioindex() {
@@ -29,49 +29,50 @@ export default function Studioindex() {
             </Box>
         </>
 
-    if(isLoading) return <div>Loading...</div>
-    if(isError) return <div>Error!!</div>
+    // const {data, isLoading, isError} = GetStudios();
+    // if(isLoading) return <div>Loading...</div>
+    // if(isError) return <div>Error!!</div>
 
-    return data && (
-        <Layout>
+    // return data && (
+    //     <Layout>
 
-                <Head>
-                    <title>Studios | Shutter</title>
-                </Head>
+    //             <Head>
+    //                 <title>Studios | Shutter</title>
+    //             </Head>
 
-                <Box>
-                        {
-                            data.map( (studio, i) => (
-                                <Box 
-                                key={i}
-                                sx={{ mb: 10 }}
-                                >
-                                   <StudioCarousel studio={studio} />
-                                <Link 
-                                href={`/studios/${studio.id}`}
-                                >
-                                    <a>
-                                        <div
-                                        sx={{
-                                            width: '100%',
-                                        }}
-                                        >
-                                            <Typography
-                                            variant='h5' fontWeight='bold' >
-                                                {studio.name}
-                                                <Rating name="read-only" value={4.5} precision={0.5} readOnly />
-                                            </Typography>
+    //             <Box>
+    //                     {
+    //                         data.map( (studio, i) => (
+    //                             <Box 
+    //                             key={i}
+    //                             sx={{ mb: 10 }}
+    //                             >
+    //                                <StudioCarousel studio={studio} />
+    //                             <Link 
+    //                             href={`/studios/${studio.id}`}
+    //                             >
+    //                                 <a>
+    //                                     <div
+    //                                     sx={{
+    //                                         width: '100%',
+    //                                     }}
+    //                                     >
+    //                                         <Typography
+    //                                         variant='h5' fontWeight='bold' >
+    //                                             {studio.name}
+    //                                             <Rating name="read-only" value={4.5} precision={0.5} readOnly />
+    //                                         </Typography>
                                         
-                                            <StudioInfo studio={studio}/>
-                                        </div>
-                                    </a>
-                                </Link>
+    //                                         <StudioInfo studio={studio}/>
+    //                                     </div>
+    //                                 </a>
+    //                             </Link>
 
-                                </Box>
-                            ))
-                        }
-                        </Box>
+    //                             </Box>
+    //                         ))
+    //                     }
+    //                     </Box>
 
-        </Layout>
+    //     </Layout>
       );
 }

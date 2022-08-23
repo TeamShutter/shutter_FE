@@ -5,7 +5,6 @@ import Head from "next/head";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getCookie } from "../../components/cookie";
 import PhotoLike from "../../components/photos/PhotoLike";
 import Layout from "../../layouts/Layout";
 import { useAuth } from "../../hooks/use-auth";
@@ -121,9 +120,11 @@ export default function Photo() {
                   </Box>
 
 
-                  {user ? (
-                    <PhotoLike setLike={setLike} setLikes={setLikes} />
                   {auth.user ? (
+                    <PhotoLike setLike={setLike} setLikes={setLikes} /> 
+                  ): null }
+
+                  {/* {auth.user ? (
                     <Box
                     display="flex"
                     alignItems="center"
@@ -146,7 +147,7 @@ export default function Photo() {
                       </Typography>
   
                     </Box>
-                  ) : null}
+                  ) : null} */}
 
         </Layout>
     )

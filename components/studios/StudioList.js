@@ -1,6 +1,6 @@
 import {Box, Container, Typography, Rating } from "@mui/material";
 import Link from "next/link";
-import { GetStudios } from "../../components/fetcher/fetcher";
+import { GetStudios } from "../fetcher/fetcher";
 import StudioCarousel from "../studios/StudioCarousel";
 import StudioInfo from "../studios/StudioInfo";
 
