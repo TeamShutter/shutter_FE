@@ -4,42 +4,32 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import HomeIcon from '@mui/icons-material/Home';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import InfoIcon from '@mui/icons-material/Info';
-import { GetProfile, GetStudios } from "../../components/fetcher/fetcher";
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { getCookie } from "../../components/cookie";
 import { useEffect, useState } from "react";
+import Layout from "../../layouts/Layout";
+import { useAuth } from "../../hooks/use-auth";
 
 
 
 export default function Profile() {
     const router = useRouter();
     const {studioId} = router.query;
-    const [user, setUser] = useState(null);
-    
+    const auth = useAuth();
     useEffect(() => {
-        const curUser = getCookie("user");
-        setUser(curUser);
+        auth.getProfile();
     }, []);
 
-    const {profile, profileLoading, profileError} = GetProfile(user?.id);
+    // const {profile, profileLoading, profileError} = GetProfile();
 
-    if(profileLoading) return <div>Loading...</div>
-    if(profileError) return <div>Error!!</div>
+    // if(profileLoading) return <div>Loading...</div>
+    // if(profileError) return <div>Error!!</div>
 
 
-    return profile && (
+    return auth.profile && (
 
-        <>
-        <Head>
-          <title>Shutter | Profile</title>
-        </Head>
-  
-        <Box
-          component='main'
-        >
-          <Container maxWidth="lg">
+        <Layout>
+            <Head>
+                <title>Profile | Shutter</title>
+            </Head>
 
             <ArrowBackIosNewIcon 
             onClick={() => router.back()}
@@ -67,11 +57,11 @@ export default function Profile() {
                 <Box>
                     <Typography
                     variant="h6">
-                    {profile.profile.user.username}
+                    {auth.profile.profile.user.username}
                     </Typography>
                     <Typography
                     variant="subtitle1">
-                    {profile.profile.town}
+                    {auth.profile.profile.town}
                     </Typography>
                    <Box
                    sx={{
@@ -106,7 +96,7 @@ export default function Profile() {
 
                 <ImageList sx={{ width: '100%' }} cols={2} gap={10}>
                     
-                    {profile.like_photos.map((photo) => (
+                    {auth.profile.like_photos.map((photo) => (
                         <Link 
                         href={`photos/${photo.id}`}
                         key={photo.name}
@@ -142,7 +132,7 @@ export default function Profile() {
                 >
                     관심 매장
                 </Typography>
-                {profile.follow_studios.map((studio) => (
+                {auth.profile.follow_studios.map((studio) => (
                     <Link 
                     key={studio.id}
                     href={`/studios/${studio.id}`}
@@ -189,10 +179,7 @@ export default function Profile() {
                     
                 ))}
             </Box>
-           
 
-          </Container>
-        </Box>
-      </>
+        </Layout>
     )
 }

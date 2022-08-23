@@ -7,9 +7,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../components/cookie";
 import PhotoLike from "../../components/photos/PhotoLike";
+import Layout from "../../layouts/Layout";
+import { useAuth } from "../../hooks/use-auth";
 
 
-export default function Studio() {
+export default function Photo() {
     const BASE_URL = process.env.NODE_ENV === "development"
     ? "http://localhost:8000"
     : "http://54.180.88.193:8000"
@@ -18,22 +20,39 @@ export default function Studio() {
     const {photoId} = router.query;
     const [like, setLike] = useState(false);
     const [likes, setLikes] = useState(0);
-    const [user, setUser] = useState(null);
+    const auth = useAuth();
 
     const {data, isLoading, isError} = GetPhoto(photoId);
 
     useEffect(() => {
-      const curUser = getCookie("user");
       setLikes(data?.like_users.length);
 
-      data?.like_users?.includes(curUser?.id) == true ? (
+      data?.like_users?.includes(auth.user?.id) == true ? (
         setLike(true)
       ) : (
         setLike(false)
       )
-      setUser(curUser);
     }, [data]);
 
+
+    const handleLike = async () => {
+    await fetch(`${BASE_URL}/photos/${photoId}/like`, {
+        method: 'GET',
+        headers: {
+          "userid": auth.user.id
+        },
+        withCredentials: true,
+    });
+
+    like ? (
+    setLikes((prev) => prev - 1)
+     ) : (
+       setLikes((prev) => prev + 1)
+    )  
+
+    setLike((prev) => !prev);
+
+    }
 
     if(isLoading) return <div>Loading...</div>
     if(isError) return <div>Error!!</div>
@@ -41,15 +60,10 @@ export default function Studio() {
 
     return data && (
 
-        <>
-        <Head>
-          <title>Shutter | Photo</title>
-        </Head>
-  
-        <Box
-          component='main'
-        >
-          <Container maxWidth="lg">
+        <Layout>
+          <Head>
+            <title>Photo | Shutter</title>
+          </Head>
 
           <ArrowBackIosNewIcon 
             onClick={() => router.back()}
@@ -106,12 +120,34 @@ export default function Studio() {
                     </Link>
                   </Box>
 
+
                   {user ? (
                     <PhotoLike setLike={setLike} setLikes={setLikes} />
+                  {auth.user ? (
+                    <Box
+                    display="flex"
+                    alignItems="center"
+                    >
+                      <IconButton
+                            sx={{ color: 'red' }}
+                            aria-label={`star ${data?.name}`}
+                            onClick={handleLike}
+                        >
+                      {
+                      like 
+                      ?  
+                      <FavoriteIcon /> 
+                      : 
+                      <FavoriteBorderIcon />
+                      }
+                      </IconButton>
+                      <Typography>
+                        {likes}
+                      </Typography>
+  
+                    </Box>
                   ) : null}
 
-          </Container>
-        </Box>
-      </>
+        </Layout>
     )
 }

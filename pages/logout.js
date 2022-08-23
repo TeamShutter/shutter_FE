@@ -1,14 +1,22 @@
-import { useRouter } from "next/router";
+import Head from "next/head";
 import { useEffect } from "react";
-import { removeCookie } from "../components/cookie"
+import { useAuth } from "../hooks/use-auth";
+import Layout from "../layouts/Layout";
 
 
 export default function Logout() {
-    const router = useRouter();
+    const auth = useAuth();
     useEffect(() => {
-        removeCookie("user");
-        window.location.href = '/';
+        auth.logout();
     }, []);
 
-    return <div>Logout</div> 
+    return (
+        <Layout>
+
+            <Head>
+                <title>Logout | Shutter</title>
+            </Head>
+
+        </Layout>
+    )
 }
