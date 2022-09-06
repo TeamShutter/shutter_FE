@@ -12,8 +12,8 @@ import { useAuth } from "../../hooks/use-auth";
 
 export default function Photo() {
     const BASE_URL = process.env.NODE_ENV === "development"
-    ? "http://localhost:8000"
-    : "http://54.180.88.193:8000"
+    ? "http://127.0.0.1:8000"
+: "http://takeshutter.co.kr:8000"
 
     const router = useRouter();
     const {photoId} = router.query;

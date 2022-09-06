@@ -165,7 +165,7 @@ const settings = auth.user ? [
               textDecoration: 'none',
             }}
           >
-            SHUTTER
+            Shutter
           </Typography>
           </Link>
 
@@ -187,7 +187,7 @@ const settings = auth.user ? [
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={auth.user ? auth.user.username : ""} src="" />
@@ -219,7 +219,7 @@ const settings = auth.user ? [
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
