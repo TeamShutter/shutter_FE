@@ -18,8 +18,8 @@ const fetcher = async (...args) => {
     return data;
 }
 
-export const GetStudios = (price, distance) => {
-    const {data, error} = useSWR(`${BASE_URL}/studios?price=${price}&distance=${distance}`, fetcher);
+export const GetStudios = (price, distance, latitude, longitude) => {
+    const {data, error} = useSWR(`${BASE_URL}/studios?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
 
     return {
         studios: data,
@@ -58,9 +58,8 @@ export const GetStudioPhotos = (studioId) => {
     }
 }
 
-export const GetSearch = () => {
-    const {data, error} = useSWR(`${BASE_URL}/studios/search`, fetcher);
-
+export const GetSearch = (q) => {
+    const {data, error} = useSWR(`${BASE_URL}/studios/search?q=${q}`, fetcher);
     return {
         search: data,
         searchLoading: !error & !data,
@@ -79,7 +78,6 @@ export const GetPhotos = (price, photoshop, sex, tags) => {
     }   else {
         fetchURL = `${BASE_URL}/photos?price=${price}&photoshop=${photoshop}&sex=${sex}`;
     }
-    
     const {data, error} = useSWR(fetchURL, fetcher);
 
     return {

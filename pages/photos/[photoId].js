@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import PhotoLike from "../../components/photos/PhotoLike";
 import Layout from "../../layouts/Layout";
 import { useAuth } from "../../hooks/use-auth";
+import PhotoList from "../../components/photos/PhotoList";
 
 
 export default function Photo() {
@@ -22,7 +23,7 @@ export default function Photo() {
     const auth = useAuth();
 
     const {data, isLoading, isError} = GetPhoto(photoId);
-
+    const studioId = data?.studio?.id;
     useEffect(() => {
       setLikes(data?.like_users.length);
 
@@ -33,7 +34,7 @@ export default function Photo() {
       )
     }, [data]);
 
-
+    
     const handleLike = async () => {
     await fetch(`${BASE_URL}/photos/${photoId}/like`, {
         method: 'GET',
@@ -117,6 +118,10 @@ export default function Photo() {
                     />
                     </a>
                     </Link>
+                  </Box>
+                  
+                  <Box>
+                    <PhotoList studioId={studioId} />
                   </Box>
 
 

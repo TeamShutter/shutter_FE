@@ -35,10 +35,6 @@ const filters = [
       title: 'distance',
       options:  [
         {
-            value: 0,
-            label: '선택'
-        },
-        {
             value: 1,
             label: '가까움'
         },

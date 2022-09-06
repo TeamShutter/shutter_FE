@@ -15,7 +15,7 @@ import StudioCarousel from "../../components/studios/StudioCarousel";
 import StudioInfo from "../../components/studios/StudioInfo";
 import PhotoList from '../../components/photos/PhotoList';
 import Layout from "../../layouts/Layout";
-import { useAuth } from "../../hooks/use-auth";
+// import { useAuth } from "../../hooks/use-auth";
 
 
 export default function Studio() {
@@ -23,7 +23,7 @@ export default function Studio() {
   ? "http://127.0.0.1:8000"
 : "http://takeshutter.co.kr:8000"
 
-    const auth = useAuth();
+    // const auth = useAuth();
 
     const router = useRouter();
     const {studioId} = router.query;
@@ -39,11 +39,11 @@ export default function Studio() {
     useEffect(() => {
       setFollows(studio?.follows);
 
-      studio?.studio.follow_users.includes(auth.user?.id) == true ? (
-        setFollow(true)
-      ) : (
-        setFollow(false)
-      )
+      // studio?.studio.follow_users.includes(auth.user?.id) == true ? (
+      //   setFollow(true)
+      // ) : (
+      //   setFollow(false)
+      // )
       setReviewList(reviews);
     }, [studio, reviews]);
 
@@ -51,24 +51,25 @@ export default function Studio() {
     if(studioError || photosError || reviewsError) return <div>Error!!</div>
 
 
-    const handleFollow = async () => {
-      await fetch(`${BASE_URL}/studios/${studioId}/follow`, {
-          method: 'GET',
-          headers: {
-            "userid": auth.user.id
-          },
-          withCredentials: true,
-      });
+
+    // const handleFollow = async () => {
+    //   await fetch(`${BASE_URL}/studios/${studioId}/follow`, {
+    //       method: 'GET',
+    //       headers: {
+    //         "userid": auth.user.id
+    //       },
+    //       withCredentials: true,
+    //   });
   
-      follow ? (
-      setFollows((prev) => prev - 1)
-       ) : (
-         setFollows((prev) => prev + 1)
-      )  
+    //   follow ? (
+    //   setFollows((prev) => prev - 1)
+    //    ) : (
+    //      setFollows((prev) => prev + 1)
+    //   )  
   
-      setFollow((prev) => !prev);
+    //   setFollow((prev) => !prev);
   
-      }
+    //   }
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -76,10 +77,10 @@ export default function Studio() {
         const formData = {
           content: e.target.content.value,
           rating: e.target.rating.value,
-          userId: auth.user.id,
+          userId: 3,  // 로그인이 안돼서 일단 2로 바꿔놓음
       }
 
-        const res =  await fetch(`${BASE_URL}/studios/${studioId}/reviews/`, {
+        const res =  await fetch(`${BASE_URL}/studios/${studioId}/review/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -91,8 +92,7 @@ export default function Studio() {
       setReviewList((prev) => [...prev, data]);
       e.target.content.value = "";
     };
-
-    return studio && photos && reviews && (
+    return studio && photos && reviews && reviewList !== [] &&(
         <Layout>
 
           <Head>
@@ -128,7 +128,7 @@ export default function Studio() {
                   {studio.studio.name}
                 </Typography>
 
-               {auth.user ? (
+               {/* {auth.user ? (
                   <Box
                   display= 'flex'
                   alignItems= 'center'
@@ -167,7 +167,7 @@ export default function Studio() {
   
                     </Box>
                   </Box>
-               ) : null}
+               ) : null} */}
               </Box>
                 
 
@@ -234,9 +234,9 @@ export default function Studio() {
                     Reviews
                   </Typography>
 
-              <ReviewList reviews={reviewList} studioId={studioId}/>
+              <ReviewList reviews={reviewList}/>
 
-              {auth.user ? (
+              {/* {auth.user ? ( */}
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
                 <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
                     <Box item xs={9}>
@@ -264,7 +264,7 @@ export default function Studio() {
                 
                 </FormControl>
               </Box>
-             ) : null}
+             {/* ) : null} */}
                
             </Box>
         </Layout>
