@@ -36,7 +36,7 @@ export default function Search() {
   if (searchLoading) return <div>Loading...</div>;
   if (searchError) return <div>Error!!</div>;
 
-  return (
+  return search && (
     <>
       <Box component="main">
         <Container maxWidth="lg">
@@ -62,6 +62,7 @@ export default function Search() {
           />
         </Container>
       </Box>
+      
       <Box>
         <Container>
           <Box>

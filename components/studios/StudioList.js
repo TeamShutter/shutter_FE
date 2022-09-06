@@ -6,7 +6,7 @@ import StudioInfo from "../studios/StudioInfo";
 
 // {price, photoshop, sex, tags}
 export default function StudioList(props) {
-  const studiosData = GetStudios(props.price, props.distance);
+  const studiosData = GetStudios(props.price, props.distance, props.latitude, props.longitude);
 
   const studios = studiosData.studios;
   const studiosLoading = studiosData.studiosLoading;
