@@ -24,9 +24,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 html {
-  max-width: 640px;
+  max-width: 800px;
   margin: auto;
+  background-color: rgba(223, 230, 233,0.2);
 }
+
 body {
-  border: 1px solid black;
+  margin-top: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(223, 230, 233,1.0);
 }

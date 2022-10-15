@@ -14,6 +14,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/use-auth';
+import { Image } from "@mui/icons-material";
 
 
 
@@ -83,12 +84,11 @@ const settings = auth.user ? [
   };
 
   return (
-    <AppBar position="static" sx={{ mb: 8 }}>
+    <AppBar position="static" sx={{ mb: 8, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <PhotoCameraIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Link href="/">
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -103,8 +103,9 @@ const settings = auth.user ? [
               textDecoration: 'none',
             }}
           >
-              Shutter
-          </Typography>
+              Shutters
+          </Typography> */}
+            <img src="/static/shutter_logo.jpeg" alt="Shutter Logo" width={40} height={40} />
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
