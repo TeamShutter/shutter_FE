@@ -13,8 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../hooks/use-auth';
-import { Image } from "@mui/icons-material";
+import { useSelector } from 'react-redux';
 
 
 
@@ -31,7 +30,7 @@ import { Image } from "@mui/icons-material";
 // const settings = ['Profile', 'Logout'];
 
 const Header = () => {
-  const auth = useAuth();
+  const user = useSelector(state => state.auth.user);
 
 
   const pages = [
@@ -45,9 +44,9 @@ const Header = () => {
     }
 ];
 
-const settings = auth.user ? [
+const settings = user ? [
   {
-      title: `${auth.user.username}'s Profile`,
+      title: `${user.username}'s Profile`,
       link: '/profile',
   },
   {
@@ -188,10 +187,10 @@ const settings = auth.user ? [
             ))}
           </Box>
 
-          {/* <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={auth.user ? auth.user.username : ""} src="" />
+                <Avatar alt={user ? user.username : ""} src="" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -220,7 +219,7 @@ const settings = auth.user ? [
                 </MenuItem>
               ))}
             </Menu>
-          </Box> */}
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

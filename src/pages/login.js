@@ -2,43 +2,40 @@ import { Box, Button,  Checkbox,  Container, FormControl, FormControlLabel, Grid
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../hooks/use-auth";
 import Layout from "../layouts/Layout";
+import { login } from "../actions/auth";
 
 export default function Login() {
   const router = useRouter();
-  const auth = useAuth();
-  const BASE_URL = process.env.NODE_ENV === "development"
-  ? "http://127.0.0.1:8000"
-: "http://takeshutter.co.kr:8000"
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const loading = useSelector(state => state.auth.loading);
 
-    const [checked, setChecked] = useState(false);
+  const [formData, setFormData] = useState({
+    'username': '',
+    'password': ''
+  });
+
+  const {
+    username,
+    password,
+  } = formData;
+
+  const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value }); 
 
     // form 전송
-    const handleSubmit = async (e) => {
-      
+  const handleSubmit = async (e) => {
       e.preventDefault();
-
-      const username = e.target.username.value;
-      const password = e.target.password.value;
-      auth.login(username, password);
-    //   const formData = {
-    //     username: e.target.username.value,
-    //     password: e.target.password.value,
-    // }
-
-    // fetch(`${BASE_URL}/accounts/login`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     credentials: 'include',
-    //     body: JSON.stringify(formData),
-    // });
-    // router.push("/");
-    
-    
+      
+      if(dispatch && dispatch !== null && dispatch !== undefined) {
+          dispatch(login(username, password));
+      }
   };
+    if (typeof window !== 'undefined' && isAuthenticated) {
+      router.push('/');
+  }
 
 
     return (
@@ -52,6 +49,7 @@ export default function Login() {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
+                    onChange={handleChange}
                     required
                     autoFocus
                     fullWidth
@@ -63,6 +61,7 @@ export default function Login() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    onChange={handleChange}
                     required
                     fullWidth
                     type="password"

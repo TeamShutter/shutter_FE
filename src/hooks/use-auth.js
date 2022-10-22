@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
+import { API_URL } from "../config";
 
 
 
-const BASE_URL = process.env.NODE_ENV === "development"
-? "http://127.0.0.1:8000"
-: "http://takeshutter.co.kr:8000"
+// const API_URL = process.env.NODE_ENV === "development"
+// ? "http://127.0.0.1:8000"
+// : "http://takeshutter.co.kr:8000"
 
 const authContext = createContext();
 
@@ -32,8 +33,8 @@ function useProvideAuth() {
     // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
   const login = async (username, password) => {
-
-    return await axios.post(`${BASE_URL}/accounts/login`, {
+    console.log("Login!!")
+    return await axios.post(`${API_URL}/account/login/`, {
         username: username,
         password: password,
         
@@ -46,14 +47,12 @@ function useProvideAuth() {
       ).then((response) => { 
       console.log("Res : ", response);
       console.log("Res Header: ",response.headers);
-      console.log("Data : ", response.data);
   
-      // console.log("Data : ", data);
-      setUser(response.data.user);
+      // setUser(response.data.user);
       router.push('/');
   })
 
-    // return await fetch(`${BASE_URL}/accounts/login`, {
+    // return await fetch(`${API_URL}/accounts/login`, {
     //         method: 'POST',
     //         headers: {
     //           'Accept': 'application/json',
@@ -76,7 +75,7 @@ function useProvideAuth() {
   } 
 
   const signup = async (formData) => {
-    return await fetch(`${BASE_URL}/accounts/signup`, {
+    return await fetch(`${API_URL}/accounts/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +92,7 @@ function useProvideAuth() {
 }
 
   const logout = async () => {
-    return await fetch(`${BASE_URL}/accounts/logout`, {
+    return await fetch(`${API_URL}/accounts/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,7 +107,7 @@ function useProvideAuth() {
   }
 
   const getProfile = async () => {
-    return await fetch(`${BASE_URL}/accounts/profile`, {
+    return await fetch(`${API_URL}/accounts/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
