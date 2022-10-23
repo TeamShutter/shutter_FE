@@ -1,11 +1,10 @@
 import { Box, Button,  Checkbox,  Container, FormControl, FormControlLabel, Grid, TextField } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAuth } from "../hooks/use-auth";
 import Layout from "../layouts/Layout";
-import { login } from "../actions/auth";
+import { login, reset_signup_success } from "../actions/auth";
 
 export default function Login() {
   const router = useRouter();
@@ -22,6 +21,12 @@ export default function Login() {
     username,
     password,
   } = formData;
+
+  useEffect(() => {
+    if(dispatch && dispatch !== null & dispatch !== undefined) {
+        dispatch(reset_signup_success());
+    }
+}, [dispatch]);
 
   const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value }); 
 

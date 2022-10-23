@@ -31,6 +31,7 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
   const user = useSelector(state => state.auth.user);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
 
   const pages = [
@@ -44,9 +45,11 @@ const Header = () => {
     }
 ];
 
-const settings = user ? [
+// const settings = user ? [
+  const settings = isAuthenticated ? [
   {
-      title: `${user.username}'s Profile`,
+      // title: `${user.username}'s Profile`,
+      title: `Test User's Profile`,
       link: '/profile',
   },
   {

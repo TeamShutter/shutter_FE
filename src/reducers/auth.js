@@ -1,8 +1,11 @@
 import { 
     SIGNUP_SUCCESS,
     SIGNUP_FAIL,
+    RESET_SIGNUP_SUCCESS,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAIL,
  } from "../actions/types";
 
  const initialState = {
@@ -25,6 +28,11 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state
             };
+        case RESET_SIGNUP_SUCCESS:
+            return {
+                ...state,
+                signup_success: false
+            };
         case LOGIN_SUCCESS: 
             return {
                 ...state,
@@ -34,6 +42,16 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: false
+            };
+        case LOGOUT_SUCCESS: 
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: null
+            };
+        case LOGOUT_FAIL:
+            return {
+                ...state
             };
 
         default:
