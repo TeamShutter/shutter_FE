@@ -6,6 +6,10 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAIL,
+    AUTHENTICATION_SUCCESS,
+    AUTHENTICATION_FAIL
  } from "../actions/types";
 
  const initialState = {
@@ -16,7 +20,7 @@ import {
 };
 
 const authReducer = (state = initialState, action) => {
-    const {type} = action;
+    const {type, payload} = action;
 
     switch(type) {
         case SIGNUP_SUCCESS:
@@ -52,6 +56,27 @@ const authReducer = (state = initialState, action) => {
         case LOGOUT_FAIL:
             return {
                 ...state
+            };
+        case LOAD_USER_SUCCESS:
+            return {
+                ...state,
+                user: payload.user
+            };
+        case LOAD_USER_FAIL:
+            return {
+                ...state,
+                user: null
+            };
+        case AUTHENTICATION_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: true
+            };
+        case AUTHENTICATION_FAIL:
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: null
             };
 
         default:

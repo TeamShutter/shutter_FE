@@ -45,11 +45,9 @@ const Header = () => {
     }
 ];
 
-// const settings = user ? [
-  const settings = isAuthenticated ? [
+const settings = user ? [
   {
-      // title: `${user.username}'s Profile`,
-      title: `Test User's Profile`,
+      title: `${user.username}'s Profile`,
       link: '/profile',
   },
   {

@@ -6,10 +6,72 @@ import {
     LOGIN_FAIL,
     LOGOUT_SUCCESS,
     LOGOUT_FAIL,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAIL,
+    AUTHENTICATION_SUCCESS,
+    AUTHENTICATION_FAIL,
     SET_AUTH_LOADING,
     REMOVE_AUTH_LOADING
  } from "./types";
 
+ export const loaduser = () => async dispatch => {
+
+    try {
+        const res = await fetch('/api/account/user', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        const data = await res.json();
+
+        if(res.status === 200) {
+            console.log("Success!");
+            dispatch({
+                type: LOAD_USER_SUCCESS,
+                payload: data
+            })
+            
+        }   else {
+            dispatch({
+                type: LOAD_USER_FAIL
+            })
+            
+        }
+    }   catch(err) {
+        dispatch({
+            type: LOAD_USER_FAIL
+        })
+    }
+};
+
+export const check_auth_status = () => async dispatch => {
+
+    try {
+        const res = await fetch('/api/account/verify', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if(res.status === 200) {
+            dispatch({
+                type: AUTHENTICATION_SUCCESS
+            });
+            dispatch(loaduser())
+        }   else {
+            dispatch({
+                type: AUTHENTICATION_FAIL
+            })
+        }
+    }   catch(err) {
+        dispatch({
+            type: AUTHENTICATION_FAIL
+        })
+    }
+};
 
 export const login = (username, password) => async dispatch => {
     const body = JSON.stringify({
@@ -35,7 +97,7 @@ export const login = (username, password) => async dispatch => {
             dispatch({
                 type: LOGIN_SUCCESS
             })
-            // dispatch(loaduser())
+            dispatch(loaduser())
         }   else {
             dispatch({
                 type: LOGIN_FAIL

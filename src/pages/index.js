@@ -5,8 +5,8 @@ import { useState } from 'react';
 import PhotoList from '../components/photos/PhotoList';
 import FilterContainer from '../components/filters/FilterContainer';
 import FilterTags from '../components/filters/FilterTags';
-import Layout from '../layouts/Layout';
 import { useAuth } from '../hooks/use-auth';
+import Layout from '../layouts/Layout';
 
 export default function Home() {
   
@@ -16,16 +16,15 @@ export default function Home() {
   // const [page, setPage] = useState(1);
   const [tagList, setTagList] = useState([]);
 
-  const {tags, tagsLoading, tagsError} = GetTags();
+  // const {tags, tagsLoading, tagsError} = GetTags();
 
-  // const changePage = (e) => {
-  //   console.log(e.target);
-  // }
-  const auth = useAuth();
+ 
+  // const auth = useAuth();
   
-  if(tagsLoading) return <div>Loading...</div>
-  if(tagsError) return <div>Error!!</div>
-  return tags && (
+  // if(tagsLoading) return <div>Loading...</div>
+  // if(tagsError) return <div>Error!!</div>
+  // return tags && (
+  return  (
     <Layout>
 
       <Typography 
@@ -39,10 +38,10 @@ export default function Home() {
           </Typography>
           
           <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} />
-
+{/* 
           <FilterTags tagList={tagList} setTagList={setTagList} tags={tags} />
 
-          <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />
+          <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} /> */}
           
           {/* <Pagination sx={{display:"flex", justifyContent:"center"}} onChange={changePage} count={2} /> */}
     </Layout>

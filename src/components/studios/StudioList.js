@@ -6,20 +6,21 @@ import StudioInfo from "../studios/StudioInfo";
 
 // {price, photoshop, sex, tags}
 export default function StudioList(props) {
-  const studiosData = GetStudios(props.price, props.distance, props.latitude, props.longitude);
+  const studiosData = GetStudios();
 
-  const studios = studiosData.studios;
+  const studios = studiosData.studios?.data;
+  console.log(studios);
   const studiosLoading = studiosData.studiosLoading;
   const studiosError = studiosData.studiosError;
 
   if (studiosLoading) return <div>Loading...</div>;
   if (studiosError) return <div>Error!!</div>;
 
-  return (
+  return studios && (
     <Box>
       {studios.map((studio, i) => (
         <Box key={i} sx={{ mb: 10 }}>
-          <StudioCarousel studio={studio} />
+          {/* <StudioCarousel studio={studio} /> */}
           <Link href={`/studios/${studio.id}`}>
             <a>
               <div
@@ -37,7 +38,7 @@ export default function StudioList(props) {
                   />
                 </Typography>
 
-                <StudioInfo studio={studio} />
+                {/* <StudioInfo studio={studio} /> */}
               </div>
             </a>
           </Link>
