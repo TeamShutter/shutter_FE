@@ -20,7 +20,7 @@ export default function StudioInfo({ studio }) {
             </Box>
             
             <Typography>
-                {studio.openTime} ~ {studio.closeTime}
+                {studio.open_time} ~ {studio.close_time}
             </Typography>
 
             </Box>

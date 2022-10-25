@@ -21,35 +21,35 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import { useEffect } from "react";
 
 export default function Studioindex() {
-  const [distance, setDistance] = useState(1);
-  const [price, setPrice] = useState(0);
-  const [page, setPage] = useState(1);
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  // const [distance, setDistance] = useState(1);
+  // const [price, setPrice] = useState(0);
+  // const [page, setPage] = useState(1);
+  // const [latitude, setLatitude] = useState("");
+  // const [longitude, setLongitude] = useState("");
 
 
-  const changePage = (e) => {
-    setPage(e.target.innerText);
-  };
+  // const changePage = (e) => {
+  //   setPage(e.target.innerText);
+  // };
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      setLatitude(latitude);
-      setLongitude(longitude);
-    });
-  }, []);
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(function (position) {
+  //     const latitude = position.coords.latitude;
+  //     const longitude = position.coords.longitude;
+  //     setLatitude(latitude);
+  //     setLongitude(longitude);
+  //   });
+  // }, []);
 
-  const getLocation = (e) => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      console.log(position);
-      const latitude = position.coords.latitude;
-      const longtitude = position.coords.longitude;
-      setLatitude(latitude);
-      setLongitude(longitude);
-    });
-  };
+  // const getLocation = (e) => {
+  //   navigator.geolocation.getCurrentPosition(function (position) {
+  //     console.log(position);
+  //     const latitude = position.coords.latitude;
+  //     const longtitude = position.coords.longitude;
+  //     setLatitude(latitude);
+  //     setLongitude(longitude);
+  //   });
+  // };
 
   return (
     <Layout>
@@ -58,7 +58,7 @@ export default function Studioindex() {
       </Head>
 
       <Box>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        {/* <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <TextField
             sx={{ display: "flex", alignItems: "center" }}
             id="outlined-read-only-input"
@@ -77,14 +77,16 @@ export default function Studioindex() {
               ),
             }}
           />
-        </Box>
-        <Container>
+        </Box> */}
+        {/* <Container>
           <StudioFilterContainer
             setPrice={setPrice}
             setDistance={setDistance}
           />
           <StudioList price={price} distance={distance} latitude={latitude} longitude={longitude} />
-        </Container>
+        </Container> */}
+
+        <StudioList />
       </Box>
     </Layout>
 

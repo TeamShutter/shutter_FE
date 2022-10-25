@@ -9,7 +9,6 @@ export default function StudioList(props) {
   const studiosData = GetStudios();
 
   const studios = studiosData.studios?.data;
-  console.log(studios);
   const studiosLoading = studiosData.studiosLoading;
   const studiosError = studiosData.studiosError;
 
@@ -20,7 +19,7 @@ export default function StudioList(props) {
     <Box>
       {studios.map((studio, i) => (
         <Box key={i} sx={{ mb: 10 }}>
-          {/* <StudioCarousel studio={studio} /> */}
+          <StudioCarousel studio={studio} />
           <Link href={`/studios/${studio.id}`}>
             <a>
               <div
@@ -38,7 +37,7 @@ export default function StudioList(props) {
                   />
                 </Typography>
 
-                {/* <StudioInfo studio={studio} /> */}
+                <StudioInfo studio={studio} />
               </div>
             </a>
           </Link>

@@ -15,7 +15,7 @@ export default function StudioCarousel({ studio }) {
         }}
         >
         {
-            studio.images.map( (image, i) =>  (
+            studio.studio_images.map( (image, i) =>  (
             <Box
             key={i}
             sx={{

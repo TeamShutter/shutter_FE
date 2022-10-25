@@ -38,12 +38,13 @@ export default function Home() {
           </Typography>
           
           <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} />
-{/* 
-          <FilterTags tagList={tagList} setTagList={setTagList} tags={tags} />
 
-          <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} /> */}
+          {/* <FilterTags tagList={tagList} setTagList={setTagList} tags={tags} /> */}
+
+          {/* <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />  */}
+          <PhotoList price={1} />
           
-          {/* <Pagination sx={{display:"flex", justifyContent:"center"}} onChange={changePage} count={2} /> */}
+          {/* <Pagination sx={{display:"flex", justifyContent:"center"}} onChange={changePage} count={2} />  */}
     </Layout>
   )
 }

@@ -68,17 +68,27 @@ export const GetSearch = (q) => {
     }
 }
 
-export const GetPhotos = (price, photoshop, sex, tags) => {
-    let fetchURL;
-    if(tags && tags.length > 0) {
-        let tagsString = "";
-        for(let i = 0; i < tags.length; i ++) {
-            tagsString += `tags=${tags[i]}&`;
-        }
-        fetchURL = `${BASE_URL}/photos?price=${price}&photoshop=${photoshop}&sex=${sex}&${tagsString}`;
-    }   else {
-        fetchURL = `${BASE_URL}/photos?price=${price}&photoshop=${photoshop}&sex=${sex}`;
-    }
+// export const GetPhotos = (price, photoshop, sex, tags) => {
+//     let fetchURL;
+//     if(tags && tags.length > 0) {
+//         let tagsString = "";
+//         for(let i = 0; i < tags.length; i ++) {
+//             tagsString += `tags=${tags[i]}&`;
+//         }
+//         fetchURL = `${BASE_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}&${tagsString}`;
+//     }   else {
+//         fetchURL = `${BASE_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}`;
+//     }
+//     const {data, error} = useSWR(fetchURL, fetcher);
+
+//     return {
+//         photos: data,
+//         photosLoading: !error & !data,
+//         photosError: error,
+//     }
+// }
+export const GetPhotos = () => {
+    const fetchURL = `${BASE_URL}/photo/`;
     const {data, error} = useSWR(fetchURL, fetcher);
 
     return {
@@ -89,12 +99,12 @@ export const GetPhotos = (price, photoshop, sex, tags) => {
 }
 
 export const GetPhoto = (photoId) => {
-    const {data, error} = useSWR(`${BASE_URL}/photos/${photoId}`, fetcher);
+    const {data, error} = useSWR(`${BASE_URL}/photo/${photoId}`, fetcher);
 
     return {
-        data,
-        isLoading: !error & !data,
-        isError: error,
+        photoData: data,
+        photoDataLoading: !error & !data,
+        photoDataError: error,
     }
 }
 

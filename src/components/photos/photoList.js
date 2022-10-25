@@ -5,24 +5,26 @@ import { GetPhotos, GetStudioPhotos } from "../fetcher/fetcher";
 // {price, photoshop, sex, tags}
 export default function PhotoList(props) {
 
-  let photosData, photos, photosLoading, photosError, usage;
-  if ("price" in props) {
-    photosData = GetPhotos(props.price, props.photoshop, props.sex, props.tags);
-    usage = "index"
-  } else {
-    photosData = GetStudioPhotos(props.studioId);
-    usage = "studio"
+  // let photosData, photos, photosLoading, photosError, usage;
+  // if ("price" in props) {
+  //   photosData = GetPhotos(props.price, props.photoshop, props.sex, props.tags);
+  //   usage = "index"
+  // } else {
+  //   photosData = GetStudioPhotos(props.studioId);
+  //   usage = "studio"
 
-  }
+  // }
+  const photosData = GetPhotos();
+  const usage = "index"
 
-  photos = photosData.photos;
-  photosLoading = photosData.photosLoading;
-  photosError = photosData.photosError;
+  const photos = photosData.photos?.data;
+  const photosLoading = photosData.photosLoading;
+  const photosError = photosData.photosError;
 
   if (photosLoading) return <div>Loading...</div>;
   if (photosError) return <div>Error!!</div>;
 
-  return (
+  return photos && (
     <> {
       usage === "index" ?
       <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
@@ -35,7 +37,7 @@ export default function PhotoList(props) {
                     sx={{
                       width: "100%",
                       paddingBottom: "120%",
-                      backgroundImage: `url(${photo.photoUrl})`,
+                      backgroundImage: `url(${photo.photo_url})`,
                       backgroundPosition: "center center",
                       backgroundRepeat: "no-repeat",
                       backgroundSize: "cover",
@@ -92,7 +94,7 @@ export default function PhotoList(props) {
                   sx={{
                     width: "100%",
                     paddingBottom: "120%",
-                    backgroundImage: `url(${photo.photoUrl})`,
+                    backgroundImage: `url(${photo.photo_url})`,
                     backgroundPosition: "center center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",

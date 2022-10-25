@@ -7,8 +7,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import PhotoLike from "../../components/photos/PhotoLike";
 import Layout from "../../layouts/Layout";
-import { useAuth } from "../../hooks/use-auth";
 import PhotoList from "../../components/photos/PhotoList";
+import { useSelector } from "react-redux";
 
 
 export default function Photo() {
@@ -20,26 +20,28 @@ export default function Photo() {
     const {photoId} = router.query;
     const [like, setLike] = useState(false);
     const [likes, setLikes] = useState(0);
-    const auth = useAuth();
+    const user = useSelector(state => state.auth.user);
 
-    const {data, isLoading, isError} = GetPhoto(photoId);
-    const studioId = data?.studio?.id;
+    const {photoData, photoDataLoading, photoDataError} = GetPhoto(photoId);
+
+    const photo = photoData?.photo_data;
+    const studioId = photo?.studio?.id;
     useEffect(() => {
-      setLikes(data?.like_users.length);
+      setLikes(photo?.like_users.length);
 
-      data?.like_users?.includes(auth.user?.id) == true ? (
+      photo?.like_users?.includes(user?.id) == true ? (
         setLike(true)
       ) : (
         setLike(false)
       )
-    }, [data]);
+    }, [photo]);
 
     
     const handleLike = async () => {
-    await fetch(`${BASE_URL}/photos/${photoId}/like`, {
+    await fetch(`${BASE_URL}/photo/${photoId}/like`, {
         method: 'GET',
         headers: {
-          "userid": auth.user.id
+          "userid": user.id
         },
         withCredentials: true,
     });
@@ -54,11 +56,11 @@ export default function Photo() {
 
     }
 
-    if(isLoading) return <div>Loading...</div>
-    if(isError) return <div>Error!!</div>
+    if(photoDataLoading) return <div>Loading...</div>
+    if(photoDataError) return <div>Error!!</div>
 
 
-    return data && (
+    return photo && (
 
         <Layout>
           <Head>
@@ -73,15 +75,15 @@ export default function Photo() {
                   <Box
                     sx={{
                       width: '100%',
-                      paddingBottom: "120%",
-                      backgroundImage: `url(${data?.photoUrl})`,
+                      paddingBottom: "100%",
+                      backgroundImage: `url(${photo?.photo_url})`,
                       backgroundSize: 'cover',
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center center",
                       position: 'relative'
                     }}
                   >
-                    <Link href={`/studios/${data?.studio?.id}`}>
+                    <Link href={`/studios/${photo?.studio?.id}`}>
                     <a>
                       <ImageListItemBar
                       sx={{
@@ -90,7 +92,7 @@ export default function Photo() {
                           'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                           'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
                       }}
-                      title={data?.name}
+                      title={photo?.id}
                       position="top"
                       actionIcon={
                         <Box
@@ -100,8 +102,8 @@ export default function Photo() {
                         }}
                         >
                         <Avatar
-                          alt={data?.studio?.name}
-                          src={data?.studio?.thumbnail}
+                          alt={photo?.studio?.name}
+                          src={photo?.studio?.thumbnail}
                           sx={{ width: 35, height: 35, ml: 2, mr: 2 }}
                         />
                           <Typography
@@ -110,7 +112,7 @@ export default function Photo() {
                             color: 'white'
                           }}
                           >
-                            {data?.studio?.name}
+                            {photo?.studio?.name}
                           </Typography>
                       </Box>
                         }
@@ -125,18 +127,18 @@ export default function Photo() {
                   </Box>
 
 
-                  {auth.user ? (
+                  {user ? (
                     <PhotoLike setLike={setLike} setLikes={setLikes} /> 
                   ): null }
 
-                  {/* {auth.user ? (
+                  {/* {user ? (
                     <Box
                     display="flex"
                     alignItems="center"
                     >
                       <IconButton
                             sx={{ color: 'red' }}
-                            aria-label={`star ${data?.name}`}
+                            aria-label={`star ${photo?.name}`}
                             onClick={handleLike}
                         >
                       {
