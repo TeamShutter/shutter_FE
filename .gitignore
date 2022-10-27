@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# 테스트로 넣어놓은 사진들
+/public/static/photos

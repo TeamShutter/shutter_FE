@@ -33,9 +33,9 @@ export const GetStudio = (studioId) => {
     const {data, error} = useSWR(`${BASE_URL}/studio/${studioId}`, fetcher);
 
     return {
-        studio: data,
-        studioLoading: !error & !data,
-        studioError: error,
+        studioData: data,
+        studioDataLoading: !error & !data,
+        studioDataError: error,
     }
 }
 

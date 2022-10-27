@@ -28,27 +28,30 @@ export default function Studio() {
     const router = useRouter();
     const {studioId} = router.query;
 
-    const [follow, setFollow] = useState(false);
-    const [follows, setFollows] = useState(0);
-    const [reviewList, setReviewList] = useState([]);
+    // const [follow, setFollow] = useState(false);
+    // const [follows, setFollows] = useState(0);
+    // const [reviewList, setReviewList] = useState([]);
 
-    const {studio, studioLoading, studioError} = GetStudio(studioId);
-    const {photos, photosLoading, photosError} = GetStudioPhotos(studioId);
-    const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
+    const {studioData, studioDataLoading, studioDataError} = GetStudio(studioId);
+    const studio = studioData?.studio_data;
+    // const {photos, photosLoading, photosError} = GetStudioPhotos(studioId);
+    // const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
 
-    useEffect(() => {
-      setFollows(studio?.follows);
+    // useEffect(() => {
+    //   setFollows(studio?.follows);
 
-      // studio?.studio.follow_users.includes(auth.user?.id) == true ? (
-      //   setFollow(true)
-      // ) : (
-      //   setFollow(false)
-      // )
-      setReviewList(reviews);
-    }, [studio, reviews]);
+    //   studio?.studio.follow_users.includes(auth.user?.id) == true ? (
+    //     setFollow(true)
+    //   ) : (
+    //     setFollow(false)
+    //   )
+    //   setReviewList(reviews);
+    // }, [studio, reviews]);
 
-    if(studioLoading || photosLoading || reviewsLoading) return <div>Loading...</div>
-    if(studioError || photosError || reviewsError) return <div>Error!!</div>
+    // if(studioLoading || photosLoading || reviewsLoading) return <div>Loading...</div>
+    if(studioDataLoading) return <div>Loading...</div>
+    // if(studioError || photosError || reviewsError) return <div>Error!!</div>
+    if(studioDataError) return <div>Error!!</div>
 
 
 
@@ -92,11 +95,12 @@ export default function Studio() {
       setReviewList((prev) => [...prev, data]);
       e.target.content.value = "";
     };
-    return studio && photos && reviews && reviewList !== [] &&(
+    // return studio && photos && reviews && reviewList !== [] &&(
+      return studio && (
         <Layout>
 
           <Head>
-            <title>{studio.studio.name} | Shutter</title>
+            <title>{studio.name} | Shutter</title>
           </Head>
 
           <ArrowBackIosNewIcon 
@@ -111,7 +115,7 @@ export default function Studio() {
                 </a>
               </Link>
 
-              <StudioCarousel studio={studio.studio} />
+              <StudioCarousel studio={studio} />
 
             <Box
             >
@@ -125,7 +129,7 @@ export default function Studio() {
                 <Typography
                 variant='h5'
                 >
-                  {studio.studio.name}
+                  {studio.name}
                 </Typography>
 
                {/* {auth.user ? (
@@ -173,7 +177,7 @@ export default function Studio() {
 
                 <Rating name="read-only" value={3.5} precision={0.5} readOnly />
 
-                <StudioInfo studio={studio.studio} />
+                <StudioInfo studio={studio} />
 
                 <Box
                 sx={{
@@ -191,7 +195,7 @@ export default function Studio() {
                   </Box>
                   
                   <Typography>
-                    {studio.studio.description}
+                    {studio.description}
                   </Typography>
                 </Box>
 
@@ -211,7 +215,7 @@ export default function Studio() {
                   </Box>
                   
                   <Typography>
-                    {studio.studio.phone}
+                    {studio.phone}
                   </Typography>
                 </Box>
 
@@ -227,7 +231,7 @@ export default function Studio() {
               <PhotoList studioId={studioId} />
             </Box>
 
-            <Box 
+            {/* <Box 
             sx={{ mt : 3 }}>
                 <Typography
                   variant="h5">
@@ -236,7 +240,7 @@ export default function Studio() {
 
               <ReviewList reviews={reviewList}/>
 
-              {/* {auth.user ? ( */}
+              {auth.user ? (
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
                 <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
                     <Box item xs={9}>
@@ -264,9 +268,9 @@ export default function Studio() {
                 
                 </FormControl>
               </Box>
-             {/* ) : null} */}
+              ) : null}
                
-            </Box>
+            </Box> */}
         </Layout>
     )
 }

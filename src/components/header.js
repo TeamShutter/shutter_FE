@@ -105,7 +105,7 @@ const settings = user ? [
           >
               Shutters
           </Typography> */}
-            <img src="/static/shutter_logo.jpeg" alt="Shutter Logo" width={40} height={40} />
+            <img src="/static/logo_icon.png" alt="Shutter Logo" width={40} height={40} />
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -170,7 +170,7 @@ const settings = user ? [
           </Typography>
           </Link>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, marginLeft: 2, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link
               key={page.title}
@@ -191,7 +191,7 @@ const settings = user ? [
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user ? user.username : ""} src="" />
+                { user ? <Avatar alt={user.username} src="" /> : <Avatar alt="no-user" src="" sx={{ backgroundColor: '#fff' }} /> }
               </IconButton>
             </Tooltip>
             <Menu

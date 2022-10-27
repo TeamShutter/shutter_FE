@@ -27,7 +27,7 @@ export default function Home() {
   return  (
     <Layout>
 
-      <Typography 
+      {/* <Typography 
           variant='h2'
           sx={{
             textAlign: 'center',
@@ -35,9 +35,18 @@ export default function Home() {
             }}
             >
             Shutter
-          </Typography>
+          </Typography> */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              mb: 10
+            }}
+          >
+          <img src="/static/logo_long.png" alt="Shutter Logo" width={300} />
+          </Box>
           
-          <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} />
+          {/* <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} /> */}
 
           {/* <FilterTags tagList={tagList} setTagList={setTagList} tags={tags} /> */}
 
