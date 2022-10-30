@@ -5,10 +5,32 @@ import { useState } from 'react';
 import PhotoList from '../components/photos/PhotoList';
 import FilterContainer from '../components/filters/FilterContainer';
 import FilterTags from '../components/filters/FilterTags';
-import { useAuth } from '../hooks/use-auth';
 import Layout from '../layouts/Layout';
+// import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/styles';
+
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
+// const useStyles = makeStyles(() => {
+//   root: {
+//     width: '260px'
+//   }
+// })
+
+const TownChip = styled(Chip)({
+  width: '23%',
+  marginBottom: '8px',
+});
+
 
 export default function Home() {
+  // const classes = useStyles();
+
+  const [town, setTown] = useState('');
+
+  const handleChangeTown = (e) => {
+    setTown(e.target.innerText);
+  }
   
   const [price, setPrice] = useState(0);
   const [photoshop, setPhotoshop] = useState(0);
@@ -39,11 +61,89 @@ export default function Home() {
           <Box
             sx={{
               display: 'flex',
+              position: 'relative',
               justifyContent: 'center',
               mb: 10
             }}
           >
           <img src="/static/logo_long.png" alt="Shutter Logo" width={300} />
+          <Box sx={{
+              position: 'absolute', 
+              right: 5,
+              top: 10,
+              display: 'flex',
+              alignItems: 'center',
+              cursor: 'pointer'
+            }}>
+              <Typography>
+              동네별로 보기
+              </Typography>
+            <ArrowBackIosIcon sx={{ ml: 2 }} />
+          </Box>
+          
+          </Box>
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap'
+            }}
+          >
+            <TownChip
+              onClick={handleChangeTown}
+              label="홍대"
+              color={town === '홍대' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="이태원"
+              color={town === '이태원' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="강남"
+              color={town === '강남' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="신촌"
+              color={town === '신촌' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="노원"
+              color={town === '노원' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="신림"
+              color={town === '신림' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="수서"
+              color={town === '수서' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="종로"
+              color={town === '종로' ? 'primary' : 'default'}
+              clickable
+            />
+            <TownChip
+              onClick={handleChangeTown}
+              label="용산"
+              color={town === '용산' ? 'primary' : 'default'}
+              clickable
+            />
           </Box>
           
           {/* <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} /> */}
