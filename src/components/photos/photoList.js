@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GetPhotos, GetStudioPhotos } from "../fetcher/fetcher";
 
 // {price, photoshop, sex, tags}
-export default function PhotoList(props) {
+export default function PhotoList({studioId, town}) {
 
   // let photosData, photos, photosLoading, photosError, usage;
   // if ("price" in props) {
@@ -14,7 +14,16 @@ export default function PhotoList(props) {
   //   usage = "studio"
 
   // }
-  const photosData = GetPhotos();
+
+  let photosData;
+  if (town) {
+    photosData = GetPhotos(town);
+  }
+  else if (studioId) {
+    photosData = GetStudioPhotos(studioId);
+  } else {
+    photosData = GetPhotos();
+  }
   const usage = "index"
 
   const photos = photosData.photos?.data;

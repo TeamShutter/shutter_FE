@@ -50,7 +50,7 @@ export const GetStudioReviews = (studioId) => {
 }
 
 export const GetStudioPhotos = (studioId) => {
-    const {data, error} = useSWR(`${BASE_URL}/photos?studioId=${studioId}`, fetcher);
+    const {data, error} = useSWR(`${BASE_URL}/photo?studio_id=${studioId}`, fetcher);
 
     return {
         photos: data,
@@ -87,8 +87,13 @@ export const GetSearch = (q) => {
 //         photosError: error,
 //     }
 // }
-export const GetPhotos = () => {
-    const fetchURL = `${BASE_URL}/photo/`;
+export const GetPhotos = (town) => {
+    let fetchURL;
+    if(town) {
+        fetchURL = `${BASE_URL}/photo?town=${town}`;
+    }   else {
+        fetchURL = `${BASE_URL}/photo/`;
+    }
     const {data, error} = useSWR(fetchURL, fetcher);
 
     return {

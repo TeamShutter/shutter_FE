@@ -123,6 +123,7 @@ export default function Photo() {
                   </Box>
                   
                   <Box>
+                    Studio ID: {studioId}
                     <PhotoList studioId={studioId} />
                   </Box>
 
