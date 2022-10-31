@@ -3,12 +3,6 @@ import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { API_URL } from "../config";
 
-
-
-// const API_URL = process.env.NODE_ENV === "development"
-// ? "http://127.0.0.1:8000"
-// : "http://takeshutter.co.kr:8000"
-
 const authContext = createContext();
 
 // Provider component that wraps your app and makes auth object ...

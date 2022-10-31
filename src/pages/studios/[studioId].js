@@ -15,16 +15,11 @@ import StudioCarousel from "../../components/studios/StudioCarousel";
 import StudioInfo from "../../components/studios/StudioInfo";
 import PhotoList from '../../components/photos/PhotoList';
 import Layout from "../../layouts/Layout";
+import { API_URL } from "../../config";
 // import { useAuth } from "../../hooks/use-auth";
 
 
 export default function Studio() {
-  const BASE_URL = process.env.NODE_ENV === "development"
-  ? "http://127.0.0.1:8000"
-: "http://takeshutter.co.kr:8000"
-
-    // const auth = useAuth();
-
     const router = useRouter();
     const {studioId} = router.query;
 
@@ -56,7 +51,7 @@ export default function Studio() {
 
 
     // const handleFollow = async () => {
-    //   await fetch(`${BASE_URL}/studios/${studioId}/follow`, {
+    //   await fetch(`${API_URL}/studios/${studioId}/follow`, {
     //       method: 'GET',
     //       headers: {
     //         "userid": auth.user.id
@@ -83,7 +78,7 @@ export default function Studio() {
           userId: 3,  // 로그인이 안돼서 일단 2로 바꿔놓음
       }
 
-        const res =  await fetch(`${BASE_URL}/studios/${studioId}/review/`, {
+        const res =  await fetch(`${API_URL}/studios/${studioId}/review/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

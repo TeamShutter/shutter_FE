@@ -9,13 +9,10 @@ import PhotoLike from "../../components/photos/PhotoLike";
 import Layout from "../../layouts/Layout";
 import PhotoList from "../../components/photos/PhotoList";
 import { useSelector } from "react-redux";
+import { API_URL } from "../../config";
 
 
 export default function Photo() {
-    const BASE_URL = process.env.NODE_ENV === "development"
-    ? "http://127.0.0.1:8000"
-: "http://takeshutter.co.kr:8000"
-
     const router = useRouter();
     const {photoId} = router.query;
     const [like, setLike] = useState(false);
@@ -38,7 +35,7 @@ export default function Photo() {
 
     
     const handleLike = async () => {
-    await fetch(`${BASE_URL}/photo/${photoId}/like`, {
+    await fetch(`${API_URL}/photo/${photoId}/like`, {
         method: 'GET',
         headers: {
           "userid": user.id

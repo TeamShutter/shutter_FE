@@ -34,13 +34,13 @@ export default function TownSelector({town, setTown}) {
               aria-controls="panel1a-content"
               id="panel1a-header"
               sx={{
-                position: 'relative'
+                position: 'relative',
               }}
             >
               <Box
               sx={{
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
               >
                 <Typography

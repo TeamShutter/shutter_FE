@@ -1,8 +1,5 @@
 import useSWR from "swr";
-
-const BASE_URL = process.env.NODE_ENV === "development"
-  ? "http://127.0.0.1:8000"
-: "http://takeshutter.co.kr:8000"
+import { API_URL } from "../../config";
 
 const fetcher = async (...args) => {
     const res = await fetch(...args);
@@ -20,7 +17,7 @@ const fetcher = async (...args) => {
 
 export const GetStudios = () => {
     // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
-    const {data, error} = useSWR(`${BASE_URL}/studio`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/studio`, fetcher);
 
     return {
         studios: data,
@@ -30,7 +27,7 @@ export const GetStudios = () => {
 }
 
 export const GetStudio = (studioId) => {
-    const {data, error} = useSWR(`${BASE_URL}/studio/${studioId}`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/studio/${studioId}`, fetcher);
 
     return {
         studioData: data,
@@ -40,7 +37,7 @@ export const GetStudio = (studioId) => {
 }
 
 export const GetStudioReviews = (studioId) => {
-    const {data, error} = useSWR(`${BASE_URL}/studios/${studioId}/review`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/studios/${studioId}/review`, fetcher);
 
     return {
         reviews: data,
@@ -50,7 +47,7 @@ export const GetStudioReviews = (studioId) => {
 }
 
 export const GetStudioPhotos = (studioId) => {
-    const {data, error} = useSWR(`${BASE_URL}/photo?studio_id=${studioId}`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/photo?studio_id=${studioId}`, fetcher);
 
     return {
         photos: data,
@@ -60,7 +57,7 @@ export const GetStudioPhotos = (studioId) => {
 }
 
 export const GetSearch = (q) => {
-    const {data, error} = useSWR(`${BASE_URL}/studios/search?q=${q}`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/studios/search?q=${q}`, fetcher);
     return {
         search: data,
         searchLoading: !error & !data,
@@ -75,9 +72,9 @@ export const GetSearch = (q) => {
 //         for(let i = 0; i < tags.length; i ++) {
 //             tagsString += `tags=${tags[i]}&`;
 //         }
-//         fetchURL = `${BASE_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}&${tagsString}`;
+//         fetchURL = `${API_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}&${tagsString}`;
 //     }   else {
-//         fetchURL = `${BASE_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}`;
+//         fetchURL = `${API_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}`;
 //     }
 //     const {data, error} = useSWR(fetchURL, fetcher);
 
@@ -90,9 +87,9 @@ export const GetSearch = (q) => {
 export const GetPhotos = (town) => {
     let fetchURL;
     if(town) {
-        fetchURL = `${BASE_URL}/photo?town=${town}`;
+        fetchURL = `${API_URL}/photo?town=${town}`;
     }   else {
-        fetchURL = `${BASE_URL}/photo/`;
+        fetchURL = `${API_URL}/photo/`;
     }
     const {data, error} = useSWR(fetchURL, fetcher);
 
@@ -104,7 +101,7 @@ export const GetPhotos = (town) => {
 }
 
 export const GetPhoto = (photoId) => {
-    const {data, error} = useSWR(`${BASE_URL}/photo/${photoId}`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/photo/${photoId}`, fetcher);
 
     return {
         photoData: data,
@@ -114,7 +111,7 @@ export const GetPhoto = (photoId) => {
 }
 
 export const GetTags = () => {
-    const {data, error} = useSWR(`${BASE_URL}/tags`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/tags`, fetcher);
 
     return {
         tags: data,
@@ -124,7 +121,7 @@ export const GetTags = () => {
 }
 
 export const GetProfile = (userId) => {
-    const {data, error} = useSWR(`${BASE_URL}/accounts/profile/${userId}`, fetcher);
+    const {data, error} = useSWR(`${API_URL}/accounts/profile/${userId}`, fetcher);
 
     return {
         profile: data,
@@ -134,7 +131,7 @@ export const GetProfile = (userId) => {
 }
 
 // export const GetProfile = () => {
-//     const {data, error} = useSWR(`${BASE_URL}/accounts/profile`, fetcher);
+//     const {data, error} = useSWR(`${API_URL}/accounts/profile`, fetcher);
 
 //     return {
 //         profile: data,
