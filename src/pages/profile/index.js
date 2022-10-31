@@ -11,175 +11,176 @@ import { useAuth } from "../../hooks/use-auth";
 
 
 export default function Profile() {
-    const router = useRouter();
-    const {studioId} = router.query;
-    const auth = useAuth();
-    useEffect(() => {
-        auth.getProfile();
-    }, []);
+    return <h1>Profile</h1>
+    // const router = useRouter();
+    // const {studioId} = router.query;
+    // const auth = useAuth();
+    // useEffect(() => {
+    //     auth.getProfile();
+    // }, []);
 
-    // const {profile, profileLoading, profileError} = GetProfile();
+    // // const {profile, profileLoading, profileError} = GetProfile();
 
-    // if(profileLoading) return <div>Loading...</div>
-    // if(profileError) return <div>Error!!</div>
-
-
-    return auth.profile && (
-
-        <Layout>
-            <Head>
-                <title>Profile | Shutter</title>
-            </Head>
-
-            <ArrowBackIosNewIcon 
-            onClick={() => router.back()}
-            sx={{ mb : 2, cursor: 'pointer'}} /> 
-
-             <Link 
-              href="/"
-              >
-                <a>
-                  <HomeIcon sx={{ mb : 2}} /> 
-                </a>
-              </Link>
+    // // if(profileLoading) return <div>Loading...</div>
+    // // if(profileError) return <div>Error!!</div>
 
 
-            <Box
-            sx={{
-                display: 'flex'
-            }}
-            >
-                <Avatar 
-                alt="Seungoh" 
-                // src="/static/images/avatar/1.jpg"
-                sx={{ width: 80, height: 80, mr: 3 }}
-                />
-                <Box>
-                    <Typography
-                    variant="h6">
-                    {auth.profile.profile.user.username}
-                    </Typography>
-                    <Typography
-                    variant="subtitle1">
-                    {auth.profile.profile.town}
-                    </Typography>
-                   <Box
-                   sx={{
-                       display: 'flex'
-                   }}
-                   >
-                       <Chip label="20대" 
-                        sx={{ mr: 1 }}
-                       />
-                       <Chip label="취업사진" 
-                        sx={{ mr: 1 }}
-                       />
-                       <Chip label="깔끔" 
-                        sx={{ mr: 1 }}
-                       />
-                       <Chip label="단정" 
-                        sx={{ mr: 1 }}
-                       />
-                   </Box>
-                </Box>
+    // return auth.profile && (
+
+    //     <Layout>
+    //         <Head>
+    //             <title>Profile | Shutter</title>
+    //         </Head>
+
+    //         <ArrowBackIosNewIcon 
+    //         onClick={() => router.back()}
+    //         sx={{ mb : 2, cursor: 'pointer'}} /> 
+
+    //          <Link 
+    //           href="/"
+    //           >
+    //             <a>
+    //               <HomeIcon sx={{ mb : 2}} /> 
+    //             </a>
+    //           </Link>
+
+
+    //         <Box
+    //         sx={{
+    //             display: 'flex'
+    //         }}
+    //         >
+    //             <Avatar 
+    //             alt="Seungoh" 
+    //             // src="/static/images/avatar/1.jpg"
+    //             sx={{ width: 80, height: 80, mr: 3 }}
+    //             />
+    //             <Box>
+    //                 <Typography
+    //                 variant="h6">
+    //                 {auth.profile.profile.user.username}
+    //                 </Typography>
+    //                 <Typography
+    //                 variant="subtitle1">
+    //                 {auth.profile.profile.town}
+    //                 </Typography>
+    //                <Box
+    //                sx={{
+    //                    display: 'flex'
+    //                }}
+    //                >
+    //                    <Chip label="20대" 
+    //                     sx={{ mr: 1 }}
+    //                    />
+    //                    <Chip label="취업사진" 
+    //                     sx={{ mr: 1 }}
+    //                    />
+    //                    <Chip label="깔끔" 
+    //                     sx={{ mr: 1 }}
+    //                    />
+    //                    <Chip label="단정" 
+    //                     sx={{ mr: 1 }}
+    //                    />
+    //                </Box>
+    //             </Box>
                
-            </Box>
+    //         </Box>
 
-            <Box>
+    //         <Box>
 
-                <Typography
-                variant='h5'
-                sx={{ mt:3, mb:2 }}
-                >
-                    관심 사진
-                </Typography>
+    //             <Typography
+    //             variant='h5'
+    //             sx={{ mt:3, mb:2 }}
+    //             >
+    //                 관심 사진
+    //             </Typography>
 
-                <ImageList sx={{ width: '100%' }} cols={2} gap={10}>
+    //             <ImageList sx={{ width: '100%' }} cols={2} gap={10}>
                     
-                    {auth.profile.like_photos.map((photo) => (
-                        <Link 
-                        href={`photos/${photo.id}`}
-                        key={photo.name}
-                        >
-                        <a>
+    //                 {auth.profile.like_photos.map((photo) => (
+    //                     <Link 
+    //                     href={`photos/${photo.id}`}
+    //                     key={photo.name}
+    //                     >
+    //                     <a>
                         
-                        <ImageListItem>
-                            <Box    
-                                sx={{
-                                    paddingBottom: "120%",
-                                    backgroundImage: `url(${photo.photoUrl})`,
-                                    borderRadius: '15px',
-                                    backgroundPosition: "center center",
-                                    backgroundRepeat: "no-repeat",
-                                    backgroundSize: "cover",
-                                }}
-                            />
+    //                     <ImageListItem>
+    //                         <Box    
+    //                             sx={{
+    //                                 paddingBottom: "120%",
+    //                                 backgroundImage: `url(${photo.photoUrl})`,
+    //                                 borderRadius: '15px',
+    //                                 backgroundPosition: "center center",
+    //                                 backgroundRepeat: "no-repeat",
+    //                                 backgroundSize: "cover",
+    //                             }}
+    //                         />
 
-                        </ImageListItem>
-                        </a>
-                        </Link>
-                    ))}
+    //                     </ImageListItem>
+    //                     </a>
+    //                     </Link>
+    //                 ))}
 
-                </ImageList>
+    //             </ImageList>
 
-            </Box>
+    //         </Box>
 
-            <Box>
+    //         <Box>
 
-                <Typography
-                variant='h5'
-                sx={{ mt:3, mb:2 }}
-                >
-                    관심 매장
-                </Typography>
-                {auth.profile.follow_studios.map((studio) => (
-                    <Link 
-                    key={studio.id}
-                    href={`/studios/${studio.id}`}
-                    >
+    //             <Typography
+    //             variant='h5'
+    //             sx={{ mt:3, mb:2 }}
+    //             >
+    //                 관심 매장
+    //             </Typography>
+    //             {auth.profile.follow_studios.map((studio) => (
+    //                 <Link 
+    //                 key={studio.id}
+    //                 href={`/studios/${studio.id}`}
+    //                 >
                     
-                    <a>
-                    <Box 
-                    display= 'flex'
-                    alignItems= 'center'
-                    sx={{ mb:2, cursor: 'pointer' }}
-                    >   
-                    <div>
-                        <Box    
-                            sx={{
-                                width: "200px",
-                                paddingBottom: "100%",
-                                backgroundImage: `url(${studio.thumbnail})`,
-                                borderRadius: '25px',
-                                backgroundPosition: "center center",
-                                backgroundRepeat: "no-repeat",
-                                backgroundSize: "cover",
-                                marginRight: '20px',
-                            }}
-                        />
-                    </div>
+    //                 <a>
+    //                 <Box 
+    //                 display= 'flex'
+    //                 alignItems= 'center'
+    //                 sx={{ mb:2, cursor: 'pointer' }}
+    //                 >   
+    //                 <div>
+    //                     <Box    
+    //                         sx={{
+    //                             width: "200px",
+    //                             paddingBottom: "100%",
+    //                             backgroundImage: `url(${studio.thumbnail})`,
+    //                             borderRadius: '25px',
+    //                             backgroundPosition: "center center",
+    //                             backgroundRepeat: "no-repeat",
+    //                             backgroundSize: "cover",
+    //                             marginRight: '20px',
+    //                         }}
+    //                     />
+    //                 </div>
 
-                    <div>
-                        <Typography
-                        variant="h6"
-                        >
-                            {studio.name}
-                        </Typography>
-                        <Typography
-                        variant="subtitle1"
-                        >
-                            {studio.description.substr(0, 20)}...
-                        </Typography>
-                        <Rating name="read-only" value={3} precision={0.5} readOnly />
-                    </div>
-                    </Box>
-                    </a>
+    //                 <div>
+    //                     <Typography
+    //                     variant="h6"
+    //                     >
+    //                         {studio.name}
+    //                     </Typography>
+    //                     <Typography
+    //                     variant="subtitle1"
+    //                     >
+    //                         {studio.description.substr(0, 20)}...
+    //                     </Typography>
+    //                     <Rating name="read-only" value={3} precision={0.5} readOnly />
+    //                 </div>
+    //                 </Box>
+    //                 </a>
 
-                    </Link>
+    //                 </Link>
                     
-                ))}
-            </Box>
+    //             ))}
+    //         </Box>
 
-        </Layout>
-    )
+    //     </Layout>
+    // )
 }
