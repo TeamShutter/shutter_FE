@@ -16,29 +16,48 @@ export default function StudioList(props) {
   if (studiosError) return <div>Error!!</div>;
 
   return studios && (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
+      }}
+    >
       {studios.map((studio, i) => (
-        <Box key={i} sx={{ mb: 10 }}>
+        <Box key={i} sx={{ mb: 10, width: '45%' }}>
           <StudioCarousel studio={studio} />
           <Link href={`/studios/${studio.id}`}>
             <a>
-              <div
-                sx={{
-                  width: "100%",
-                }}
+              <Box
+                // sx={{
+                //   width: "100%",
+                //   display: "flex",
+                //   alignItems: "center",
+                //   justifyContent: "space-between"
+                // }}
               >
-                <Typography variant="h5" fontWeight="bold">
-                  {studio.name}
+                <Box
+                  // sx={{
+                  //   width: '30%',
+                  //   display: 'flex',
+                  //   flexDirection: 'column',
+                  //   alignItems: 'center'
+                  // }}
+                >
+                  <Typography variant="h5" fontWeight="bold">
+                    {studio.name}
+                  </Typography>
                   <Rating
-                    name="read-only"
-                    value={4.5}
-                    precision={0.5}
-                    readOnly
-                  />
-                </Typography>
+                      name="read-only"
+                      size="small"
+                      value={4.5}
+                      precision={0.5}
+                      readOnly
+                    />
+                </Box>
 
-                <StudioInfo studio={studio} />
-              </div>
+                {/* <StudioInfo studio={studio} /> */}
+              </Box>
             </a>
           </Link>
         </Box>
