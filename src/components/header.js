@@ -105,7 +105,15 @@ const settings = user ? [
           >
               Shutters
           </Typography> */}
-            <img src="/static/logo_icon.png" alt="Shutter Logo" width={40} height={40} />
+            <img 
+            style={{
+              cursor: 'pointer'
+            }}
+            src="/static/logo_icon.png"
+            alt="Shutter Logo"
+            width={40}
+            height={40}
+             />
           </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

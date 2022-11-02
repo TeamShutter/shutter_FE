@@ -8,7 +8,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import { GetStudio, GetStudioPhotos, GetStudioReviews } from "../../components/fetcher/fetcher";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import { useEffect, useState } from "react";
 import ReviewList from "../../components/reviews/ReviewList";
 import StudioCarousel from "../../components/studios/StudioCarousel";
@@ -118,14 +117,61 @@ export default function Studio() {
               sx={{
                 display: 'flex',
                 width: '100%',
-                justifyContent: 'space-between',
+                alignItems:'center',
+                justifyContent: 'space-between'
               }}
               >
-                <Typography
-                variant='h5'
+                <Box>
+
+                  <Typography
+                  variant='h5'
+                  >
+                    {studio.name}
+                  </Typography>
+
+                  <Rating 
+                  name="read-only" 
+                  size="small"
+                  value={3.5} 
+                  precision={0.5} 
+                  readOnly 
+                  />
+
+                </Box>
+                
+
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems:'center'
+                  }}
                 >
-                  {studio.name}
-                </Typography>
+                  <img 
+                  src="/static/icons/instagram_icon.png"
+                  alt="instagram icon"
+                  width={100}
+                  height={100}
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => {
+                    window.open(`${studio.instagram_link}`)
+                  }}
+                  />
+                  <img 
+                  src="/static/icons/naver_icon.png" 
+                  alt="naver icon" 
+                  width={50} 
+                  height={50} 
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => {
+                    window.open(`${studio.naver_link}`)
+                  }}
+                  />
+                </Box>
+                
 
                {/* {auth.user ? (
                   <Box
@@ -170,7 +216,7 @@ export default function Studio() {
               </Box>
                 
 
-                <Rating name="read-only" value={3.5} precision={0.5} readOnly />
+                
 
                 <StudioInfo studio={studio} />
 
@@ -191,26 +237,6 @@ export default function Studio() {
                   
                   <Typography>
                     {studio.description}
-                  </Typography>
-                </Box>
-
-                <Box
-                sx={{
-                  mb: 3,
-                }}>
-                  <Box
-                   sx={{
-                    display: 'flex',
-                  }}
-                  >
-                    <LocalPhoneIcon sx={{mr: 1}} />
-                    <Typography>
-                      전화번호
-                    </Typography>
-                  </Box>
-                  
-                  <Typography>
-                    {studio.phone}
                   </Typography>
                 </Box>
 
