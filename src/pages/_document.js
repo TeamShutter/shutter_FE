@@ -7,9 +7,17 @@ export default class MyDocument extends Document {
     return (
       <Html>
           <Head>
-            <meta name="description" content="Shutter, 증명사진 플랫폼 | 당신이 찾는 모든 사진" />
-            <link rel="icon" href="/favicon.ico" />
-            
+            <meta name="keywords" content="셔터, Shutter, shutter, 증명사진, 프로필사진, 사진관, 스튜디오" />
+            <meta name="description" content="인생 사진관을 위한 플랫폼, 셔터 (Shutter). 당신에게 꼭 맞는 스튜디오를 찾아보세요." />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta property="og:title" content="셔터 (Shutter)" />
+            <meta property="og:description"  content="증명사진 플랫폼, 셔터 (Shutter). 당신에게 꼭 맞는 스튜디오를 찾아보세요." />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://takeshutter.co.kr/" />
+            <meta property="og:image" content="/logo_long.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="60x60" href="/favicon-60x60.png" />
           </Head>
         <body>
           <Main />
