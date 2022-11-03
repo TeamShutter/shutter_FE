@@ -44,7 +44,6 @@ export default function Studioindex() {
 
   // const getLocation = (e) => {
   //   navigator.geolocation.getCurrentPosition(function (position) {
-  //     console.log(position);
   //     const latitude = position.coords.latitude;
   //     const longtitude = position.coords.longitude;
   //     setLatitude(latitude);

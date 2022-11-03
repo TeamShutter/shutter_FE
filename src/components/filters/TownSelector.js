@@ -16,8 +16,6 @@ export default function TownSelector({town, setTown}) {
     const townsLoading = townsData.townsLoading;
     const townsError = townsData.townsError;
 
-    console.log("Towns: ", towns);
-
     if (townsLoading) return <div>Loading...</div>;
     if (townsError) return <div>Error!!</div>;
 
