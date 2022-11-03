@@ -87,116 +87,96 @@ const settings = user ? [
     <AppBar position="static" sx={{ mb: 8, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link href="/">
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-            cursor: 'pointer',
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'helvetica',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-              Shutters
-          </Typography> */}
-            <img 
-            style={{
-              cursor: 'pointer'
-            }}
-            src="/static/logo_icon.png"
-            alt="Shutter Logo"
-            width={40}
-            height={40}
-             />
-          </Link>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+            <Box
               sx={{
-                display: { xs: 'block', md: 'none' },
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                  <Link href={page.link}>
-                    <a>
-                      <Typography textAlign="center">{page.title}</Typography>
-                    </a>
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <PhotoCameraIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Link href="/">
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            sx={{
-            cursor: 'pointer',
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Shutter
-          </Typography>
-          </Link>
 
-          <Box sx={{ flexGrow: 1, marginLeft: 2, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link
-              key={page.title}
-              href={page.link}
-              >
-              <a>
-                <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                    {page.title}
-                </Button>
-              </a>
+              <Link href="/">
+                <img 
+                style={{
+                  cursor: 'pointer'
+                }}
+                src="/static/logo_icon.png"
+                alt="Shutter Logo"
+                width={40}
+                height={40}
+                />
               </Link>
-            ))}
+
+                  <Box sx={{ flexGrow: 1, marginLeft: 2, display: { xs: 'flex', md: 'flex' } }}>
+                  {pages.map((page) => (
+                    <Link
+                    key={page.title}
+                    href={page.link}
+                    >
+                    <a>
+                      <Button
+                          onClick={handleCloseNavMenu}
+                          sx={{ my: 2, color: 'white', display: 'block' }}
+                      >
+                          {page.title}
+                      </Button>
+                    </a>
+                    </Link>
+                  ))}
+                </Box>
+
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+            {/* ----------------모바일 햄버거 메뉴---------------- */}
+          {/* <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+
+              <IconButton
+                  size='large'
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: 'block', md: 'none' },
+                  }}
+                >
+                  {pages.map((page) => (
+                    <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                      <Link href={page.link}>
+                        <a>
+                          <Typography textAlign="center">{page.title}</Typography>
+                        </a>
+                      </Link>
+                    </MenuItem>
+                  ))}
+                </Menu>
+
+            </Box> */}
+          
+
+          
+
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 { user ? <Avatar alt={user.username} src="" /> : <Avatar alt="no-user" src="" sx={{ backgroundColor: '#fff' }} /> }
@@ -228,7 +208,8 @@ const settings = user ? [
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
+
         </Toolbar>
       </Container>
     </AppBar>

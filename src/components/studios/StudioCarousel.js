@@ -6,8 +6,8 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 export default function StudioCarousel({ studio }) {
     return (
         <Carousel
-        NextIcon={<ArrowForwardIosIcon/>}
-        PrevIcon={<ArrowBackIosNewIcon/>}
+        NextIcon={<ArrowForwardIosIcon sx={{ fontSize: {xs: '12px', md: '20px'} }} />}
+        PrevIcon={<ArrowBackIosNewIcon sx={{ fontSize: {xs: '12px', md: '20px'} }} />}
         navButtonProps={{
             style: {
                 opacity: 0.5,
@@ -20,7 +20,7 @@ export default function StudioCarousel({ studio }) {
             key={i}
             sx={{
                 width: '100%',
-                paddingBottom: "60%",
+                paddingBottom: "70%",
                 backgroundImage: `url(${image.url})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: "no-repeat",

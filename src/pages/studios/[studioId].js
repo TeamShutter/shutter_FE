@@ -146,33 +146,39 @@ export default function Studio() {
                     alignItems:'center'
                   }}
                 >
-                  <img 
-                  id="instagram_link"
-                  src="/static/icons/instagram_icon.png"
-                  alt="instagram icon"
-                  width={35}
-                  height={35}
-                  style={{
-                    cursor: 'pointer',
-                    marginRight: '10px'
-                  }}
-                  onClick={() => {
-                    window.open(`${studio.instagram_link}`)
-                  }}
-                  />
-                  <img 
-                  id="naver_link"
-                  src="/static/icons/naver_icon.png" 
-                  alt="naver icon" 
-                  width={35} 
-                  height={35} 
-                  style={{
-                    cursor: 'pointer'
-                  }}
-                  onClick={() => {
-                    window.open(`${studio.naver_link}`)
-                  }}
-                  />
+                  {studio.instagram_link && (
+                      <img 
+                      id="instagram_link"
+                      src="/static/icons/instagram_icon.png"
+                      alt="instagram icon"
+                      width={35}
+                      height={35}
+                      style={{
+                        cursor: 'pointer',
+                        marginRight: '10px'
+                      }}
+                      onClick={() => {
+                        window.open(`${studio.instagram_link}`)
+                      }}
+                    />
+                  )}
+
+                  {studio.naver_link && (
+                    <img 
+                    id="naver_link"
+                    src="/static/icons/naver_icon.png" 
+                    alt="naver icon" 
+                    width={35} 
+                    height={35} 
+                    style={{
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => {
+                      window.open(`${studio.naver_link}`)
+                    }}
+                    />
+                  )}
+                  
                 </Box>
                 
 

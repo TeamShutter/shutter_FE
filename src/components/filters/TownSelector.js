@@ -1,6 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Chip, Container, Pagination, Typography } from '@mui/material';
 import { styled } from '@mui/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { GetTowns } from '../fetcher/fetcher';
 
 const TownChip = styled(Chip)({
     width: '23%',
@@ -9,6 +10,17 @@ const TownChip = styled(Chip)({
   
 
 export default function TownSelector({town, setTown}) {
+    const townsData = GetTowns();
+
+    const towns = townsData.towns?.data;
+    const townsLoading = townsData.townsLoading;
+    const townsError = townsData.townsError;
+
+    console.log("Towns: ", towns);
+
+    if (townsLoading) return <div>Loading...</div>;
+    if (townsError) return <div>Error!!</div>;
+
     const handleChangeTown = (e) => {
         const newTown = e.target.innerText;
         if(newTown === town) {
@@ -19,7 +31,7 @@ export default function TownSelector({town, setTown}) {
         
       }
 
-    return (
+    return towns && (
         <Accordion
             sx={{
               boxShadow: 'none',
@@ -63,13 +75,17 @@ export default function TownSelector({town, setTown}) {
                   flexWrap: 'wrap'
                 }}
               >
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="홍대"
-                  color={town === '홍대' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
+                {towns.map((t) => (
+                  <TownChip
+                    key={t}
+                    onClick={handleChangeTown}
+                    label={t}
+                    color={town === t ? 'primary' : 'default'}
+                    clickable
+                  />
+                ))}
+                
+                {/* <TownChip
                   onClick={handleChangeTown}
                   label="이태원"
                   color={town === '이태원' ? 'primary' : 'default'}
@@ -116,7 +132,7 @@ export default function TownSelector({town, setTown}) {
                   label="용산"
                   color={town === '용산' ? 'primary' : 'default'}
                   clickable
-                />
+                /> */}
               </Box>  
 
             </AccordionDetails>

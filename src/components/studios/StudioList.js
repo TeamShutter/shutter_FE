@@ -5,8 +5,13 @@ import StudioCarousel from "../studios/StudioCarousel";
 import StudioInfo from "../studios/StudioInfo";
 
 // {price, photoshop, sex, tags}
-export default function StudioList(props) {
-  const studiosData = GetStudios();
+export default function StudioList({town}) {
+  let studiosData;
+  if (town) {
+    studiosData = GetStudios(town);
+  } else {
+    studiosData = GetStudios();
+  }
 
   const studios = studiosData.studios?.data;
   const studiosLoading = studiosData.studiosLoading;
@@ -23,6 +28,7 @@ export default function StudioList(props) {
         justifyContent: 'space-between'
       }}
     >
+
       {studios.map((studio, i) => (
         <Box key={i} sx={{ mb: 10, width: '45%' }}>
           <StudioCarousel studio={studio} />
@@ -44,7 +50,13 @@ export default function StudioList(props) {
                   //   alignItems: 'center'
                   // }}
                 >
-                  <Typography variant="h5" fontWeight="bold">
+                  <Typography 
+                  variant="h5" 
+                  fontWeight="bold"
+                  sx={{
+                    fontSize: {xs : '14px', md: '17px'}
+                  }}
+                  >
                     {studio.name}
                   </Typography>
                   <Rating
