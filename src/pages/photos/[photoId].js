@@ -89,7 +89,7 @@ export default function Photo() {
                           'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                           'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
                       }}
-                      title={photo?.id}
+                      // title={photo?.id}
                       position="top"
                       actionIcon={
                         <Box
