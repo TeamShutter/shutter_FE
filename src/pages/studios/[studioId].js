@@ -216,11 +216,7 @@ export default function Studio() {
               </Box>
                 
 
-                
-
-                <StudioInfo studio={studio} />
-
-                <Box
+              <Box
                 sx={{
                   mb: 3,
                 }}>
@@ -239,6 +235,9 @@ export default function Studio() {
                     {studio.description}
                   </Typography>
                 </Box>
+
+
+                <StudioInfo studio={studio} />
 
             </Box>
 

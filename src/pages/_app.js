@@ -16,10 +16,17 @@ import Header from "../components/header";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
 import { ProvideAuth } from "../hooks/use-auth";
+import { useEffect } from "react";
+import { gtm } from "../lib/gtm";
+import { gtmConfig } from "../config";
 
 const App = (props) => {
   const { Component, pageProps } = props;
   const store = useStore(pageProps.initialReduxState);
+
+  useEffect(() => {
+    gtm.initialize(gtmConfig);
+  },[]);
 
   return (
     <ThemeProvider theme={theme}>
