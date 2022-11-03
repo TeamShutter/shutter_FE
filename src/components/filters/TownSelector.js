@@ -5,6 +5,7 @@ import { GetTowns } from '../fetcher/fetcher';
 
 const TownChip = styled(Chip)({
     width: '23%',
+    minWidth: '90px',
     marginBottom: '8px',
   });
   
@@ -83,54 +84,6 @@ export default function TownSelector({town, setTown}) {
                   />
                 ))}
                 
-                {/* <TownChip
-                  onClick={handleChangeTown}
-                  label="이태원"
-                  color={town === '이태원' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="강남"
-                  color={town === '강남' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="신촌"
-                  color={town === '신촌' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="노원"
-                  color={town === '노원' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="신림"
-                  color={town === '신림' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="수서"
-                  color={town === '수서' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="종로"
-                  color={town === '종로' ? 'primary' : 'default'}
-                  clickable
-                />
-                <TownChip
-                  onClick={handleChangeTown}
-                  label="용산"
-                  color={town === '용산' ? 'primary' : 'default'}
-                  clickable
-                /> */}
               </Box>  
 
             </AccordionDetails>

@@ -59,13 +59,13 @@ export default function StudioList({town}) {
                   >
                     {studio.name}
                   </Typography>
-                  <Rating
+                  {/* <Rating
                       name="read-only"
                       size="small"
                       value={4.5}
                       precision={0.5}
                       readOnly
-                    />
+                    /> */}
                 </Box>
 
                 {/* <StudioInfo studio={studio} /> */}
