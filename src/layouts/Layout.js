@@ -9,7 +9,7 @@ export default function Layout({children}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
+    gtm.push({ event: 'gtm.js' });
     if(dispatch && dispatch !== null && dispatch !== undefined) {
         dispatch(check_auth_status());
     }
