@@ -129,13 +129,13 @@ export default function Studio() {
                     {studio.name}
                   </Typography>
 
-                  <Rating 
+                  {/* <Rating 
                   name="read-only" 
                   size="small"
                   value={3.5} 
                   precision={0.5} 
                   readOnly 
-                  />
+                  /> */}
 
                 </Box>
                 

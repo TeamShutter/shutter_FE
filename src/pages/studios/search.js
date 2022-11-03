@@ -78,12 +78,12 @@ export default function Search() {
                     >
                       <Typography variant="h5" fontWeight="bold">
                         {studio.name}
-                        <Rating
+                        {/* <Rating
                           name="read-only"
                           value={4.5}
                           precision={0.5}
                           readOnly
-                        />
+                        /> */}
                       </Typography>
 
                       <StudioInfo studio={studio} />
