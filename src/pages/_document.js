@@ -9,6 +9,7 @@ export default class MyDocument extends Document {
           <Head>
             <meta name="description" content="Shutter, 증명사진 플랫폼 | 당신이 찾는 모든 사진" />
             <link rel="icon" href="/favicon.ico" />
+
           </Head>
         <body>
           <Main />
