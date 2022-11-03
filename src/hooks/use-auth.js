@@ -27,7 +27,6 @@ function useProvideAuth() {
     // Wrap any Firebase methods we want to use making sure ...
   // ... to save the user to state.
   const login = async (username, password) => {
-    console.log("Login!!")
     return await axios.post(`${API_URL}/account/login/`, {
         username: username,
         password: password,
@@ -39,8 +38,6 @@ function useProvideAuth() {
             withCredentials: true,
         }
       ).then((response) => { 
-      console.log("Res : ", response);
-      console.log("Res Header: ",response.headers);
   
       // setUser(response.data.user);
       router.push('/');
@@ -58,11 +55,7 @@ function useProvideAuth() {
     //             password
     //         }),
     //     }).then(async (response) => {
-    //         console.log("Res : ", response);
-    //         console.log("Res Header: ",response.headers);
-    //         console.log("Login!");
     //         const data = await response.json();
-    //         console.log("Data : ", data);
     //         setUser(data.user);
     //         router.push('/');
     //     })
@@ -77,8 +70,6 @@ function useProvideAuth() {
         credentials: 'include',
         body: JSON.stringify(formData),
     }).then(async (response) => {
-        console.log("Singup Res: ", response);
-        console.log("Signup!");
         const data = await response.json();
         setUser(data.user);
         router.push('/');
@@ -93,7 +84,6 @@ function useProvideAuth() {
         },
         credentials: 'include'
     }).then(async (response) => {
-        console.log("Logout!");
         const data = await response.json();
         setUser(null);  
         router.push("/login");
@@ -108,9 +98,7 @@ function useProvideAuth() {
         },
         credentials: 'include'
     }).then(async (response) => {
-        console.log("GetProfile!");
         const data = await response.json();
-        console.log("Profile: ", data);
         setProfile(data);
     });
   }

@@ -27,7 +27,6 @@ import {
         const data = await res.json();
 
         if(res.status === 200) {
-            console.log("Success!");
             dispatch({
                 type: LOAD_USER_SUCCESS,
                 payload: data
