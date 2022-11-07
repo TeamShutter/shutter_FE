@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Chip, Container, Pa
 import { styled } from '@mui/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { GetTowns } from '../fetcher/fetcher';
+import { useState } from 'react';
 
 const TownChip = styled(Chip)({
     width: '23%',
@@ -16,6 +17,8 @@ export default function TownSelector({town, setTown}) {
     const towns = townsData.towns?.data;
     const townsLoading = townsData.townsLoading;
     const townsError = townsData.townsError;
+
+    const [expanded, setExpanded] = useState(true);
 
     if (townsLoading) return <div>Loading...</div>;
     if (townsError) return <div>Error!!</div>;
@@ -32,6 +35,7 @@ export default function TownSelector({town, setTown}) {
 
     return towns && (
         <Accordion
+            expanded={expanded}
             sx={{
               boxShadow: 'none',
               border: 'none',
@@ -55,6 +59,7 @@ export default function TownSelector({town, setTown}) {
               }}
               >
                 <Typography
+                  onClick={() => setExpanded(prev => !prev)}
                   sx={{
                     position: 'absolute',
                     right: 50

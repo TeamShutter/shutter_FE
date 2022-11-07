@@ -1,4 +1,4 @@
-import { Avatar, Box, Container, IconButton, ImageListItem, ImageListItemBar, Typography } from "@mui/material";
+import { Avatar, Box, Button, Container, IconButton, ImageListItem, ImageListItemBar, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { GetPhoto } from "../../components/fetcher/fetcher";
 import Head from "next/head";
@@ -64,15 +64,70 @@ export default function Photo() {
             <title>Photo | Shutter</title>
           </Head>
 
-          <ArrowBackIosNewIcon 
+          {/* <ArrowBackIosNewIcon 
             onClick={() => router.back()}
-            sx={{ mb : 2, cursor: 'pointer'}} /> 
+            sx={{ mb : 2, cursor: 'pointer'}} />  */}
 
+
+            <Box
+            sx={{
+              // backgroundColor: 'black',
+              borderRadius: '20px',
+              pt: 2
+            }}
+            >
+                  <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        mb: 2,
+                        px: 3,
+                      }}
+                      onClick={()=> router.push(`/studios/${photo?.studio?.id}`)}
+                    >
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Avatar
+                          alt={photo?.studio?.name}
+                          src={photo?.studio?.thumbnail}
+                          sx={{ width: 35, height: 35, mr: 2 }}
+                        />
+                        <Typography
+                        variant="subtitle1"
+                        sx={{
+                          color: 'black' 
+                        }}
+                        > 
+                          {photo?.studio?.name}
+                        </Typography>
+                      </Box>
+
+                      <Button
+                          sx={{ 
+                            color: 'white',
+                            display: 'block', 
+                            backgroundColor: 'black',
+                            border: '1px solid black',
+                            '&:hover': {
+                              transform: 'scale(1.1)',
+                              color: 'black'
+                            }
+                          }}
+                      >
+                          View More
+                      </Button>
+                  </Box>
 
                   <Box
                     sx={{
                       width: '100%',
-                      paddingBottom: "100%",
+                      paddingBottom: "120%",
                       backgroundImage: `url(${photo?.photo_url})`,
                       backgroundSize: 'cover',
                       backgroundRepeat: "no-repeat",
@@ -80,7 +135,7 @@ export default function Photo() {
                       position: 'relative'
                     }}
                   >
-                    <Link href={`/studios/${photo?.studio?.id}`}>
+                    {/* <Link href={`/studios/${photo?.studio?.id}`}>
                     <a>
                       <ImageListItemBar
                       sx={{
@@ -116,8 +171,10 @@ export default function Photo() {
                       actionPosition="left"
                     />
                     </a>
-                    </Link>
+                    </Link> */}
                   </Box>
+            </Box>
+                  
                   
                   <Box>
                     <PhotoList studioId={studioId} />
