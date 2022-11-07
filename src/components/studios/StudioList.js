@@ -34,22 +34,8 @@ export default function StudioList({town}) {
           <StudioCarousel studio={studio} />
           <Link href={`/studios/${studio.id}`}>
             <a>
-              <Box
-                // sx={{
-                //   width: "100%",
-                //   display: "flex",
-                //   alignItems: "center",
-                //   justifyContent: "space-between"
-                // }}
-              >
-                <Box
-                  // sx={{
-                  //   width: '30%',
-                  //   display: 'flex',
-                  //   flexDirection: 'column',
-                  //   alignItems: 'center'
-                  // }}
-                >
+              <Box>
+                <Box>
                   <Typography 
                   variant="h5" 
                   fontWeight="bold"

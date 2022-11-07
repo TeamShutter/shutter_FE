@@ -14,6 +14,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 
 
@@ -31,8 +32,8 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
   const user = useSelector(state => state.auth.user);
+  const router = useRouter();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
 
   const pages = [
     {
@@ -96,8 +97,11 @@ const settings = user ? [
               }}
             >
 
-              <Link href="/">
+              {/* <Link href="/"> */}
                 <img 
+                onClick={() => {
+                  window.location.href='/'
+                }}
                 style={{
                   cursor: 'pointer'
                 }}
@@ -106,7 +110,7 @@ const settings = user ? [
                 width={40}
                 height={40}
                 />
-              </Link>
+              {/* </Link> */}
 
                   <Box sx={{ flexGrow: 1, marginLeft: 2, display: { xs: 'flex', md: 'flex' } }}>
                   {pages.map((page) => (
@@ -117,7 +121,18 @@ const settings = user ? [
                     <a>
                       <Button
                           onClick={handleCloseNavMenu}
-                          sx={{ my: 2, color: 'white', display: 'block' }}
+                          sx={{ 
+                            my: 2,
+                            mr: 2,
+                            color: router.pathname === page.link ? 'black' : 'white',
+                            display: 'block', 
+                            backgroundColor: router.pathname === page.link ? 'white' : 'black',
+                            border: '1px solid white',
+                            '&:hover': {
+                              color: 'black',
+                              backgroundColor: 'white',
+                            }
+                          }}
                       >
                           {page.title}
                       </Button>
