@@ -10,11 +10,18 @@ export default class MyDocument extends Document {
             <meta name="keywords" content="셔터, Shutter, shutter, 증명사진, 프로필사진, 사진관, 스튜디오" />
             <meta name="description" content="인생 사진관을 위한 플랫폼, 셔터 (Shutter). 당신에게 꼭 맞는 스튜디오를 찾아보세요." />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+            {/* Open Graph */}
             <meta property="og:title" content="셔터 (Shutter)" />
             <meta property="og:description"  content="증명사진 플랫폼, 셔터 (Shutter). 당신에게 꼭 맞는 스튜디오를 찾아보세요." />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="https://takeshutter.co.kr/" />
             <meta property="og:image" content="/static/logo_icon.png" />
+
+            {/* Naver SEO */}
+            <meta name="naver-site-verification" content="5e544a2c78cee1b7d0a59f343e190cd0fd44e741" />
+
+            {/* Favicon */}
             <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
             <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
             <link rel="icon" type="image/png" sizes="60x60" href="/static/favicon-60x60.png" />
