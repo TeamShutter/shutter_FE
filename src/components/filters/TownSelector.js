@@ -81,6 +81,7 @@ export default function TownSelector({town, setTown}) {
               >
                 {towns.map((t) => (
                   <TownChip
+                    className='town-select-btn'
                     key={t}
                     onClick={handleChangeTown}
                     label={t}
