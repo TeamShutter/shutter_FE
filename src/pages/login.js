@@ -49,12 +49,14 @@ export default function Login() {
     router.push("/");
   }
 
-  const setKakaoLogin = () => {
-    router.push("/kakao/login/");
+  const kakaoLogin = () => {
+    window.Kakao.Auth.authorize({
+      redirectUri: "http://localhost:3000/api/account/kakaologin",
+    });
   };
 
   const setGoogleLogin = () => {
-    router.push("/google/login/");
+    console.log("google login");
   };
 
   return (
@@ -116,7 +118,7 @@ export default function Login() {
           alignItems="center"
         >
           {/* <p>SNS 계정 간편 로그인</p> */}
-          <Button onClick={setKakaoLogin}>
+          <Button onClick={kakaoLogin}>
             <img
               src="/static/kakao_login_medium_narrow.png"
               alt="Shutter Logo"

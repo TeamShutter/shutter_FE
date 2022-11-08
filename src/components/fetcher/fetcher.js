@@ -2,68 +2,74 @@ import useSWR from "swr";
 import { API_URL } from "../../config";
 
 const fetcher = async (...args) => {
-    const res = await fetch(...args);
+  const res = await fetch(...args);
 
-    if(!res.ok) {
-        const error = new Error('An Error occured while fetching the data.');
-        error.info = await res.json();
-        error.status = res.status
-        throw error
-    }
-    const data = await res.json();
+  if (!res.ok) {
+    const error = new Error("An Error occured while fetching the data.");
+    error.info = await res.json();
+    error.status = res.status;
+    throw error;
+  }
+  const data = await res.json();
 
-    return data;
-}
+  return data;
+};
 
 export const GetStudios = () => {
-    // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
-    const {data, error} = useSWR(`${API_URL}/studio`, fetcher);
+  // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
+  const { data, error } = useSWR(`${API_URL}/studio`, fetcher);
 
-    return {
-        studios: data,
-        studiosLoading: !error & !data,
-        studiosError: error,
-    }
-}
+  return {
+    studios: data,
+    studiosLoading: !error & !data,
+    studiosError: error,
+  };
+};
 
 export const GetStudio = (studioId) => {
-    const {data, error} = useSWR(`${API_URL}/studio/${studioId}`, fetcher);
+  const { data, error } = useSWR(`${API_URL}/studio/${studioId}`, fetcher);
 
-    return {
-        studioData: data,
-        studioDataLoading: !error & !data,
-        studioDataError: error,
-    }
-}
+  return {
+    studioData: data,
+    studioDataLoading: !error & !data,
+    studioDataError: error,
+  };
+};
 
 export const GetStudioReviews = (studioId) => {
-    const {data, error} = useSWR(`${API_URL}/studios/${studioId}/review`, fetcher);
+  const { data, error } = useSWR(
+    `${API_URL}/studios/${studioId}/review`,
+    fetcher
+  );
 
-    return {
-        reviews: data,
-        reviewsLoading: !error & !data,
-        reviewsError: error,
-    }
-}
+  return {
+    reviews: data,
+    reviewsLoading: !error & !data,
+    reviewsError: error,
+  };
+};
 
 export const GetStudioPhotos = (studioId) => {
-    const {data, error} = useSWR(`${API_URL}/photo?studio_id=${studioId}`, fetcher);
+  const { data, error } = useSWR(
+    `${API_URL}/photo?studio_id=${studioId}`,
+    fetcher
+  );
 
-    return {
-        photos: data,
-        photosLoading: !error & !data,
-        photosError: error,
-    }
-}
+  return {
+    photos: data,
+    photosLoading: !error & !data,
+    photosError: error,
+  };
+};
 
 export const GetSearch = (q) => {
-    const {data, error} = useSWR(`${API_URL}/studios/search?q=${q}`, fetcher);
-    return {
-        search: data,
-        searchLoading: !error & !data,
-        searchError: error,
-    }
-}
+  const { data, error } = useSWR(`${API_URL}/studios/search?q=${q}`, fetcher);
+  return {
+    search: data,
+    searchLoading: !error & !data,
+    searchError: error,
+  };
+};
 
 // export const GetPhotos = (price, photoshop, sex, tags) => {
 //     let fetchURL;
@@ -85,50 +91,53 @@ export const GetSearch = (q) => {
 //     }
 // }
 export const GetPhotos = (town) => {
-    let fetchURL;
-    if(town) {
-        fetchURL = `${API_URL}/photo?town=${town}`;
-    }   else {
-        fetchURL = `${API_URL}/photo/`;
-    }
-    const {data, error} = useSWR(fetchURL, fetcher);
+  let fetchURL;
+  if (town) {
+    fetchURL = `${API_URL}/photo?town=${town}`;
+  } else {
+    fetchURL = `${API_URL}/photo/`;
+  }
+  const { data, error } = useSWR(fetchURL, fetcher);
 
-    return {
-        photos: data,
-        photosLoading: !error & !data,
-        photosError: error,
-    }
-}
+  return {
+    photos: data,
+    photosLoading: !error & !data,
+    photosError: error,
+  };
+};
 
 export const GetPhoto = (photoId) => {
-    const {data, error} = useSWR(`${API_URL}/photo/${photoId}`, fetcher);
+  const { data, error } = useSWR(`${API_URL}/photo/${photoId}`, fetcher);
 
-    return {
-        photoData: data,
-        photoDataLoading: !error & !data,
-        photoDataError: error,
-    }
-}
+  return {
+    photoData: data,
+    photoDataLoading: !error & !data,
+    photoDataError: error,
+  };
+};
 
 export const GetTags = () => {
-    const {data, error} = useSWR(`${API_URL}/tags`, fetcher);
+  const { data, error } = useSWR(`${API_URL}/tags`, fetcher);
 
-    return {
-        tags: data,
-        tagsLoading: !error & !data,
-        tagsError: error,
-    }
-}
+  return {
+    tags: data,
+    tagsLoading: !error & !data,
+    tagsError: error,
+  };
+};
 
 export const GetProfile = (userId) => {
-    const {data, error} = useSWR(`${API_URL}/accounts/profile/${userId}`, fetcher);
+  const { data, error } = useSWR(
+    `${API_URL}/accounts/profile/${userId}`,
+    fetcher
+  );
 
-    return {
-        profile: data,
-        profileLoading: !error & !data,
-        profileError: error,
-    }
-}
+  return {
+    profile: data,
+    profileLoading: !error & !data,
+    profileError: error,
+  };
+};
 
 // export const GetProfile = () => {
 //     const {data, error} = useSWR(`${API_URL}/accounts/profile`, fetcher);

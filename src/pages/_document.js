@@ -6,10 +6,14 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-          <Head>
-            <meta name="description" content="Shutter, 증명사진 플랫폼 | 당신이 찾는 모든 사진" />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
+        <Head>
+          <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+          <meta
+            name="description"
+            content="Shutter, 증명사진 플랫폼 | 당신이 찾는 모든 사진"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <body>
           <Main />
           <NextScript />
@@ -19,18 +23,19 @@ export default class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getInitialProps = async (ctx) => {
   const materialSheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: App => props => materialSheets.collect(<App {...props} />)
+      enhanceApp: (App) => (props) =>
+        materialSheets.collect(<App {...props} />),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
   return {
     ...initialProps,
-    styles: <>{initialProps.styles}</>
+    styles: <>{initialProps.styles}</>,
   };
 };

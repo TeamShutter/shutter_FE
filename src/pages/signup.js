@@ -26,13 +26,21 @@ export default function Signup() {
     first_name: "",
     last_name: "",
     username: "",
+    email: "",
     password: "",
     re_password: "",
     checked: false,
   });
 
-  const { first_name, last_name, username, password, re_password, checked } =
-    formData;
+  const {
+    first_name,
+    last_name,
+    username,
+    email,
+    password,
+    re_password,
+    checked,
+  } = formData;
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,7 +55,9 @@ export default function Signup() {
     e.preventDefault();
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
-      dispatch(signup(first_name, last_name, username, password, re_password));
+      dispatch(
+        signup(first_name, last_name, username, email, password, re_password)
+      );
     }
   };
 
