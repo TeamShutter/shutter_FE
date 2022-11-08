@@ -17,6 +17,9 @@ import { useStore } from "../store";
 import { ProvideAuth } from "../hooks/use-auth";
 import { useEffect } from "react";
 
+import { gtm } from "../lib/gtm";
+import { gtmConfig } from "../config";
+
 // declare global {
 //   interface Window {
 //     Kakao: any;
@@ -28,7 +31,9 @@ const App = (props) => {
   const store = useStore(pageProps.initialReduxState);
 
   useEffect(() => {
-    window.Kakao.init("7df8535a03baaf68c31da7c6d6cfe798");
+    //   window.Kakao.init("7df8535a03baaf68c31da7c6d6cfe798");
+    // }, []);
+    gtm.initialize(gtmConfig);
   }, []);
 
   return (

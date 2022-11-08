@@ -19,6 +19,7 @@ import { useState } from "react";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import { useEffect } from "react";
+import TownSelector from "../../components/filters/TownSelector";
 
 export default function Studioindex() {
   // const [distance, setDistance] = useState(1);
@@ -43,18 +44,18 @@ export default function Studioindex() {
 
   // const getLocation = (e) => {
   //   navigator.geolocation.getCurrentPosition(function (position) {
-  //     console.log(position);
   //     const latitude = position.coords.latitude;
   //     const longtitude = position.coords.longitude;
   //     setLatitude(latitude);
   //     setLongitude(longitude);
   //   });
   // };
+  const [town, setTown] = useState('');
 
   return (
     <Layout>
       <Head>
-        <title>Studios</title>
+        <title>Studios | Shutter</title>
       </Head>
 
       <Box>
@@ -85,8 +86,8 @@ export default function Studioindex() {
           />
           <StudioList price={price} distance={distance} latitude={latitude} longitude={longitude} />
         </Container> */}
-
-        <StudioList />
+        <TownSelector town={town} setTown={setTown} />
+        <StudioList town={town} />
       </Box>
     </Layout>
 

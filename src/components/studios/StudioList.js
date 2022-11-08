@@ -5,8 +5,13 @@ import StudioCarousel from "../studios/StudioCarousel";
 import StudioInfo from "../studios/StudioInfo";
 
 // {price, photoshop, sex, tags}
-export default function StudioList(props) {
-  const studiosData = GetStudios();
+export default function StudioList({town}) {
+  let studiosData;
+  if (town) {
+    studiosData = GetStudios(town);
+  } else {
+    studiosData = GetStudios();
+  }
 
   const studios = studiosData.studios?.data;
   const studiosLoading = studiosData.studiosLoading;
@@ -23,37 +28,30 @@ export default function StudioList(props) {
         justifyContent: 'space-between'
       }}
     >
+
       {studios.map((studio, i) => (
         <Box key={i} sx={{ mb: 10, width: '45%' }}>
           <StudioCarousel studio={studio} />
           <Link href={`/studios/${studio.id}`}>
             <a>
-              <Box
-                // sx={{
-                //   width: "100%",
-                //   display: "flex",
-                //   alignItems: "center",
-                //   justifyContent: "space-between"
-                // }}
-              >
-                <Box
-                  // sx={{
-                  //   width: '30%',
-                  //   display: 'flex',
-                  //   flexDirection: 'column',
-                  //   alignItems: 'center'
-                  // }}
-                >
-                  <Typography variant="h5" fontWeight="bold">
+              <Box>
+                <Box>
+                  <Typography 
+                  variant="h5" 
+                  fontWeight="bold"
+                  sx={{
+                    fontSize: {xs : '14px', md: '17px'}
+                  }}
+                  >
                     {studio.name}
                   </Typography>
-                  <Rating
+                  {/* <Rating
                       name="read-only"
                       size="small"
                       value={4.5}
                       precision={0.5}
                       readOnly
-                    />
+                    /> */}
                 </Box>
 
                 {/* <StudioInfo studio={studio} /> */}

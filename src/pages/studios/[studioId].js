@@ -121,55 +121,86 @@ export default function Studio() {
                 justifyContent: 'space-between'
               }}
               >
-                <Box>
+                <Box
+                sx={{
+                  display: 'flex',
+                  alignItems:'center'
+                }}
+                >
 
                   <Typography
                   variant='h5'
+                  sx={{
+                    mr: 1
+                  }}
                   >
                     {studio.name}
                   </Typography>
 
-                  <Rating 
+                  {/* <Rating 
                   name="read-only" 
                   size="small"
                   value={3.5} 
                   precision={0.5} 
                   readOnly 
-                  />
+                  /> */}
+                  {studio.instagram_link && (
+                      <img 
+                      id="instagram_link"
+                      src="/static/icons/instagram_icon.png"
+                      alt="instagram icon"
+                      width={35}
+                      height={35}
+                      style={{
+                        cursor: 'pointer',
+                        marginRight: '10px'
+                      }}
+                      onClick={() => {
+                        window.open(`${studio.instagram_link}`)
+                      }}
+                    />
+                  )}
 
                 </Box>
                 
 
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems:'center'
-                  }}
-                >
-                  <img 
-                  src="/static/icons/instagram_icon.png"
-                  alt="instagram icon"
-                  width={100}
-                  height={100}
-                  style={{
-                    cursor: 'pointer'
-                  }}
-                  onClick={() => {
-                    window.open(`${studio.instagram_link}`)
-                  }}
-                  />
-                  <img 
-                  src="/static/icons/naver_icon.png" 
-                  alt="naver icon" 
-                  width={50} 
-                  height={50} 
-                  style={{
-                    cursor: 'pointer'
-                  }}
-                  onClick={() => {
-                    window.open(`${studio.naver_link}`)
-                  }}
-                  />
+                <Box>
+
+                  {studio.naver_link && (
+
+                    <Button
+                    id="book_link"
+                    onClick={() => {
+                        window.open(`${studio.naver_link}`)
+                      }}
+                    sx={{ 
+                      color: 'white',
+                      display: 'block', 
+                      backgroundColor: 'black',
+                      border: '1px solid black',
+                      '&:hover': {
+                        transform: 'scale(1.1)',
+                        color: 'black'
+                      }
+                    }}
+                    >
+                    예약하기
+                    </Button>
+                    // <img 
+                    // id="naver_link"
+                    // src="/static/icons/naver_icon.png" 
+                    // alt="naver icon" 
+                    // width={35} 
+                    // height={35} 
+                    // style={{
+                    //   cursor: 'pointer'
+                    // }}
+                    // onClick={() => {
+                    //   window.open(`${studio.naver_link}`)
+                    // }}
+                    // />
+                  )}
+                  
                 </Box>
                 
 
@@ -216,11 +247,7 @@ export default function Studio() {
               </Box>
                 
 
-                
-
-                <StudioInfo studio={studio} />
-
-                <Box
+              <Box
                 sx={{
                   mb: 3,
                 }}>
@@ -239,6 +266,9 @@ export default function Studio() {
                     {studio.description}
                   </Typography>
                 </Box>
+
+
+                <StudioInfo studio={studio} />
 
             </Box>
 

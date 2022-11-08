@@ -15,9 +15,25 @@ const fetcher = async (...args) => {
   return data;
 };
 
-export const GetStudios = () => {
+export const GetTowns = () => {
   // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
-  const { data, error } = useSWR(`${API_URL}/studio`, fetcher);
+  const { data, error } = useSWR(`${API_URL}/town`, fetcher);
+  return {
+    towns: data,
+    townsLoading: !error & !data,
+    townsError: error,
+  };
+};
+
+export const GetStudios = (town) => {
+  // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
+  let fetchURL;
+  if (town) {
+    fetchURL = `${API_URL}/studio?town=${town}`;
+  } else {
+    fetchURL = `${API_URL}/studio/`;
+  }
+  const { data, error } = useSWR(fetchURL, fetcher);
 
   return {
     studios: data,
