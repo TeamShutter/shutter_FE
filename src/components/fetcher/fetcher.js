@@ -106,12 +106,14 @@ export const GetSearch = (q) => {
 //         photosError: error,
 //     }
 // }
-export const GetPhotos = (town) => {
+
+export const GetPhotos = (town, price) => {
   let fetchURL;
+  console.log(price);
   if (town) {
-    fetchURL = `${API_URL}/photo?town=${town}`;
+    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
   } else {
-    fetchURL = `${API_URL}/photo/`;
+    fetchURL = `${API_URL}/photo?min_price=${price.minPrice}&max_price=${price.maxPrice}`;
   }
   const { data, error } = useSWR(fetchURL, fetcher);
 

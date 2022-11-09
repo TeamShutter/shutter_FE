@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layouts/Layout";
 import { login, reset_signup_success } from "../actions/auth";
+import { KAKAO_AUTH_URL } from "../components/OAuth";
 
 export default function Login() {
   const router = useRouter();
@@ -48,12 +49,6 @@ export default function Login() {
   if (typeof window !== "undefined" && isAuthenticated) {
     router.push("/");
   }
-
-  const kakaoLogin = () => {
-    window.Kakao.Auth.authorize({
-      redirectUri: "http://localhost:3000/api/account/kakaologin",
-    });
-  };
 
   const setGoogleLogin = () => {
     console.log("google login");
@@ -118,7 +113,7 @@ export default function Login() {
           alignItems="center"
         >
           {/* <p>SNS 계정 간편 로그인</p> */}
-          <Button onClick={kakaoLogin}>
+          <Button href={KAKAO_AUTH_URL}>
             <img
               src="/static/kakao_login_medium_narrow.png"
               alt="Shutter Logo"

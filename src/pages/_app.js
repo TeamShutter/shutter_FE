@@ -31,8 +31,6 @@ const App = (props) => {
   const store = useStore(pageProps.initialReduxState);
 
   useEffect(() => {
-    //   window.Kakao.init("7df8535a03baaf68c31da7c6d6cfe798");
-    // }, []);
     gtm.initialize(gtmConfig);
   }, []);
 

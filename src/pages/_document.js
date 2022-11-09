@@ -7,8 +7,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
           <meta
             name="keywords"
             content="셔터, Shutter, shutter, 증명사진, 프로필사진, 사진관, 스튜디오"
