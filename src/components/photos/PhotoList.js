@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GetPhotos, GetStudioPhotos } from "../fetcher/fetcher";
 
 // {price, photoshop, sex, tags}
-export default function PhotoList({ studioId, town, price }) {
+export default function PhotoList({ studioId, town, price, tagList }) {
   // let photosData, photos, photosLoading, photosError, usage;
   // if ("price" in props) {
   //   photosData = GetPhotos(props.price, props.photoshop, props.sex, props.tags);
@@ -15,13 +15,18 @@ export default function PhotoList({ studioId, town, price }) {
   // }
 
   let photosData;
-  console.log(price);
-  if (town) {
-    photosData = GetPhotos(town, price);
-  } else if (studioId) {
+  // if (town) {
+  //   photosData = GetPhotos(town, price);
+  // } else if (studioId) {
+  //   photosData = GetStudioPhotos(studioId);
+  // } else {
+  //   photosData = GetPhotos("", price);
+  // }
+
+  if (studioId) {
     photosData = GetStudioPhotos(studioId);
   } else {
-    photosData = GetPhotos("", price);
+    photosData = GetPhotos(town, price, tagList);
   }
   const usage = "index";
 

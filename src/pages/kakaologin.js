@@ -5,13 +5,12 @@ import { API_URL } from "../config";
 export default function Kakaologin() {
   const router = useRouter();
   const { code: authCode, error: kakaoServerError } = router.query;
-  console.log(authCode);
 
   const loginHandler = useCallback(
     async (code) => {
       // 백엔드에 전송
       const response = await fetch(
-        `${API_URL}/accounts/kakao/login/callback/?code=${code}`,
+        `${API_URL}/accounts/kakao/login/callback?code=${code}`,
         {
           method: "GET",
           headers: {

@@ -1,29 +1,45 @@
 import Head from "next/head";
 import { GetTags } from "../components/fetcher/fetcher";
-import { AccordionSummary, Box, Chip, Typography } from "@mui/material";
+import { AccordionSummary, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import PhotoList from "../components/photos/PhotoList";
 import FilterContainer from "../components/filters/FilterContainer";
 import FilterTags from "../components/filters/FilterTags";
 import Layout from "../layouts/Layout";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import TownSelector from "../components/filters/TownSelector";
 import PriceSelector from "../components/filters/PriceSelector";
+import TagSelector from "../components/filters/TagSelector";
+import SelectedFilter from "../components/filters/SelectedFilter";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { NoEncryption } from "@mui/icons-material";
 
 export default function Home() {
   // const classes = useStyles();
 
   const [town, setTown] = useState("");
 
-  const [price, setPrice] = useState({ minPrice: 0, maxPrice: 0 });
-  const [expanded, setExpanded] = useState(true);
+  const [price, setPrice] = useState({ minPrice: "", maxPrice: "" });
+  const [expanded, setExpanded] = useState("");
 
-  const [photoshop, setPhotoshop] = useState(0);
+  // const [photoshop, setPhotoshop] = useState(0);
   const [sex, setSex] = useState(0);
   // const [page, setPage] = useState(1);
   const [tagList, setTagList] = useState([]);
+  const filters = [
+    { id: 1, name: "동네" },
+    { id: 2, name: "가격" },
+  ];
+
+  const expandFilterDetail = (e) => {
+    if (expanded === e.target.id) {
+      setExpanded("");
+    } else {
+      setExpanded(e.target.id);
+    }
+  };
 
   // const {tags, tagsLoading, tagsError} = GetTags();
 
@@ -44,63 +60,88 @@ export default function Home() {
       >
         <img src="/static/logo_long.png" alt="Shutter Logo" width={300} />
       </Box>
+      <Box>
+        <TagSelector tagList={tagList} setTagList={setTagList} />
+      </Box>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
+          width: "100%",
+          height: "5px",
+          bgcolor: "blank.main",
         }}
+      ></Box>
+      <Box
+        sx={{
+          display: "inline-block",
+          overflowX: "scroll",
+          whiteSpace: "nowrap",
+          height: "40px",
+          width: "100%",
+          mt: "15px",
+          mb: "10px",
+          mr: "15px",
+          ml: "15px",
+          "&::-webkit-scrollbar": {
+            width: 0,
+            height: 0,
+          },
+        }}
+        x
       >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          sx={{
-            width: "200px",
-            position: "relative",
-          }}
-        >
-          <Box
+        {filters.map((filter) => (
+          <Button
             sx={{
-              display: "flex",
-              alignItems: "center",
+              mr: "20px",
+              ":hover": {
+                backgroundColor: "hashtag.main",
+                color: "white",
+                borderColor: "hashtag.main",
+              },
+              // bgcolor: `${expanded === filter.name ? "hashtag.main" : ""}`,
             }}
+            color={expanded === filter.name ? "hashtag" : "primary"}
+            key={filter.id}
+            variant={expanded === filter.name ? "contained" : "outlined"}
+            id={filter.name}
+            onClick={expandFilterDetail}
+            endIcon={
+              expanded === filter.name ? <ExpandLessIcon /> : <ExpandMoreIcon />
+            }
           >
-            <Typography onClick={() => setExpanded((prev) => !prev)}>
-              동네별로 보기
-            </Typography>
-          </Box>
-        </AccordionSummary>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          sx={{
-            position: "relative",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Typography onClick={() => setExpanded((prev) => !prev)}>
-              가격별로 보기
-            </Typography>
-          </Box>
-        </AccordionSummary>
+            {filter.name}
+          </Button>
+        ))}
       </Box>
-      <Box>
-        <TownSelector town={town} setTown={setTown} />
-        <PriceSelector price={price} setPrice={setPrice} />
+      <Box
+        sx={{
+          width: "100%",
+          height: "5px",
+          bgcolor: "blank.main",
+        }}
+      ></Box>
+      <Box sx={{ bgcolor: "blank.main", mb: "15px" }}>
+        {expanded === "" ? null : expanded === "동네" ? (
+          <TownSelector town={town} setTown={setTown} />
+        ) : (
+          <PriceSelector price={price} setPrice={setPrice} />
+        )}
+      </Box>
+      <Box sx={{ mt: "10px" }}>
+        <SelectedFilter
+          town={town}
+          setTown={setTown}
+          price={price}
+          setPrice={setPrice}
+          tagList={tagList}
+          setTagList={setTagList}
+        />
       </Box>
       {/* <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} /> */}
 
       {/* <FilterTags tagList={tagList} setTagList={setTagList} tags={tags} /> */}
 
       {/* <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />  */}
-      <PhotoList town={town} price={price} />
+      <PhotoList town={town} price={price} tagList={tagList} />
 
       {/* <Pagination sx={{display:"flex", justifyContent:"center"}} onChange={changePage} count={2} />  */}
     </Layout>

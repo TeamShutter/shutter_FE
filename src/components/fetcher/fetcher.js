@@ -25,6 +25,15 @@ export const GetTowns = () => {
   };
 };
 
+export const GetTags = () => {
+  const { data, error } = useSWR(`${API_URL}/tags`, fetcher);
+  return {
+    tags: data,
+    tagsLoading: !error & !data,
+    tagsError: error,
+  };
+};
+
 export const GetStudios = (town) => {
   // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
   let fetchURL;
@@ -107,13 +116,24 @@ export const GetSearch = (q) => {
 //     }
 // }
 
-export const GetPhotos = (town, price) => {
+export const GetPhotos = (town, price, tagList) => {
+  // let fetchURL;
+  // if (town) {
+  //   fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
+  // } else {
+  //   fetchURL = `${API_URL}/photo?min_price=${price.minPrice}&max_price=${price.maxPrice}`;
+  // }
+  // const { data, error } = useSWR(fetchURL, fetcher);
+
   let fetchURL;
-  console.log(price);
-  if (town) {
-    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
+  if (tagList.length > 0) {
+    let tagsString = "";
+    for (let i = 0; i < tagList.length; i++) {
+      tagsString += `&tags=${tagList[i].id}`;
+    }
+    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}${tagsString}`;
   } else {
-    fetchURL = `${API_URL}/photo?min_price=${price.minPrice}&max_price=${price.maxPrice}`;
+    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
   }
   const { data, error } = useSWR(fetchURL, fetcher);
 
@@ -134,15 +154,15 @@ export const GetPhoto = (photoId) => {
   };
 };
 
-export const GetTags = () => {
-  const { data, error } = useSWR(`${API_URL}/tags`, fetcher);
+// export const GetTags = () => {
+//   const { data, error } = useSWR(`${API_URL}/tags`, fetcher);
 
-  return {
-    tags: data,
-    tagsLoading: !error & !data,
-    tagsError: error,
-  };
-};
+//   return {
+//     tags: data,
+//     tagsLoading: !error & !data,
+//     tagsError: error,
+//   };
+// };
 
 export const GetProfile = (userId) => {
   const { data, error } = useSWR(
