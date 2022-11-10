@@ -1,17 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Chip,
-  Container,
-  Pagination,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function PriceSelector({ price, setPrice }) {

@@ -1,16 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Chip,
-  Container,
-  Pagination,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/styles";
+import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { GetTags } from "../fetcher/fetcher";
 

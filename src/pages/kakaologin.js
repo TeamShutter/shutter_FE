@@ -18,7 +18,7 @@ export default function Kakaologin() {
           },
         }
       ).then((res) => res.json());
-      if (response.ok) {
+      if (response.success === True) {
         // 성공하면 홈으로 리다이렉트
         router.push("/");
       } else {

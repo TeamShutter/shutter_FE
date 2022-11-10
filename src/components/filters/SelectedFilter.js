@@ -58,8 +58,6 @@ export default function SelectedFilter({
           overflowX: "scroll",
           whiteSpace: "nowrap",
           width: "100%",
-          mr: "15px",
-          ml: "15px",
           "&::-webkit-scrollbar": {
             width: 0,
             height: 0,
@@ -68,7 +66,9 @@ export default function SelectedFilter({
       >
         {selectedFilter.map((s) => (
           <Chip
-            sx={{ bgcolor: "hashtag.main", mr: "10px" }}
+            sx={{ mr: "10px" }}
+            color="hashtag"
+            variant="filled"
             key={s}
             onDelete={handleDelete}
             label={s}

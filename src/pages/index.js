@@ -1,20 +1,17 @@
-import Head from "next/head";
-import { GetTags } from "../components/fetcher/fetcher";
-import { AccordionSummary, Box, Button, Typography } from "@mui/material";
+// import Head from "next/head";
+// import { GetTags } from "../components/fetcher/fetcher";
+import { Box, Button } from "@mui/material";
 import { useState } from "react";
 import PhotoList from "../components/photos/PhotoList";
-import FilterContainer from "../components/filters/FilterContainer";
-import FilterTags from "../components/filters/FilterTags";
+
 import Layout from "../layouts/Layout";
 
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import TownSelector from "../components/filters/TownSelector";
 import PriceSelector from "../components/filters/PriceSelector";
 import TagSelector from "../components/filters/TagSelector";
 import SelectedFilter from "../components/filters/SelectedFilter";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { NoEncryption } from "@mui/icons-material";
 
 export default function Home() {
   // const classes = useStyles();
@@ -79,8 +76,6 @@ export default function Home() {
           width: "100%",
           mt: "15px",
           mb: "10px",
-          mr: "15px",
-          ml: "15px",
           "&::-webkit-scrollbar": {
             width: 0,
             height: 0,
@@ -91,7 +86,7 @@ export default function Home() {
         {filters.map((filter) => (
           <Button
             sx={{
-              mr: "20px",
+              ml: "20px",
               ":hover": {
                 backgroundColor: "hashtag.main",
                 color: "white",

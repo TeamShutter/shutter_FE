@@ -1,22 +1,5 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Chip,
-  Container,
-  Pagination,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/styles";
+import { Box, Chip } from "@mui/material";
 import { GetTowns } from "../fetcher/fetcher";
-import { useState } from "react";
-
-const TownChip = styled(Chip)({
-  width: "23%",
-  minWidth: "45px",
-  marginBottom: "8px",
-});
 
 export default function TownSelector({ town, setTown }) {
   const townsData = GetTowns();
@@ -42,20 +25,29 @@ export default function TownSelector({ town, setTown }) {
       <Box
         sx={{
           pt: "5px",
-          ml: "40px",
-          mr: "40px",
+          ml: "10px",
+          mr: "10px",
           display: "flex",
           justifyContent: "space-between",
           flexWrap: "wrap",
         }}
       >
         {towns.map((t) => (
-          <TownChip
-            className="town-select-btn"
+          <Chip
+            sx={{
+              width: "24%",
+              minWidth: "45px",
+              marginBottom: "8px",
+              ":hover": {
+                backgroundColor: "hashtag.main",
+                color: "white",
+              },
+            }}
+            size="small"
             key={t}
             onClick={handleChangeTown}
             label={t}
-            color={town === t ? "primary" : "default"}
+            color={town === t ? "hashtag" : "default"}
             clickable
           />
         ))}
