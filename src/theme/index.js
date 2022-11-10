@@ -1,31 +1,46 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
   palette: {
     primary: {
       // main: '#e67e22',
-      main: '#000000',
+      main: "#000000",
     },
     secondary: {
-        main: '#e67e22'
+      main: "#e67e22",
     },
     info: {
-        main: '#0984e3'
+      main: "#0984e3",
     },
     success: {
-        main: '#55efc4'
+      main: "#55efc4",
     },
     error: {
-        main: '#d63031'
+      main: "#d63031",
     },
     star: {
-      main: '#ff6b6b'
+      main: "#ff6b6b",
+    },
+    hashtag: {
+      main: "#09f",
+      contrastText: "#fff",
+    },
+    blank: {
+      main: "#f0f0f0",
     },
   },
 
   button: {
-      primary: {
-          main: 'black',
-      }
-  }
+    primary: {
+      main: "black",
+    },
+    hashtag: {
+      main: "#09f",
+    },
+  },
+  "@global": {
+    "*::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
 });
