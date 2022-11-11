@@ -34,6 +34,15 @@ export const GetTags = () => {
   };
 };
 
+export const GetPhotoTags = (photoId) => {
+  const { data, error } = useSWR(`${API_URL}/tags?photoId=${photoId}`, fetcher);
+  return {
+    photoTags: data,
+    photoTagsLoading: !error & !data,
+    photoTagsError: error,
+  };
+};
+
 export const GetStudios = (town) => {
   // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
   let fetchURL;
@@ -116,7 +125,7 @@ export const GetSearch = (q) => {
 //     }
 // }
 
-export const GetPhotos = (town, price, tagList) => {
+export const GetPhotos = (town, price, tagList, color) => {
   // let fetchURL;
   // if (town) {
   //   fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
@@ -131,9 +140,9 @@ export const GetPhotos = (town, price, tagList) => {
     for (let i = 0; i < tagList.length; i++) {
       tagsString += `&tags=${tagList[i].id}`;
     }
-    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}${tagsString}`;
+    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}&color=${color}${tagsString}`;
   } else {
-    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
+    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}&color=${color}`;
   }
   const { data, error } = useSWR(fetchURL, fetcher);
 

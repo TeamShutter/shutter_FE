@@ -1,6 +1,8 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 import { GetTags } from "../fetcher/fetcher";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export default function TagSelector({ tagList, setTagList }) {
   const [tagSearchInput, setTagSearchInput] = useState("");
@@ -35,6 +37,9 @@ export default function TagSelector({ tagList, setTagList }) {
           value={tagSearchInput}
           onChange={(e) => setTagSearchInput(e.target.value)}
         />
+        {/* <Box>
+          <KeyboardArrowLeftIcon fontSize="small" />
+          <Box sx={{ ml: "10px", mr: "15px" }}> */}
         <Box
           sx={{
             display: "inline-block",
@@ -67,6 +72,9 @@ export default function TagSelector({ tagList, setTagList }) {
             ) : null
           )}
         </Box>
+        {/* </Box>
+          <KeyboardArrowRightIcon fontSize="small" />
+        </Box> */}
       </>
     )
   );
