@@ -8,8 +8,12 @@ export default function SelectedFilter({
   setPrice,
   tagList,
   setTagList,
+  color,
+  setColor,
+  colorList,
 }) {
   const [selectedFilter, setSelectedFilter] = useState([]);
+  console.log(color);
 
   const handleDelete = (e) => {
     const filterDeleted = e.target.parentNode.parentNode.children[0].innerText;
@@ -21,6 +25,8 @@ export default function SelectedFilter({
       filterDeleted.includes("이상")
     ) {
       setPrice({ minPrice: "", maxPrice: "" });
+    } else if (color === filterDeleted) {
+      setColor("");
     } else {
       setTagList((prev) => prev.filter((tag) => tag.name !== filterDeleted));
     }
@@ -43,12 +49,16 @@ export default function SelectedFilter({
         ]);
       }
     }
+    if (color) {
+      const colorName = colorList.find((c) => c.id === color).name;
+      setSelectedFilter((prev) => [...prev, colorName]);
+    }
     if (tagList.length > 0) {
       tagList.map((tag) => {
         setSelectedFilter((prev) => [...prev, tag.name]);
       });
     }
-  }, [town, price, tagList]);
+  }, [town, price, tagList, color]);
 
   return (
     selectedFilter.length > 0 && (
