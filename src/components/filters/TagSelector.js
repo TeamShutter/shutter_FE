@@ -64,6 +64,7 @@ export default function TagSelector({ tagList, setTagList }) {
                 key={t.id}
                 variant="text"
                 size="medium"
+                className="hashtag"
                 onClick={handleChangeTown}
                 color={tagList.includes(t) ? "hashtag" : "primary"}
               >
