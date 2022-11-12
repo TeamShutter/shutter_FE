@@ -16,8 +16,9 @@ export default function TagSelector({ tagList, setTagList }) {
   if (tagsLoading) return <div>Loading...</div>;
   if (tagsError) return <div>Error!!</div>;
 
-  const handleChangeTown = (e) => {
-    const newTag = tags.find((tag) => tag.name === e.target.innerText.slice(1));
+  const handleChangeTag = (e) => {
+    const curTag = e.target.innerText.substring(1).trim();
+    const newTag = tags.find((tag) => tag.name === curTag);
     if (tagList.includes(newTag)) {
       setTagList((prev) => prev.filter((tag) => tag !== newTag));
     } else {
@@ -79,7 +80,7 @@ export default function TagSelector({ tagList, setTagList }) {
                 variant="text"
                 size="medium"
                 className="hashtag"
-                onClick={handleChangeTown}
+                onClick={handleChangeTag}
                 color={tagList.includes(t) ? "hashtag" : "primary"}
               >
                 {"#" + t.name}
