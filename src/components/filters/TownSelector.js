@@ -1,4 +1,5 @@
 import { Box, Chip } from "@mui/material";
+// import { townList } from "../../data";
 import { GetTowns } from "../fetcher/fetcher";
 
 export default function TownSelector({ town, setTown }) {
@@ -48,6 +49,7 @@ export default function TownSelector({ town, setTown }) {
             className="filter_btn town_btn"
             onClick={handleChangeTown}
             label={t}
+            // disabled={towns.includes(t.name) ? false : true}
             color={town === t ? "hashtag" : "default"}
             clickable
           />

@@ -13,6 +13,7 @@ import SelectedFilter from "../components/filters/SelectedFilter";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ColorSelector from "../components/filters/ColorSelector";
+import { filters } from "../data";
 
 export default function Home() {
   // const classes = useStyles();
@@ -23,23 +24,10 @@ export default function Home() {
   const [expanded, setExpanded] = useState("");
 
   // const [photoshop, setPhotoshop] = useState(0);
-  const [sex, setSex] = useState(0);
+  // const [sex, setSex] = useState(0);
   // const [page, setPage] = useState(1);
   const [tagList, setTagList] = useState([]);
   const [color, setColor] = useState("");
-  const filters = [
-    { id: 1, name: "동네" },
-    { id: 2, name: "가격" },
-    { id: 3, name: "색감" },
-  ];
-
-  const colorList = [
-    { id: 1, name: "봄 웜톤" },
-    { id: 2, name: "여름 쿨톤" },
-    { id: 3, name: "가을 웜톤" },
-    { id: 4, name: "겨울 쿨톤" },
-    { id: 5, name: "흑백" },
-  ];
 
   const expandFilterDetail = (e) => {
     if (expanded === e.target.id) {
@@ -134,11 +122,7 @@ export default function Home() {
         ) : expanded === "가격" ? (
           <PriceSelector price={price} setPrice={setPrice} />
         ) : (
-          <ColorSelector
-            color={color}
-            setColor={setColor}
-            colorList={colorList}
-          />
+          <ColorSelector color={color} setColor={setColor} />
         )}
       </Box>
       <Box sx={{ mt: "10px" }}>
@@ -151,7 +135,6 @@ export default function Home() {
           setTagList={setTagList}
           color={color}
           setColor={setColor}
-          colorList={colorList}
         />
       </Box>
       {/* <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} /> */}
