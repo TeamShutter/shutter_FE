@@ -25,6 +25,19 @@ export default function TagSelector({ tagList, setTagList }) {
     }
   };
 
+  const handleTagInputKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const searchedTags = tags.filter((tag) =>
+        tag.name.includes(e.target.value)
+      );
+      if (tagList.includes(searchedTags[0]) === false) {
+        setTagList((prev) => [...prev, searchedTags[0]]);
+        setTagSearchInput("");
+      }
+    }
+  };
+
   return (
     tags && (
       <>
@@ -36,6 +49,7 @@ export default function TagSelector({ tagList, setTagList }) {
           sx={{ width: { md: "300px", xs: "90%" }, mb: "10px" }}
           value={tagSearchInput}
           onChange={(e) => setTagSearchInput(e.target.value)}
+          onKeyPress={handleTagInputKeyPress}
         />
         {/* <Box>
           <KeyboardArrowLeftIcon fontSize="small" />
