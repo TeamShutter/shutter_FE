@@ -108,7 +108,6 @@ export default function Home() {
             key={filter.id}
             variant={expanded === filter.name ? "contained" : "outlined"}
             id={filter.name}
-            className="filter_btn"
             onClick={expandFilterDetail}
             endIcon={
               expanded === filter.name ? (

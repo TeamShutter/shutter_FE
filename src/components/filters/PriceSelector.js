@@ -7,7 +7,7 @@ export default function PriceSelector({ price, setPrice }) {
 
   const handlePrice = () => {
     if (minPrice > maxPrice) {
-      console.log("가격 에러");
+      alert("가격을 잘못 입력하였습니다!");
     } else {
       setPrice({ minPrice: minPrice, maxPrice: maxPrice });
     }
@@ -38,6 +38,7 @@ export default function PriceSelector({ price, setPrice }) {
           }}
           color={price.maxPrice === 100000 ? "hashtag" : "primary"}
           onClick={() => setPrice({ minPrice: 0, maxPrice: 100000 })}
+          className="filter_btn price_btn"
         >
           10만원 이하
         </Button>
@@ -50,6 +51,7 @@ export default function PriceSelector({ price, setPrice }) {
           }}
           color={price.maxPrice === 200000 ? "hashtag" : "primary"}
           onClick={() => setPrice({ minPrice: 100000, maxPrice: 200000 })}
+          className="filter_btn price_btn"
         >
           10만원 ~ 20만원
         </Button>
@@ -62,6 +64,7 @@ export default function PriceSelector({ price, setPrice }) {
           }}
           color={price.maxPrice === 300000 ? "hashtag" : "primary"}
           onClick={() => setPrice({ minPrice: 200000, maxPrice: 300000 })}
+          className="filter_btn price_btn"
         >
           20만원 ~ 30만원
         </Button>
@@ -74,6 +77,7 @@ export default function PriceSelector({ price, setPrice }) {
           }}
           color={price.maxPrice === 400000 ? "hashtag" : "primary"}
           onClick={() => setPrice({ minPrice: 300000, maxPrice: 400000 })}
+          className="filter_btn price_btn"
         >
           30만원 ~ 40만원
         </Button>
@@ -86,6 +90,7 @@ export default function PriceSelector({ price, setPrice }) {
           }}
           color={price.maxPrice === 500000 ? "hashtag" : "primary"}
           onClick={() => setPrice({ minPrice: 400000, maxPrice: 500000 })}
+          className="filter_btn price_btn"
         >
           40만원 ~ 50만원
         </Button>
@@ -98,6 +103,7 @@ export default function PriceSelector({ price, setPrice }) {
           }}
           color={price.minPrice === 500000 ? "hashtag" : "primary"}
           onClick={() => setPrice({ minPrice: 500000, maxPrice: "" })}
+          className="filter_btn price_btn"
         >
           50만원 이상
         </Button>
@@ -129,7 +135,11 @@ export default function PriceSelector({ price, setPrice }) {
           sx={{ bgcolor: "white" }}
           onChange={(e) => setMaxPrice(e.target.value)}
         />
-        <Button variant="contained" onClick={handlePrice}>
+        <Button
+          className="filter_btn price_btn"
+          variant="contained"
+          onClick={handlePrice}
+        >
           적용
         </Button>
       </Box>

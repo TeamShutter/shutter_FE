@@ -36,6 +36,7 @@ export default function ColorSelector({ color, setColor, colorList }) {
           }}
           size="medium"
           key={c.id}
+          className="filter_btn color_btn"
           onClick={handleChangeColor}
           label={c.name}
           color={color === c.id ? "hashtag" : "default"}

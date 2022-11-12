@@ -45,6 +45,7 @@ export default function TownSelector({ town, setTown }) {
             }}
             size="small"
             key={t}
+            className="filter_btn town_btn"
             onClick={handleChangeTown}
             label={t}
             color={town === t ? "hashtag" : "default"}
