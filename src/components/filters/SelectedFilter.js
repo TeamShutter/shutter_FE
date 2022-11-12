@@ -1,5 +1,6 @@
 import { Box, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
+import { colorList } from "../../data";
 
 export default function SelectedFilter({
   town,
@@ -10,7 +11,6 @@ export default function SelectedFilter({
   setTagList,
   color,
   setColor,
-  colorList,
 }) {
   const [selectedFilter, setSelectedFilter] = useState([]);
 
