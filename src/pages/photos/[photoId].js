@@ -218,7 +218,7 @@ export default function Photo() {
             mb: "5px",
           }}
         >
-          <Typography variant="h6">스튜디오의 다른 사진들</Typography>
+          <Typography variant="h6">PORTFOLIO</Typography>
         </Box>
 
         <Box>
