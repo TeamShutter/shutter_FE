@@ -13,7 +13,6 @@ export default function SelectedFilter({
   colorList,
 }) {
   const [selectedFilter, setSelectedFilter] = useState([]);
-  console.log(color);
 
   const handleDelete = (e) => {
     const filterDeleted = e.target.parentNode.parentNode.children[0].innerText;
@@ -25,7 +24,7 @@ export default function SelectedFilter({
       filterDeleted.includes("이상")
     ) {
       setPrice({ minPrice: "", maxPrice: "" });
-    } else if (color === filterDeleted) {
+    } else if (color === colorList.find((c) => c.name === filterDeleted).id) {
       setColor("");
     } else {
       setTagList((prev) => prev.filter((tag) => tag.name !== filterDeleted));

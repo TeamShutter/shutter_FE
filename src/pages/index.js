@@ -101,8 +101,8 @@ export default function Home() {
                 backgroundColor: "hashtag.main",
                 color: "white",
                 borderColor: "hashtag.main",
+                zIndex: 10,
               },
-              // bgcolor: `${expanded === filter.name ? "hashtag.main" : ""}`,
             }}
             color={expanded === filter.name ? "hashtag" : "primary"}
             key={filter.id}
@@ -110,7 +110,11 @@ export default function Home() {
             id={filter.name}
             onClick={expandFilterDetail}
             endIcon={
-              expanded === filter.name ? <ExpandLessIcon /> : <ExpandMoreIcon />
+              expanded === filter.name ? (
+                <ExpandLessIcon id={filter.name} />
+              ) : (
+                <ExpandMoreIcon id={filter.name} />
+              )
             }
           >
             {filter.name}
