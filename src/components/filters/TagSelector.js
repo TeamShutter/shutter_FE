@@ -47,10 +47,10 @@ export default function TagSelector({ tagList, setTagList }) {
             whiteSpace: "nowrap",
             height: "40px",
             width: "100%",
-            // "&::-webkit-scrollbar": {
-            //   width: 0,
-            //   height: 0,
-            // },
+            "&::-webkit-scrollbar": {
+              width: 0,
+              height: 0,
+            },
           }}
         >
           {tags.map((t) =>
