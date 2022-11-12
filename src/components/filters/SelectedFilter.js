@@ -24,7 +24,7 @@ export default function SelectedFilter({
       filterDeleted.includes("이상")
     ) {
       setPrice({ minPrice: "", maxPrice: "" });
-    } else if (color === colorList.find((c) => c.name === filterDeleted).id) {
+    } else if (color === colorList.find((c) => c.name === filterDeleted)?.id) {
       setColor("");
     } else {
       setTagList((prev) => prev.filter((tag) => tag.name !== filterDeleted));
