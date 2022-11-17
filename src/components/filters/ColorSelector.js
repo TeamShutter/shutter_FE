@@ -1,7 +1,8 @@
 import { Box, Chip } from "@mui/material";
-import { GetColors } from "../fetcher/fetcher";
+import { colorList } from "../../data";
+// import { GetColors } from "../fetcher/fetcher";
 
-export default function ColorSelector({ color, setColor, colorList }) {
+export default function ColorSelector({ color, setColor }) {
   const handleChangeColor = (e) => {
     const newColor = colorList.find((c) => c.name === e.target.innerText).id;
     if (newColor === color) {
