@@ -1,10 +1,10 @@
-export const filters = [
+export const defaultFilters = [
   { id: 1, name: "동네" },
   { id: 2, name: "가격" },
   { id: 3, name: "색감" },
 ];
 
-export const colorList = [
+export const defaultColorList = [
   { id: 1, name: "봄 웜톤" },
   { id: 2, name: "여름 쿨톤" },
   { id: 3, name: "가을 웜톤" },
@@ -12,7 +12,13 @@ export const colorList = [
   { id: 5, name: "흑백" },
 ];
 
-export const townList = [
+export const defaultPhotoTypeList = [
+  { id: 1, name: "증명 사진" },
+  { id: 2, name: "프로필 사진" },
+  { id: 3, name: "단체 사진" },
+];
+
+export const defaultTownList = [
   { id: 1, name: "종로구" },
   { id: 2, name: "중구" },
   { id: 3, name: "용산구" },

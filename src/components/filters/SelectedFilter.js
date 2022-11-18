@@ -1,6 +1,6 @@
 import { Box, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
-import { colorList } from "../../data";
+import { defaultColorList } from "../../data";
 
 export default function SelectedFilter({
   town,
@@ -24,7 +24,9 @@ export default function SelectedFilter({
       filterDeleted.includes("이상")
     ) {
       setPrice({ minPrice: "", maxPrice: "" });
-    } else if (color === colorList.find((c) => c.name === filterDeleted)?.id) {
+    } else if (
+      color === defaultColorList.find((c) => c.name === filterDeleted)?.id
+    ) {
       setColor("");
     } else {
       setTagList((prev) => prev.filter((tag) => tag.name !== filterDeleted));
@@ -49,7 +51,7 @@ export default function SelectedFilter({
       }
     }
     if (color) {
-      const colorName = colorList.find((c) => c.id === color).name;
+      const colorName = defaultColorList.find((c) => c.id === color).name;
       setSelectedFilter((prev) => [...prev, colorName]);
     }
     if (tagList.length > 0) {

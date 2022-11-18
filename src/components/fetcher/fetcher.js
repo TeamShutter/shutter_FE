@@ -153,6 +153,19 @@ export const GetPhotos = (town, price, tagList, color) => {
   };
 };
 
+export const GetRelatedPhotos = (photoId) => {
+  const { data, error } = useSWR(
+    `${API_URL}/photo/${photoId}/related_photos`,
+    fetcher
+  );
+
+  return {
+    photos: data,
+    photosLoading: !error & !data,
+    photosError: error,
+  };
+};
+
 export const GetPhoto = (photoId) => {
   const { data, error } = useSWR(`${API_URL}/photo/${photoId}`, fetcher);
 

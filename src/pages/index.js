@@ -13,7 +13,7 @@ import SelectedFilter from "../components/filters/SelectedFilter";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ColorSelector from "../components/filters/ColorSelector";
-import { filters } from "../data";
+import { defaultFilters } from "../data";
 
 export default function Home() {
   // const classes = useStyles();
@@ -81,7 +81,7 @@ export default function Home() {
           },
         }}
       >
-        {filters.map((filter) => (
+        {defaultFilters.map((filter) => (
           <Button
             sx={{
               ml: "20px",

@@ -1,10 +1,12 @@
 import { Box, Chip } from "@mui/material";
-import { colorList } from "../../data";
+import { defaultColorList } from "../../data";
 // import { GetColors } from "../fetcher/fetcher";
 
 export default function ColorSelector({ color, setColor }) {
   const handleChangeColor = (e) => {
-    const newColor = colorList.find((c) => c.name === e.target.innerText).id;
+    const newColor = defaultColorList.find(
+      (c) => c.name === e.target.innerText
+    ).id;
     if (newColor === color) {
       setColor("");
     } else {
@@ -24,7 +26,7 @@ export default function ColorSelector({ color, setColor }) {
         flexWrap: "wrap",
       }}
     >
-      {colorList.map((c) => (
+      {defaultColorList.map((c) => (
         <Chip
           sx={{
             width: "23%",
