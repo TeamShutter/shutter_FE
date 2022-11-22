@@ -166,6 +166,39 @@ export const GetRelatedPhotos = (photoId) => {
   };
 };
 
+export const GetRecommendedStudios = (
+  photoTypeList,
+  townList,
+  colorList,
+  tagList
+) => {
+  console.log(photoTypeList);
+  let photoTypesString = "";
+  for (let i = 0; i < photoTypeList.length; i++) {
+    photoTypesString += `photoTypes=${photoTypeList[i]}`;
+  }
+  let townsString = "";
+  for (let i = 0; i < townList.length; i++) {
+    townsString += `&towns=${townList[i]}`;
+  }
+  let colorsString = "";
+  for (let i = 0; i < colorList.length; i++) {
+    colorsString += `&colors=${colorList[i]}`;
+  }
+  let tagsString = "";
+  for (let i = 0; i < tagList.length; i++) {
+    tagsString += `&tags=${tagList[i]}`;
+  }
+  const fetchURL = `${API_URL}/studio/recommend?${photoTypesString}${townsString}${colorsString}${tagsString}`;
+  const { data, error } = useSWR(fetchURL, fetcher);
+
+  return {
+    studios: data,
+    studiosLoading: !error & !data,
+    studiosError: error,
+  };
+};
+
 export const GetPhoto = (photoId) => {
   const { data, error } = useSWR(`${API_URL}/photo/${photoId}`, fetcher);
 
