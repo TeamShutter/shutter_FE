@@ -1,5 +1,4 @@
 import { Box, Chip } from "@mui/material";
-// import { townList } from "../../data";
 import { GetTowns } from "../fetcher/fetcher";
 
 export default function TownSelector({ town, setTown }) {

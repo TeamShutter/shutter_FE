@@ -1,3 +1,4 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/babel", "next/core-web-vitals"]
 }
+// 이거 새로운 폴더에 git clone 다시 받고 했더니 에러 떠서 이렇게 바꿨씁니당

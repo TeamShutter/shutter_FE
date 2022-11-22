@@ -19,7 +19,7 @@ import Layout from "../../layouts/Layout";
 import PhotoList from "../../components/photos/PhotoList";
 import { useSelector } from "react-redux";
 import { API_URL } from "../../config";
-import TagSelector from "../../components/filters/TagSelector";
+import RelatedPhotoList from "../../components/photos/RelatedPhotoList";
 
 export default function Photo() {
   const router = useRouter();
@@ -218,11 +218,23 @@ export default function Photo() {
             mb: "5px",
           }}
         >
-          <Typography variant="h6">PORTFOLIO</Typography>
+          <Typography variant="h6">Portfolio</Typography>
         </Box>
 
         <Box>
           <PhotoList studioId={studioId} />
+        </Box>
+
+        <Box
+          sx={{
+            mt: "8px",
+            mb: "5px",
+          }}
+        >
+          <Typography variant="h6">Related Photos</Typography>
+        </Box>
+        <Box>
+          <RelatedPhotoList photoId={photoId} />
         </Box>
 
         {user ? <PhotoLike setLike={setLike} setLikes={setLikes} /> : null}

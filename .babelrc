@@ -1,0 +1,5 @@
+{
+  "presets": ["next/babel"],
+  "plugins": []
+}
+// 이거 새로운 폴더에 git clone 다시 받고 했더니 에러 떠서 이거 추가했슴당
