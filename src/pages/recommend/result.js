@@ -7,8 +7,6 @@ import { API_URL } from "../../config";
 
 export default function Result() {
   const router = useRouter();
-  // const age = router.query.age;
-  // const gender = router.query.gender;
   const photoType = router.query.photoType;
   const town = router.query.town;
   const color = router.query.color;
@@ -24,8 +22,8 @@ export default function Result() {
   const tagList = tag?.split('"').filter((element, index) => index % 2 !== 0);
 
   const formData = {
-    gender: router.query.age,
-    age: router.query.gender,
+    sex: router.query.sex,
+    age: router.query.age,
   };
 
   useEffect(async () => {
@@ -59,7 +57,36 @@ export default function Result() {
 
   return (
     <Layout>
-      <Box>성공!</Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {studios.map((studio, i) => (
+          <Box key={i} sx={{ mb: 10, width: "45%" }}>
+            <StudioCarousel studio={studio} />
+            <Link href={`/studios/${studio.id}`}>
+              <a>
+                <Box>
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      fontWeight="bold"
+                      sx={{
+                        fontSize: { xs: "14px", md: "17px" },
+                      }}
+                    >
+                      {studio.name}
+                    </Typography>
+                  </Box>
+                </Box>
+              </a>
+            </Link>
+          </Box>
+        ))}
+      </Box>
     </Layout>
   );
 }

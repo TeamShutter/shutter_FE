@@ -1,17 +1,22 @@
 import { Box, Button, ButtonGroup, Slide, Typography } from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { defaultColorList, defaultPhotoTypeList } from "../../data";
 import { GetTags, GetTowns } from "../../components/fetcher/fetcher";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 export default function Userinfo() {
   // const [state, setState] = useState(true);
   // const ref1 = useRef(null);
   // const ref2 = useRef(null);
   // const nodeRef = state ? ref1 : ref2;
+  const user = useSelector((state) => state.auth.user);
+  const router = useRouter();
+
   const [checked, setChecked] = useState({
     1: true,
     2: false,
@@ -20,13 +25,17 @@ export default function Userinfo() {
     5: false,
   });
 
-  const [gender, setGender] = useState("");
+  const [sex, setSex] = useState("");
   const [age, setAge] = useState("");
   const [townList, setTownList] = useState([]);
   const [photoTypeList, setPhotoTypeList] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [tagList, setTagList] = useState([]);
-
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
   const townsData = GetTowns();
   const tagsData = GetTags();
 
@@ -45,7 +54,7 @@ export default function Userinfo() {
     const QDirection = e.target.id.substring(2).trim();
     const QNum = Number(e.target.id.substring(0, 1));
     if (QDirection === "next") {
-      if (QNum === 1 && gender.length === 0) {
+      if (QNum === 1 && sex.length === 0) {
         alert("성별을 선택하여야 합니다!");
       } else if (QNum === 2 && age.length === 0) {
         alert("나이를 선택하여야 합니다!");
@@ -113,12 +122,6 @@ export default function Userinfo() {
     } else {
     }
   };
-  console.log(gender);
-  console.log(age);
-  console.log(photoTypeList);
-  console.log(townList);
-  console.log(colorList);
-  console.log(tagList);
 
   return (
     <Layout>
@@ -154,20 +157,20 @@ export default function Userinfo() {
               }}
             >
               <Button
-                onClick={(e) => setGender(e.target.innerText)}
-                key="female"
-                name="gender"
-                variant={gender === "여성" ? "contained" : "outlined"}
-                color={gender === "여성" ? "hashtag" : "primary"}
+                onClick={(e) => setSex(e.target.id)}
+                id="female"
+                name="sex"
+                variant={sex === "female" ? "contained" : "outlined"}
+                color={sex === "female" ? "hashtag" : "primary"}
               >
                 여성
               </Button>
               <Button
-                onClick={(e) => setGender(e.target.innerText)}
-                key="male"
-                name="gender"
-                variant={gender === "남성" ? "contained" : "outlined"}
-                color={gender === "남성" ? "hashtag" : "primary"}
+                onClick={(e) => setSex(e.target.id)}
+                id="male"
+                name="sex"
+                variant={sex === "male" ? "contained" : "outlined"}
+                color={sex === "male" ? "hashtag" : "primary"}
               >
                 남성
               </Button>
@@ -505,7 +508,7 @@ export default function Userinfo() {
                 href={{
                   pathname: "/recommend/result",
                   query: {
-                    gender: gender,
+                    sex: sex,
                     age: age,
                     photoType: JSON.stringify(photoTypeList),
                     town: JSON.stringify(townList),

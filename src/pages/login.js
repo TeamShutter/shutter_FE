@@ -119,12 +119,6 @@ export default function Login() {
               alt="Shutter Logo"
             />
           </Button>
-          <Button onClick={setGoogleLogin}>
-            <img
-              src="/static/btn_google_signin_dark_normal_web.png"
-              alt="Shutter Logo"
-            />
-          </Button>
         </Grid>
       </Box>
     </Layout>
