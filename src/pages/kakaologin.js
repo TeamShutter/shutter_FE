@@ -16,13 +16,31 @@ export default function Kakaologin() {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem("access_token", data.access_token);
-          router.push("/");
-        });
+      );
+      const header = response.headers;
+      console.log(response);
+      console.log(header);
+      // response.setHeader(
+      //   "Set-Cookie",
+      //   header
+      //     .get("set-cookie")
+      //     .split(",")
+      //     .map((v) => v.trimStart())
+      // );
+      // const header = response.headers;
+      // response.setHeader(
+      //   "Set-Cookie",
+      //   header
+      //     .get("set-cookie")
+      //     .split(",")
+      //     .map((v) => v.trimStart())
+      // );
+      // .then((data) => {
+      //   localStorage.setItem("access_token", data.access_token);
+      //   router.push("/");
+      // });
     },
     [router]
   );
