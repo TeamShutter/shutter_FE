@@ -1,9 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { GetRecommendedStudios } from "../../components/fetcher/fetcher";
 import Layout from "../../layouts/Layout";
 import { API_URL } from "../../config";
+import Link from "next/link";
+import StudioCarousel from "../../components/studios/StudioCarousel";
 
 export default function Result() {
   const router = useRouter();
@@ -55,40 +57,77 @@ export default function Result() {
 
   // Post 형식으로 gender랑 age 보냄
 
-  return (
-    studios && (
-      <Layout>
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-          }}
-        >
-          {studios.map((studio, i) => (
-            <Box key={i} sx={{ mb: 10, width: "45%" }}>
-              <StudioCarousel studio={studio} />
-              <Link href={`/studios/${studio.id}`}>
-                <a>
-                  <Box>
-                    <Box>
-                      <Typography
-                        variant="h5"
-                        fontWeight="bold"
-                        sx={{
-                          fontSize: { xs: "14px", md: "17px" },
-                        }}
-                      >
-                        {studio.name}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </a>
-              </Link>
+  return !studios ? (
+    <div>Loading...</div>
+  ) : (
+    <Layout>
+      <Typography>가장 추천하는 사진관</Typography>
+      <Box sx={{ mb: 10, width: "75%" }}>
+        <StudioCarousel studio={studios[0]} />
+        <Link href={`/studios/${studios[0].id}`}>
+          <a>
+            <Box>
+              <Box>
+                <Typography
+                  variant="h5"
+                  fontWeight="bold"
+                  sx={{
+                    fontSize: { xs: "14px", md: "17px" },
+                  }}
+                >
+                  {studios[0].name}
+                </Typography>
+              </Box>
             </Box>
-          ))}
-        </Box>
-      </Layout>
-    )
+          </a>
+        </Link>
+      </Box>
+      <Box
+        sx={{
+          width: "100%",
+          height: "5px",
+          bgcolor: "blank.main",
+        }}
+      ></Box>
+      <Typography>이와 연관된 사진관들</Typography>
+      <Box
+        sx={{
+          display: "inline-block",
+          overflowX: "scroll",
+          whiteSpace: "nowrap",
+          height: "40px",
+          width: "100%",
+          mt: "15px",
+          mb: "10px",
+          "&::-webkit-scrollbar": {
+            // width: 0,
+            height: "1px",
+          },
+        }}
+      >
+        {studios.map((studio, i) => (
+          <Box key={i} sx={{ mb: 10, width: "45%" }}>
+            <StudioCarousel studio={studio} />
+            <Link href={`/studios/${studio.id}`}>
+              <a>
+                <Box>
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      fontWeight="bold"
+                      sx={{
+                        fontSize: { xs: "14px", md: "17px" },
+                      }}
+                    >
+                      {studio.name}
+                    </Typography>
+                  </Box>
+                </Box>
+              </a>
+            </Link>
+          </Box>
+        ))}
+      </Box>
+    </Layout>
   );
 }

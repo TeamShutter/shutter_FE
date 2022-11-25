@@ -159,6 +159,7 @@ export const signup =
         },
         body: body,
       });
+      console.log(res);
 
       const data = await res.json();
 

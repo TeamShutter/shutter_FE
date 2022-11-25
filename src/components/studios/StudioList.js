@@ -1,11 +1,11 @@
-import {Box, Container, Typography, Rating } from "@mui/material";
+import { Box, Container, Typography, Rating } from "@mui/material";
 import Link from "next/link";
 import { GetStudios } from "../fetcher/fetcher";
 import StudioCarousel from "../studios/StudioCarousel";
 import StudioInfo from "../studios/StudioInfo";
 
 // {price, photoshop, sex, tags}
-export default function StudioList({town}) {
+export default function StudioList({ town }) {
   let studiosData;
   if (town) {
     studiosData = GetStudios(town);
@@ -20,46 +20,47 @@ export default function StudioList({town}) {
   if (studiosLoading) return <div>Loading...</div>;
   if (studiosError) return <div>Error!!</div>;
 
-  return studios && (
-    <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between'
-      }}
-    >
-
-      {studios.map((studio, i) => (
-        <Box key={i} sx={{ mb: 10, width: '45%' }}>
-          <StudioCarousel studio={studio} />
-          <Link href={`/studios/${studio.id}`}>
-            <a>
-              <Box>
+  return (
+    studios && (
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {studios.map((studio, i) => (
+          <Box key={i} sx={{ mb: 10, width: "45%" }}>
+            <StudioCarousel studio={studio} />
+            <Link href={`/studios/${studio.id}`}>
+              <a>
                 <Box>
-                  <Typography 
-                  variant="h5" 
-                  fontWeight="bold"
-                  sx={{
-                    fontSize: {xs : '14px', md: '17px'}
-                  }}
-                  >
-                    {studio.name}
-                  </Typography>
-                  {/* <Rating
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      fontWeight="bold"
+                      sx={{
+                        fontSize: { xs: "14px", md: "17px" },
+                      }}
+                    >
+                      {studio.name}
+                    </Typography>
+                    {/* <Rating
                       name="read-only"
                       size="small"
                       value={4.5}
                       precision={0.5}
                       readOnly
                     /> */}
-                </Box>
+                  </Box>
 
-                {/* <StudioInfo studio={studio} /> */}
-              </Box>
-            </a>
-          </Link>
-        </Box>
-      ))}
+                  {/* <StudioInfo studio={studio} /> */}
+                </Box>
+              </a>
+            </Link>
+          </Box>
+        ))}
       </Box>
+    )
   );
 }
