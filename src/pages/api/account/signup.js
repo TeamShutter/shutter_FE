@@ -14,7 +14,9 @@ const signup = async (req, res) => {
       re_password,
     });
     try {
-      const apiRes = await fetch(`${API_URL}/account/signup/`, {
+      console.log(email);
+      console.log("b");
+      const apiRes = await fetch(`${API_URL}/accounts/signup/`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -22,6 +24,9 @@ const signup = async (req, res) => {
         },
         body: body,
       });
+
+      console.log("a");
+      console.log(apiRes);
 
       const data = await apiRes.json();
 

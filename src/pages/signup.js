@@ -91,6 +91,7 @@ export default function Signup() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={handleChange}
                 required
                 autoFocus
                 fullWidth

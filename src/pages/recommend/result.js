@@ -82,6 +82,13 @@ export default function Result() {
           </a>
         </Link>
       </Box>
+      <Box
+        sx={{
+          width: "100%",
+          height: "5px",
+          bgcolor: "blank.main",
+        }}
+      ></Box>
       <Typography>이와 연관된 사진관들</Typography>
       <Box
         sx={{

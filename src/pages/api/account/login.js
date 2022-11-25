@@ -9,7 +9,7 @@ const login = async (req, res) => {
     });
 
     try {
-      const apiRes = await fetch(`${API_URL}/account/login/`, {
+      const apiRes = await fetch(`${API_URL}/accounts/login/`, {
         method: "POST",
         headers: {
           Accept: "application/json",
