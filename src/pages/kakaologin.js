@@ -1,9 +1,13 @@
 import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loaduser } from "../actions/auth";
+import { LOGIN_FAIL, LOGIN_SUCCESS } from "../actions/types";
 import { API_URL } from "../config";
 
 export default function Kakaologin() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { code: authCode, error: kakaoServerError } = router.query;
 
   const loginHandler = useCallback(
@@ -19,28 +23,16 @@ export default function Kakaologin() {
           withCredentials: true,
         }
       );
-      const header = response.headers;
-      console.log(response);
-      console.log(header);
-      // response.setHeader(
-      //   "Set-Cookie",
-      //   header
-      //     .get("set-cookie")
-      //     .split(",")
-      //     .map((v) => v.trimStart())
-      // );
-      // const header = response.headers;
-      // response.setHeader(
-      //   "Set-Cookie",
-      //   header
-      //     .get("set-cookie")
-      //     .split(",")
-      //     .map((v) => v.trimStart())
-      // );
-      // .then((data) => {
-      //   localStorage.setItem("access_token", data.access_token);
-      //   router.push("/");
-      // });
+      if (response.status === 200) {
+        dispatch({
+          type: LOGIN_SUCCESS,
+        });
+        dispatch(loaduser());
+      } else {
+        dispatch({
+          type: LOGIN_FAIL,
+        });
+      }
     },
     [router]
   );

@@ -172,7 +172,6 @@ export const GetRecommendedStudios = (
   colorList,
   tagList
 ) => {
-  console.log(photoTypeList);
   let photoTypesString = "";
   for (let i = 0; i < photoTypeList.length; i++) {
     photoTypesString += `photoTypes=${photoTypeList[i]}`;
