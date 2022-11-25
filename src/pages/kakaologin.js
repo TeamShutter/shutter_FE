@@ -23,15 +23,18 @@ export default function Kakaologin() {
           withCredentials: true,
         }
       );
-      if (response.status === 200) {
-        dispatch({
-          type: LOGIN_SUCCESS,
-        });
-        dispatch(loaduser());
-      } else {
-        dispatch({
-          type: LOGIN_FAIL,
-        });
+      console.log(response);
+      const header = response.headers;
+      console.log(header);
+      console.log(header.status);
+      if (header.status === 200) {
+        res.setHeader(
+          "Set-Cookie",
+          header
+            .get("set-cookie")
+            .split(",")
+            .map((v) => v.trimStart())
+        );
       }
     },
     [router]

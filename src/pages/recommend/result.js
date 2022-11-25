@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { GetRecommendedStudios } from "../../components/fetcher/fetcher";
@@ -55,40 +55,77 @@ export default function Result() {
 
   // Post 형식으로 gender랑 age 보냄
 
-  return (
-    studios && (
-      <Layout>
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-          }}
-        >
-          {studios.map((studio, i) => (
-            <Box key={i} sx={{ mb: 10, width: "45%" }}>
-              <StudioCarousel studio={studio} />
-              <Link href={`/studios/${studio.id}`}>
-                <a>
+  return !studios ? (
+    <div>Loading...</div>
+  ) : studios.length > 3 ? (
+    <Layout>
+      <Typography>Top 3</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {studios.map((studio, i) => (
+          <Box key={i} sx={{ mb: 10, width: "45%" }}>
+            <Typography>
+              {i}. {studio.name}
+            </Typography>
+            <StudioCarousel studio={studio} />
+            <Link href={`/studios/${studio.id}`}>
+              <a>
+                <Box>
                   <Box>
-                    <Box>
-                      <Typography
-                        variant="h5"
-                        fontWeight="bold"
-                        sx={{
-                          fontSize: { xs: "14px", md: "17px" },
-                        }}
-                      >
-                        {studio.name}
-                      </Typography>
-                    </Box>
+                    <Typography
+                      variant="h5"
+                      fontWeight="bold"
+                      sx={{
+                        fontSize: { xs: "14px", md: "17px" },
+                      }}
+                    >
+                      {studio.name}
+                    </Typography>
                   </Box>
-                </a>
-              </Link>
-            </Box>
-          ))}
-        </Box>
-      </Layout>
-    )
+                </Box>
+              </a>
+            </Link>
+          </Box>
+        ))}
+      </Box>
+    </Layout>
+  ) : (
+    <Layout>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+        }}
+      >
+        {studios.map((studio, i) => (
+          <Box key={i} sx={{ mb: 10, width: "45%" }}>
+            <StudioCarousel studio={studio} />
+            <Link href={`/studios/${studio.id}`}>
+              <a>
+                <Box>
+                  <Box>
+                    <Typography
+                      variant="h5"
+                      fontWeight="bold"
+                      sx={{
+                        fontSize: { xs: "14px", md: "17px" },
+                      }}
+                    >
+                      {studio.name}
+                    </Typography>
+                  </Box>
+                </Box>
+              </a>
+            </Link>
+          </Box>
+        ))}
+      </Box>
+    </Layout>
   );
 }
