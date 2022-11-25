@@ -26,7 +26,7 @@ export default function Kakaologin() {
       console.log(response);
       const header = response.headers;
       console.log(header);
-      console.log(header.status);
+      console.log(header["set-cookie"]);
       if (header.status === 200) {
         res.setHeader(
           "Set-Cookie",
