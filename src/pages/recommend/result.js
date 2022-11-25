@@ -56,37 +56,39 @@ export default function Result() {
   // Post 형식으로 gender랑 age 보냄
 
   return (
-    <Layout>
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
-        {studios.map((studio, i) => (
-          <Box key={i} sx={{ mb: 10, width: "45%" }}>
-            <StudioCarousel studio={studio} />
-            <Link href={`/studios/${studio.id}`}>
-              <a>
-                <Box>
+    studios && (
+      <Layout>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          {studios.map((studio, i) => (
+            <Box key={i} sx={{ mb: 10, width: "45%" }}>
+              <StudioCarousel studio={studio} />
+              <Link href={`/studios/${studio.id}`}>
+                <a>
                   <Box>
-                    <Typography
-                      variant="h5"
-                      fontWeight="bold"
-                      sx={{
-                        fontSize: { xs: "14px", md: "17px" },
-                      }}
-                    >
-                      {studio.name}
-                    </Typography>
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        fontWeight="bold"
+                        sx={{
+                          fontSize: { xs: "14px", md: "17px" },
+                        }}
+                      >
+                        {studio.name}
+                      </Typography>
+                    </Box>
                   </Box>
-                </Box>
-              </a>
-            </Link>
-          </Box>
-        ))}
-      </Box>
-    </Layout>
+                </a>
+              </Link>
+            </Box>
+          ))}
+        </Box>
+      </Layout>
+    )
   );
 }

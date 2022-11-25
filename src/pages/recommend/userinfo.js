@@ -31,11 +31,11 @@ export default function Userinfo() {
   const [photoTypeList, setPhotoTypeList] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [tagList, setTagList] = useState([]);
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/login");
+  //   }
+  // }, [user]);
   const townsData = GetTowns();
   const tagsData = GetTags();
 
@@ -98,10 +98,10 @@ export default function Userinfo() {
     const newColor = defaultColorList.find(
       (color) => color.name === e.target.innerText
     );
-    if (colorList.includes(newColor.name)) {
-      setColorList((prev) => prev.filter((color) => color !== newColor.name));
+    if (colorList.includes(newColor.id)) {
+      setColorList((prev) => prev.filter((color) => color !== newColor.id));
     } else {
-      setColorList((prev) => [...prev, newColor.name]);
+      setColorList((prev) => [...prev, newColor.id]);
     }
   };
 
@@ -422,9 +422,9 @@ export default function Userinfo() {
               {defaultColorList.map((color) => (
                 <Button
                   variant={
-                    colorList.includes(color.name) ? "contained" : "outlined"
+                    colorList.includes(color.id) ? "contained" : "outlined"
                   }
-                  color={colorList.includes(color.name) ? "hashtag" : "primary"}
+                  color={colorList.includes(color.id) ? "hashtag" : "primary"}
                   onClick={handleChangeColor}
                   key={color.id}
                   name="color"
