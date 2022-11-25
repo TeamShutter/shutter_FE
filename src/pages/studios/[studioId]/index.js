@@ -18,18 +18,18 @@ import {
   GetStudio,
   GetStudioPhotos,
   GetStudioReviews,
-} from "../../components/fetcher/fetcher";
+} from "../../../components/fetcher/fetcher";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useEffect, useState } from "react";
-import ReviewList from "../../components/reviews/ReviewList";
-import StudioCarousel from "../../components/studios/StudioCarousel";
-import StudioInfo from "../../components/studios/StudioInfo";
-import PhotoList from "../../components/photos/PhotoList";
-import Layout from "../../layouts/Layout";
-import { API_URL } from "../../config";
-import StudioMap from "../../components/studios/StudioMap";
-// import { useAuth } from "../../hooks/use-auth";
+import ReviewList from "../../../components/reviews/ReviewList";
+import StudioCarousel from "../../../components/studios/StudioCarousel";
+import StudioInfo from "../../../components/studios/StudioInfo";
+import PhotoList from "../../../components/photos/PhotoList";
+import Layout from "../../../layouts/Layout";
+import { API_URL } from "../../../config";
+import StudioMap from "../../../components/studios/StudioMap";
+// import { useAuth } from "../../../hooks/use-auth";
 
 export default function Studio() {
   const router = useRouter();
@@ -147,12 +147,12 @@ export default function Studio() {
               </Typography>
 
               {/* <Rating 
-                  name="read-only" 
-                  size="small"
-                  value={3.5} 
-                  precision={0.5} 
-                  readOnly 
-                  /> */}
+                    name="read-only" 
+                    size="small"
+                    value={3.5} 
+                    precision={0.5} 
+                    readOnly 
+                    /> */}
               {studio.instagram_link && (
                 <img
                   id="instagram_link"
@@ -208,45 +208,45 @@ export default function Studio() {
             </Box>
 
             {/* {auth.user ? (
-                  <Box
-                  display= 'flex'
-                  alignItems= 'center'
-                  >
-                    <a href={studio.studio.reservation}
-                    target="_blank" rel="noreferrer"
-                    >
-                      <Button
-                      variant="contained"
-                      color="info"
-                      >
-                        예약하기
-                      </Button>
-                    </a>
-  
                     <Box
-                    display="flex"
-                    alignItems="center"
+                    display= 'flex'
+                    alignItems= 'center'
                     >
-                      <IconButton
-                            sx={{ color: 'red' }}
-                            aria-label={`follow ${studio?.studio.name}`}
-                            onClick={handleFollow}
+                      <a href={studio.studio.reservation}
+                      target="_blank" rel="noreferrer"
+                      >
+                        <Button
+                        variant="contained"
+                        color="info"
                         >
-                      {
-                      follow
-                      ?  
-                      <FavoriteIcon /> 
-                      : 
-                      <FavoriteBorderIcon />
-                      }
-                      </IconButton>
-                      <Typography>
-                        {follows}
-                      </Typography>
-  
+                          예약하기
+                        </Button>
+                      </a>
+    
+                      <Box
+                      display="flex"
+                      alignItems="center"
+                      >
+                        <IconButton
+                              sx={{ color: 'red' }}
+                              aria-label={`follow ${studio?.studio.name}`}
+                              onClick={handleFollow}
+                          >
+                        {
+                        follow
+                        ?  
+                        <FavoriteIcon /> 
+                        : 
+                        <FavoriteBorderIcon />
+                        }
+                        </IconButton>
+                        <Typography>
+                          {follows}
+                        </Typography>
+    
+                      </Box>
                     </Box>
-                  </Box>
-               ) : null} */}
+                 ) : null} */}
           </Box>
 
           <Box
@@ -276,45 +276,45 @@ export default function Studio() {
         </Box>
 
         {/* <Box 
-            sx={{ mt : 3 }}>
-                <Typography
-                  variant="h5">
-                    Reviews
-                  </Typography>
-
-              <ReviewList reviews={reviewList}/>
-
-              {auth.user ? (
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
-                <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
-                    <Box item xs={9}>
-                      <TextField
-                        required
-                        fullWidth
-                        type="content"
-                        id="content"
-                        name="content"
-                        label="리뷰를 작성해주세요"
-                      />
-                    </Box>
-                    <Rating name="rating" precision={1} sx={{ width: '100px', margin: 'auto' }}/>
-                    <Box item xs={3}>
-                        <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                        size="large"
-                      >
-                        리뷰 작성
-                      </Button>
-                    </Box>
-                
-                </FormControl>
-              </Box>
-              ) : null}
-               
-            </Box> */}
+              sx={{ mt : 3 }}>
+                  <Typography
+                    variant="h5">
+                      Reviews
+                    </Typography>
+  
+                <ReviewList reviews={reviewList}/>
+  
+                {auth.user ? (
+                  <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, width: '100%' }}>
+                  <FormControl component="fieldset" variant="standard" sx={{ width: '100%' }}>
+                      <Box item xs={9}>
+                        <TextField
+                          required
+                          fullWidth
+                          type="content"
+                          id="content"
+                          name="content"
+                          label="리뷰를 작성해주세요"
+                        />
+                      </Box>
+                      <Rating name="rating" precision={1} sx={{ width: '100px', margin: 'auto' }}/>
+                      <Box item xs={3}>
+                          <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                          size="large"
+                        >
+                          리뷰 작성
+                        </Button>
+                      </Box>
+                  
+                  </FormControl>
+                </Box>
+                ) : null}
+                 
+              </Box> */}
       </Layout>
     )
   );
