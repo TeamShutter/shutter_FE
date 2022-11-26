@@ -136,9 +136,10 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signup =
-  (first_name, last_name, username, password, re_password) =>
+  (email, first_name, last_name, username, password, re_password) =>
   async (dispatch) => {
     const body = JSON.stringify({
+      email,
       first_name,
       last_name,
       username,

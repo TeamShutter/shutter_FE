@@ -28,6 +28,9 @@ export const theme = createTheme({
     blank: {
       main: "#f0f0f0",
     },
+    selectall: {
+      main: "#D3D3D3",
+    },
   },
 
   button: {

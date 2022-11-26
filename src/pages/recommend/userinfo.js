@@ -31,11 +31,13 @@ export default function Userinfo() {
   const [photoTypeList, setPhotoTypeList] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [tagList, setTagList] = useState([]);
-  // useEffect(() => {
-  //   if (!user) {
-  //     router.push("/login");
-  //   }
-  // }, [user]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
+
   const townsData = GetTowns();
   const tagsData = GetTags();
 
@@ -116,10 +118,29 @@ export default function Userinfo() {
     }
   };
 
-  const handleSubmit = (e) => {
-    if (tagList.length === 0) {
-      alert("분위기 태그를 1개 이상 선택하여야 합니다!");
-    } else {
+  const selectAll = (e) => {
+    const type = e.target.id;
+
+    if (type === "photoType") {
+      setPhotoTypeList([]);
+      for (let i = 0; i < defaultPhotoTypeList.length; i++) {
+        setPhotoTypeList((prev) => [...prev, defaultPhotoTypeList[i].name]);
+      }
+    } else if (type === "town") {
+      setTownList([]);
+      for (let i = 0; i < towns.length; i++) {
+        setTownList((prev) => [...prev, towns[i]]);
+      }
+    } else if (type === "color") {
+      setColorList([]);
+      for (let i = 0; i < defaultColorList.length; i++) {
+        setColorList((prev) => [...prev, defaultColorList[i].id]);
+      }
+    } else if (type === "tag") {
+      setTagList([]);
+      for (let i = 0; i < tags.length; i++) {
+        setTagList((prev) => [...prev, tags[i].name]);
+      }
     }
   };
 
@@ -323,7 +344,16 @@ export default function Userinfo() {
                   {photoType.name}
                 </Button>
               ))}
+              <Button
+                variant="contained"
+                color="selectall"
+                id="photoType"
+                onClick={selectAll}
+              >
+                모두 선택
+              </Button>
             </Box>
+
             <Box
               sx={{
                 mt: "15px",
@@ -378,6 +408,15 @@ export default function Userinfo() {
                   {town}
                 </Button>
               ))}
+              <Button
+                variant="contained"
+                color="selectall"
+                id="town"
+                onClick={selectAll}
+                sx={{ width: "30%", minWidth: "50px" }}
+              >
+                모두 선택
+              </Button>
             </Box>
             <Box
               sx={{
@@ -432,6 +471,14 @@ export default function Userinfo() {
                   {color.name}
                 </Button>
               ))}
+              <Button
+                variant="contained"
+                color="selectall"
+                id="color"
+                onClick={selectAll}
+              >
+                모두 선택
+              </Button>
             </Box>
             <Box
               sx={{
@@ -489,6 +536,15 @@ export default function Userinfo() {
                   #{tag.name}
                 </Button>
               ))}
+              <Button
+                variant="contained"
+                color="selectall"
+                id="tag"
+                onClick={selectAll}
+                sx={{ width: "30%", minWidth: "45px" }}
+              >
+                모두 선택
+              </Button>
             </Box>
 
             <Box
