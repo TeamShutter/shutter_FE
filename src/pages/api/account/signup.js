@@ -14,8 +14,6 @@ const signup = async (req, res) => {
       re_password,
     });
     try {
-      console.log(email);
-      console.log("b");
       const apiRes = await fetch(`${API_URL}/accounts/signup/`, {
         method: "POST",
         headers: {

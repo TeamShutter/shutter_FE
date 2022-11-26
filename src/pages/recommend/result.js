@@ -61,7 +61,7 @@ export default function Result() {
     <div>Loading...</div>
   ) : (
     <Layout>
-      <Typography>가장 추천하는 사진관</Typography>
+      <Typography variant="h4">가장 추천하는 사진관</Typography>
       <Box sx={{ mb: 10, width: "75%" }}>
         <StudioCarousel studio={studios[0]} />
         <Link href={`/studios/${studios[0].id}`}>

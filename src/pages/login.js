@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layouts/Layout";
 import { login, reset_signup_success } from "../actions/auth";
 import { KAKAO_AUTH_URL } from "../components/OAuth";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -100,12 +101,22 @@ export default function Login() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3 }}
             size="large"
           >
             로그인
           </Button>
         </FormControl>
+        <Link href={"/signup"}>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            size="large"
+          >
+            회원가입하러 가기
+          </Button>
+        </Link>
         <Grid
           container
           direction="row"
