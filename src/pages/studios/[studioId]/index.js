@@ -172,7 +172,24 @@ export default function Studio() {
             </Box>
 
             <Box>
-              {studio.naver_link && (
+              <Link href={`/studios/${studio.id}/reservation`}>
+                <Button
+                  id="book_link"
+                  sx={{
+                    color: "white",
+                    display: "block",
+                    backgroundColor: "black",
+                    border: "1px solid black",
+                    "&:hover": {
+                      transform: "scale(1.1)",
+                      color: "black",
+                    },
+                  }}
+                >
+                  예약하기
+                </Button>
+              </Link>
+              {/* {studio.naver_link && (
                 <Button
                   id="book_link"
                   onClick={() => {
@@ -191,20 +208,22 @@ export default function Studio() {
                 >
                   예약하기
                 </Button>
-                // <img
-                // id="naver_link"
-                // src="/static/icons/naver_icon.png"
-                // alt="naver icon"
-                // width={35}
-                // height={35}
-                // style={{
-                //   cursor: 'pointer'
-                // }}
-                // onClick={() => {
-                //   window.open(`${studio.naver_link}`)
-                // }}
-                // />
-              )}
+
+
+                <img
+                id="naver_link"
+                src="/static/icons/naver_icon.png"
+                alt="naver icon"
+                width={35}
+                height={35}
+                style={{
+                  cursor: 'pointer'
+                }}
+                onClick={() => {
+                  window.open(`${studio.naver_link}`)
+                }}
+                />
+              )} */}
             </Box>
 
             {/* {auth.user ? (

@@ -27,12 +27,19 @@ import { defaultTime } from "../../../data";
 export default function Reservation() {
   const router = useRouter();
   const { studioId } = router.query;
-  const [value, setValue] = useState();
+  const { studioData, studioDataLoading, studioDataError } =
+    GetStudio(studioId);
+  const studio = studioData?.studio_data;
+
   const [selected, setSelected] = useState({
     1: true,
     2: false,
     3: false,
   });
+
+  const [dateNaturalValue, setDateNaturalValue] = useState();
+  const dateValue = dayjs(dateNaturalValue).format("YYYY년 MM월 DD일");
+
   const today = new Date();
   const tomorrow = today.setDate(today.getDate() + 1);
   const year = today.getFullYear();
@@ -44,21 +51,40 @@ export default function Reservation() {
   const timeList = defaultTime;
   const [timeIndex, setTimeIndex] = useState([]);
 
-  const { studioData, studioDataLoading, studioDataError } =
-    GetStudio(studioId);
-  const studio = studioData?.studio_data;
-  const dateValue = dayjs(value).format("YYYY년 MM월 DD일");
+  const [productValue, setProductValue] = useState({
+    1: false,
+    2: false,
+    3: false,
+  });
+  console.log(productValue);
+  const handleReservation = () => {
+    if (!dateNaturalValue) {
+      alert("날짜를 선택하여야 합니다!");
+    } else if (!timeValue) {
+      alert("시간을 선택하여야 합니다!");
+    } else if (
+      productValue[1] === false &&
+      productValue[2] === false &&
+      productValue[3] === false
+    ) {
+      alert("제품을 선택하여야 합니다!");
+    } else {
+      console.log("success");
+    }
+  };
 
   useEffect(() => {
-    if (value) {
-      if (timeIndex.length === 10) {
+    if (dateNaturalValue) {
+      if (timeIndex.length === 20) {
         setTimeIndex([]);
       }
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 20; i++) {
         setTimeIndex((prev) => [...prev, Math.floor(Math.random() * 14)]);
       }
     }
-  }, [value]);
+  }, [dateNaturalValue]);
+
+  console.log(timeIndex);
 
   return (
     <Layout>
@@ -72,7 +98,7 @@ export default function Reservation() {
           }}
         >
           <CalendarMonthIcon />
-          {value ? (
+          {dateNaturalValue ? (
             <Typography variant="h6">{dateValue}</Typography>
           ) : (
             <Typography variant="h6">{dateString}</Typography>
@@ -82,7 +108,7 @@ export default function Reservation() {
             value="check"
             selected={selected[1]}
             onChange={() => {
-              setSelected({ ...selected, 1: !selected[1] });
+              setSelected({ 1: !selected[1], 2: false, 3: false });
             }}
           >
             {selected[1] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -92,10 +118,10 @@ export default function Reservation() {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <CalendarPicker
               displayStaticWrapperAs="Responsive"
-              value={value}
+              value={dateNaturalValue}
               minDate={tomorrow}
               onChange={(newValue) => {
-                setValue(newValue);
+                setDateNaturalValue(newValue);
                 setSelected({ ...selected, 1: false, 2: true });
               }}
               renderInput={(params) => <TextField {...params} />}
@@ -134,7 +160,7 @@ export default function Reservation() {
           value="check"
           selected={selected[2]}
           onChange={() => {
-            setSelected({ ...selected, 2: !selected[2] });
+            setSelected({ 1: false, 2: !selected[2], 3: false });
           }}
         >
           {selected[2] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -196,18 +222,88 @@ export default function Reservation() {
           value="check"
           selected={selected[3]}
           onChange={() => {
-            setSelected({ ...selected, 3: !selected[3] });
+            setSelected({ 1: false, 2: false, 3: !selected[3] });
           }}
         >
           {selected[3] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         </ToggleButton>
       </Box>
       {selected[3] ? (
-        <Box>
-          <FormGroup>
-            <FormControlLabel control={<Checkbox />} label="1번 상품" />
-            <FormControlLabel control={<Checkbox />} label="2번 상품" />
-          </FormGroup>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "20px",
+            mt: "15px",
+            mb: "15px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              alignItems: "center",
+            }}
+          >
+            <Checkbox
+              checked={productValue[1] ? true : false}
+              onClick={(e) =>
+                setProductValue({ 1: !productValue[1], 2: false, 3: false })
+              }
+            />
+            <Box>
+              <Typography>1번 상품</Typography>
+              <Typography>증명사진</Typography>
+              <Typography>가격 : 50000원</Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              alignItems: "center",
+            }}
+          >
+            <Checkbox
+              checked={productValue[2] ? true : false}
+              onClick={(e) =>
+                setProductValue({ 1: false, 2: !productValue[2], 3: false })
+              }
+            />
+            <Box>
+              <Typography>2번 상품</Typography>
+              <Typography>프로필사진</Typography>
+              <Typography>가격 : 100000원</Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              alignItems: "center",
+            }}
+          >
+            <Checkbox
+              checked={productValue[3] ? true : false}
+              onClick={(e) =>
+                setProductValue({ 1: false, 2: false, 3: !productValue[3] })
+              }
+            />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Typography>3번 상품</Typography>
+              <Typography>프로필사진 + 메이크업</Typography>
+              <Typography>가격 : 200000원</Typography>
+            </Box>
+          </Box>
         </Box>
       ) : null}
       <Box
@@ -217,6 +313,13 @@ export default function Reservation() {
           bgcolor: "blank.main",
         }}
       ></Box>
+      <Button
+        onClick={handleReservation}
+        variant="contained"
+        sx={{ width: "100%", mt: "20px" }}
+      >
+        예약 완료하기
+      </Button>
     </Layout>
   );
 }
