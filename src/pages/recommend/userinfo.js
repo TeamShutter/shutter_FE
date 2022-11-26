@@ -10,10 +10,6 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
 export default function Userinfo() {
-  // const [state, setState] = useState(true);
-  // const ref1 = useRef(null);
-  // const ref2 = useRef(null);
-  // const nodeRef = state ? ref1 : ref2;
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
 

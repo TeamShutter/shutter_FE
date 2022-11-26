@@ -56,7 +56,7 @@ export default function Signup() {
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(
-        signup(first_name, last_name, username, email, password, re_password)
+        signup(email, first_name, last_name, username, password, re_password)
       );
     }
   };
@@ -164,8 +164,8 @@ export default function Signup() {
                 required
                 fullWidth
                 type="password"
-                id="rePassword"
-                name="rePassword"
+                id="re_password"
+                name="re_password"
                 label="비밀번호 재입력"
               />
             </Grid>
