@@ -267,7 +267,7 @@ export default function Studio() {
           </Box>
 
           <StudioInfo studio={studio} />
-          <StudioMap />
+          {/* <StudioMap /> */}
         </Box>
         <Box sx={{ mt: 3 }}>
           <Typography variant="h5">Photos</Typography>

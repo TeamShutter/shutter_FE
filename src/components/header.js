@@ -50,10 +50,10 @@ const Header = () => {
 
   const settings = user
     ? [
-        {
-          title: `${user.username}'s Profile`,
-          link: "/profile",
-        },
+        // {
+        //   title: `${user.username}'s Profile`,
+        //   link: "/profile",
+        // },
         {
           title: "Log out",
           link: "/logout",
