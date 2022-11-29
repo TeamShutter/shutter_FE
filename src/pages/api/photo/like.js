@@ -5,6 +5,8 @@ const user = async (req, res) => {
   if (req.method === "GET") {
     const cookies = cookie.parse(req.headers.cookie ?? "");
     const access_token = cookies.access_token ?? false;
+    const photoId = req.query.photoId ?? "";
+    console.log("PhotoId: ", photoId);
 
     if (access_token === false) {
       return res.status(401).json({
@@ -13,8 +15,8 @@ const user = async (req, res) => {
     }
 
     try {
-      const apiRes = await fetch(`${API_URL}/accounts/user/`, {
-        method: "GET",
+      const apiRes = await fetch(`${API_URL}/photo/${photoId}/like/`, {
+        method: "POST",
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${access_token}`,
@@ -26,9 +28,7 @@ const user = async (req, res) => {
 
       if (apiRes.status === 200) {
         return res.status(200).json({
-          user: data.user_profile,
-          like_photos: data.photo,
-          follow_studios: data.studio
+          success: data.success,
         });
       } else {
         return res.status(apiRes.status).json({
@@ -37,7 +37,7 @@ const user = async (req, res) => {
       }
     } catch (err) {
       return res.status(500).json({
-        error: "Something went wrong retrieving user data.",
+        error: "Something went wrong clicking like button of photo",
       });
     }
   } else {

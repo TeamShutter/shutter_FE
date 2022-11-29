@@ -45,19 +45,19 @@ export default function Photo() {
       : setLike(false);
   }, [photo]);
 
-  const handleLike = async () => {
-    await fetch(`${API_URL}/photo/${photoId}/like`, {
-      method: "GET",
-      headers: {
-        userid: user.id,
-      },
-      withCredentials: true,
-    });
+  // const handleLike = async () => {
+  //   await fetch(`${API_URL}/photo/${photoId}/like`, {
+  //     method: "GET",
+  //     headers: {
+  //       userid: user.id,
+  //     },
+  //     withCredentials: true,
+  //   });
 
-    like ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1);
+  //   like ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1);
 
-    setLike((prev) => !prev);
-  };
+  //   setLike((prev) => !prev);
+  // };
 
   if (photoDataLoading || photoTagsLoading) return <div>Loading...</div>;
   if (photoDataError || photoTagsError) return <div>Error!!</div>;
@@ -186,7 +186,6 @@ export default function Photo() {
             whiteSpace: "nowrap",
             width: "100%",
             mt: "15px",
-            mb: "10px",
             "&::-webkit-scrollbar": {
               width: 0,
               height: 0,
@@ -203,6 +202,9 @@ export default function Photo() {
             </Typography>
           ))}
         </Box>
+
+        {user ? <PhotoLike like={like} setLike={setLike} likes={likes} setLikes={setLikes} photoId={photoId} /> : null}
+
         {/* 중간선 */}
         <Box
           sx={{
@@ -236,8 +238,6 @@ export default function Photo() {
         <Box>
           <RelatedPhotoList photoId={photoId} />
         </Box>
-
-        {user ? <PhotoLike setLike={setLike} setLikes={setLikes} /> : null}
 
         {/* {user ? (
                     <Box

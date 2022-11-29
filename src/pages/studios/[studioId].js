@@ -29,81 +29,85 @@ import PhotoList from "../../components/photos/PhotoList";
 import Layout from "../../layouts/Layout";
 import { API_URL } from "../../config";
 import StudioMap from "../../components/studios/StudioMap";
+import { useSelector } from "react-redux";
 // import { useAuth } from "../../hooks/use-auth";
 
 export default function Studio() {
   const router = useRouter();
   const { studioId } = router.query;
+  const user = useSelector(state => state.auth.user);
 
-  // const [follow, setFollow] = useState(false);
-  // const [follows, setFollows] = useState(0);
+  const [follow, setFollow] = useState(false);
+  const [follows, setFollows] = useState(0);
+  console.log("initial follows : ", follows)
   // const [reviewList, setReviewList] = useState([]);
 
-  const { studioData, studioDataLoading, studioDataError } =
-    GetStudio(studioId);
+  const { studioData, studioDataLoading, studioDataError } = GetStudio(studioId);
   const studio = studioData?.studio_data;
+  console.log("studio : ", studio)
   // const {photos, photosLoading, photosError} = GetStudioPhotos(studioId);
   // const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
 
-  // useEffect(() => {
-  //   setFollows(studio?.follows);
+  useEffect(() => {
+    setFollows(studio?.follow_users.length);
 
-  //   studio?.studio.follow_users.includes(auth.user?.id) == true ? (
-  //     setFollow(true)
-  //   ) : (
-  //     setFollow(false)
-  //   )
-  //   setReviewList(reviews);
-  // }, [studio, reviews]);
+    studio?.follow_users.includes(user?.id) == true ? (
+      setFollow(true)
+    ) : (
+      setFollow(false)
+    )
+    // setReviewList(reviews);
+  }, [studio]);
 
   // if(studioLoading || photosLoading || reviewsLoading) return <div>Loading...</div>
   if (studioDataLoading) return <div>Loading...</div>;
   // if(studioError || photosError || reviewsError) return <div>Error!!</div>
   if (studioDataError) return <div>Error!!</div>;
 
-  // const handleFollow = async () => {
-  //   await fetch(`${API_URL}/studios/${studioId}/follow`, {
-  //       method: 'GET',
-  //       headers: {
-  //         "userid": auth.user.id
-  //       },
-  //       withCredentials: true,
-  //   });
+  const handleFollow = async () => {
 
-  //   follow ? (
-  //   setFollows((prev) => prev - 1)
-  //    ) : (
-  //      setFollows((prev) => prev + 1)
-  //   )
-
-  //   setFollow((prev) => !prev);
-
-  //   }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = {
-      content: e.target.content.value,
-      rating: e.target.rating.value,
-      userId: 3, // 로그인이 안돼서 일단 2로 바꿔놓음
-    };
-
-    const res = await fetch(`${API_URL}/studios/${studioId}/review/`, {
-      method: "POST",
+    const res = await fetch(`/api/studio/follow?studioId=${studioId}`, {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-      body: JSON.stringify(formData),
+        Accept: "application/json",
+      }
     });
-    const data = await res.json();
-    setReviewList((prev) => [...prev, data]);
-    e.target.content.value = "";
-  };
+
+    if(res.status === 200) {
+      follow ? (
+        setFollows((prev) => prev - 1)
+         ) : (
+           setFollows((prev) => prev + 1)
+        )
+        console.log("follows : ", follows);
+    
+        setFollow((prev) => !prev);    
+    }
+  } 
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   const formData = {
+  //     content: e.target.content.value,
+  //     rating: e.target.rating.value,
+  //     userId: 3, // 로그인이 안돼서 일단 2로 바꿔놓음
+  //   };
+
+  //   const res = await fetch(`${API_URL}/studios/${studioId}/review/`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     withCredentials: true,
+  //     body: JSON.stringify(formData),
+  //   });
+  //   const data = await res.json();
+  //   setReviewList((prev) => [...prev, data]);
+  //   e.target.content.value = "";
+  // };
   // return studio && photos && reviews && reviewList !== [] &&(
-  return (
-    studio && (
+  return studio && (
       <Layout>
         <Head>
           <title>{studio.name} | Shutter</title>
@@ -207,12 +211,12 @@ export default function Studio() {
               )}
             </Box>
 
-            {/* {auth.user ? (
+              {user ? (
                   <Box
                   display= 'flex'
                   alignItems= 'center'
                   >
-                    <a href={studio.studio.reservation}
+                    <a href={studio.reservation}
                     target="_blank" rel="noreferrer"
                     >
                       <Button
@@ -229,7 +233,7 @@ export default function Studio() {
                     >
                       <IconButton
                             sx={{ color: 'red' }}
-                            aria-label={`follow ${studio?.studio.name}`}
+                            aria-label='follow'
                             onClick={handleFollow}
                         >
                       {
@@ -246,7 +250,7 @@ export default function Studio() {
   
                     </Box>
                   </Box>
-               ) : null} */}
+               ) : null}
           </Box>
 
           <Box
@@ -316,6 +320,5 @@ export default function Studio() {
                
             </Box> */}
       </Layout>
-    )
   );
 }
