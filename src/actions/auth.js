@@ -110,22 +110,18 @@ export const login = (username, password) => async (dispatch) => {
 };
 
 export const kakaologin = (code) => async (dispatch) => {
-  const body = JSON.stringify({
-    code
-  });
 
   dispatch({
     type: SET_AUTH_LOADING,
   });
 
   try {
-    const res = await fetch("/api/account/kakaologin", {
-      method: "POST",
+    const res = await fetch(`/api/account/kakaologin?code=${code}`, {
+      method: "GET",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-      },
-      body: body,
+      }
     });
 
     if (res.status === 200) {

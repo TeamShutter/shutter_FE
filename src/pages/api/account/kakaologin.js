@@ -1,8 +1,8 @@
 import { API_URL } from "../../../config";
 
 const kakaologin = async (req, res) => {
-  if (req.method === "POST") {
-    const { code } = req.body;
+  if (req.method === "GET") {
+    const code = req.query.code ?? "";
 
     try {
       const apiRes = await fetch(`${API_URL}/accounts/kakao/login/callback?code=${code}`, {
@@ -36,7 +36,7 @@ const kakaologin = async (req, res) => {
       });
     }
   } else {
-    res.setHeader("Allow", ["POST"]);
+    res.setHeader("Allow", ["GET"]);
     return res.status(405).json({
       error: `Method ${req.method} Not Allowed.`,
     });
