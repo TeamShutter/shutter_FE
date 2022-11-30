@@ -28,7 +28,6 @@ export default function Studioindex() {
   // const [latitude, setLatitude] = useState("");
   // const [longitude, setLongitude] = useState("");
 
-
   // const changePage = (e) => {
   //   setPage(e.target.innerText);
   // };
@@ -50,7 +49,7 @@ export default function Studioindex() {
   //     setLongitude(longitude);
   //   });
   // };
-  const [town, setTown] = useState('');
+  const [town, setTown] = useState("");
 
   return (
     <Layout>

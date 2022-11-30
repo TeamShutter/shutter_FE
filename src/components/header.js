@@ -44,7 +44,7 @@ const Header = () => {
     },
     {
       title: "추천",
-      link: "/recommend/userinfo",
+      link: "/recommend",
     },
   ];
 

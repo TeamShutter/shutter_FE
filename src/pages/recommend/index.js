@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-export default function Userinfo() {
+export default function Recommend() {
   // const [state, setState] = useState(true);
   // const ref1 = useRef(null);
   // const ref2 = useRef(null);
