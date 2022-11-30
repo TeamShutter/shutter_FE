@@ -57,7 +57,7 @@ export default function Test() {
         {studios
           .filter((studio, i) => i !== 0)
           .map((studio, i) => (
-            <Box key={i} sx={{ mb: 10, width: "45%" }}>
+            <Box key={i} sx={{ mb: 10, width: "100%" }}>
               <RecommendedPhotoList studioId={studio.id} />
               <Link href={`/studios/${studio.id}`}>
                 <a>

@@ -63,8 +63,8 @@ export default function Result() {
   ) : (
     <Layout>
       <Typography variant="h4">가장 추천하는 사진관</Typography>
-      <Box sx={{ mb: 10, width: "75%" }}>
-        <StudioCarousel studio={studios[0]} />
+      <Box sx={{ mb: 10, width: "100%" }}>
+        <RecommendedPhotoList studioId={studios[0].id} />
         <Link href={`/studios/${studios[0].id}`}>
           <a>
             <Box>
@@ -95,7 +95,7 @@ export default function Result() {
         {studios
           .filter((studio, i) => i !== 0)
           .map((studio, i) => (
-            <Box key={i} sx={{ mb: 10, width: "45%" }}>
+            <Box key={i} sx={{ mb: 10, width: "100%" }}>
               <RecommendedPhotoList studioId={studio.id} />
               <Link href={`/studios/${studio.id}`}>
                 <a>

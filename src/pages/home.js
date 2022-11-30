@@ -13,21 +13,19 @@ import SelectedFilter from "../components/filters/SelectedFilter";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ColorSelector from "../components/filters/ColorSelector";
+import PhotoTypeSelector from "../components/filters/PhotoTypeSelector";
+
 import { defaultFilters } from "../data";
 
 export default function Home() {
-  // const classes = useStyles();
-
   const [town, setTown] = useState("");
 
   const [price, setPrice] = useState({ minPrice: "", maxPrice: "" });
   const [expanded, setExpanded] = useState("");
 
-  // const [photoshop, setPhotoshop] = useState(0);
-  // const [sex, setSex] = useState(0);
-  // const [page, setPage] = useState(1);
   const [tagList, setTagList] = useState([]);
   const [color, setColor] = useState("");
+  const [photoType, setPhotoType] = useState("");
 
   const expandFilterDetail = (e) => {
     if (expanded === e.target.id) {
@@ -37,13 +35,6 @@ export default function Home() {
     }
   };
 
-  // const {tags, tagsLoading, tagsError} = GetTags();
-
-  // const auth = useAuth();
-
-  // if(tagsLoading) return <div>Loading...</div>
-  // if(tagsError) return <div>Error!!</div>
-  // return tags && (
   return (
     <Layout>
       <Box
@@ -84,7 +75,7 @@ export default function Home() {
         {defaultFilters.map((filter) => (
           <Button
             sx={{
-              ml: "20px",
+              mr: "15px",
               ":hover": {
                 backgroundColor: "hashtag.main",
                 color: "white",
@@ -121,8 +112,13 @@ export default function Home() {
           <TownSelector town={town} setTown={setTown} />
         ) : expanded === "가격" ? (
           <PriceSelector price={price} setPrice={setPrice} />
-        ) : (
+        ) : expanded === "색감" ? (
           <ColorSelector color={color} setColor={setColor} />
+        ) : (
+          <PhotoTypeSelector
+            photoType={photoType}
+            setPhotoType={setPhotoType}
+          />
         )}
       </Box>
       <Box sx={{ mt: "10px" }}>
@@ -135,6 +131,8 @@ export default function Home() {
           setTagList={setTagList}
           color={color}
           setColor={setColor}
+          photoType={photoType}
+          setPhotoType={setPhotoType}
         />
       </Box>
       {/* <FilterContainer setPrice={setPrice} setPhotoshop={setPhotoshop} setSex={setSex} /> */}
@@ -142,7 +140,13 @@ export default function Home() {
       {/* <FilterTags tagList={tagList} setTagList={setTagList} tags={tags} /> */}
 
       {/* <PhotoList price={price} photoshop={photoshop} sex={sex} tags={tagList} />  */}
-      <PhotoList town={town} price={price} tagList={tagList} color={color} />
+      <PhotoList
+        town={town}
+        price={price}
+        tagList={tagList}
+        color={color}
+        photoType={photoType}
+      />
 
       {/* <Pagination sx={{display:"flex", justifyContent:"center"}} onChange={changePage} count={2} />  */}
     </Layout>

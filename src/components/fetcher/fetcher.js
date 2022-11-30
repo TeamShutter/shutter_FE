@@ -125,7 +125,7 @@ export const GetSearch = (q) => {
 //     }
 // }
 
-export const GetPhotos = (town, price, tagList, color) => {
+export const GetPhotos = (town, price, tagList, color, photoType) => {
   // let fetchURL;
   // if (town) {
   //   fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
@@ -140,9 +140,9 @@ export const GetPhotos = (town, price, tagList, color) => {
     for (let i = 0; i < tagList.length; i++) {
       tagsString += `&tags=${tagList[i].id}`;
     }
-    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}&color=${color}${tagsString}`;
+    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}&color=${color}&photoType=${photoType}${tagsString}`;
   } else {
-    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}&color=${color}`;
+    fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}&color=${color}&photoType=${photoType}`;
   }
   const { data, error } = useSWR(fetchURL, fetcher);
 
