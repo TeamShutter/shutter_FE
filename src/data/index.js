@@ -2,7 +2,7 @@ export const defaultFilters = [
   { id: 1, name: "동네" },
   { id: 2, name: "가격" },
   { id: 3, name: "색감" },
-  { id: 4, name: "사진종류" },
+  // { id: 4, name: "사진종류" },
 ];
 
 export const defaultColorList = [
