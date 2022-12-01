@@ -24,6 +24,19 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import { defaultTime } from "../../../../data";
+import Link from "next/link";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function Reservation() {
   const router = useRouter();
@@ -57,6 +70,7 @@ export default function Reservation() {
     2: false,
     3: false,
   });
+  const [productNum, setProductNum] = useState(0);
   const handleReservation = () => {
     if (!dateNaturalValue) {
       alert("날짜를 선택하여야 합니다!");
@@ -69,8 +83,11 @@ export default function Reservation() {
     ) {
       alert("제품을 선택하여야 합니다!");
     } else {
+      setOpen(true);
     }
   };
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (dateNaturalValue) {
@@ -250,9 +267,10 @@ export default function Reservation() {
             >
               <Checkbox
                 checked={productValue[1] ? true : false}
-                onClick={(e) =>
-                  setProductValue({ 1: !productValue[1], 2: false, 3: false })
-                }
+                onClick={(e) => {
+                  setProductValue({ 1: !productValue[1], 2: false, 3: false });
+                  setProductNum(1);
+                }}
               />
               <Box>
                 <Typography>1번 상품</Typography>
@@ -270,9 +288,10 @@ export default function Reservation() {
             >
               <Checkbox
                 checked={productValue[2] ? true : false}
-                onClick={(e) =>
-                  setProductValue({ 1: false, 2: !productValue[2], 3: false })
-                }
+                onClick={(e) => {
+                  setProductValue({ 1: false, 2: !productValue[2], 3: false });
+                  setProductNum(2);
+                }}
               />
               <Box>
                 <Typography>2번 상품</Typography>
@@ -290,9 +309,10 @@ export default function Reservation() {
             >
               <Checkbox
                 checked={productValue[3] ? true : false}
-                onClick={(e) =>
-                  setProductValue({ 1: false, 2: false, 3: !productValue[3] })
-                }
+                onClick={(e) => {
+                  setProductValue({ 1: false, 2: false, 3: !productValue[3] });
+                  setProductNum(3);
+                }}
               />
               <Box
                 sx={{
@@ -303,7 +323,7 @@ export default function Reservation() {
               >
                 <Typography>3번 상품</Typography>
                 <Typography>프로필사진 + 메이크업</Typography>
-                <Typography>가격 : 200000원</Typography>
+                <Typography>가격 : 150000원</Typography>
               </Box>
             </Box>
           </Box>
@@ -315,21 +335,7 @@ export default function Reservation() {
             bgcolor: "blank.main",
           }}
         ></Box>
-        <Link
-          href={{
-            pathname: `/studios/${studioId}/reservation/check`,
-            query: {
-              sex: sex,
-              age: age,
-              photoType: JSON.stringify(photoTypeList),
-              town: JSON.stringify(townList),
-              color: JSON.stringify(colorList),
-              tag: JSON.stringify(tagList),
-            },
-          }}
-        >
-          <Button variant="contained">제출</Button>
-        </Link>
+
         <Button
           onClick={handleReservation}
           variant="contained"
@@ -343,7 +349,42 @@ export default function Reservation() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      ></Modal>
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h5" component="h2">
+            예약 확인
+          </Typography>
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2, display: "flex", flexDirection: "column" }}
+          >
+            <div>예약 날짜 : {dateValue}</div>
+            <div>예약 시간 : {timeValue}</div>
+            <div>
+              예약 상품 : {productNum}번 상품 / 가격 : {50000 * productNum}원
+            </div>
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              columnGap: "10px",
+              mt: "15px",
+            }}
+          >
+            <Link
+              href={{
+                pathname: `/studios/${studioId}/reservation/check`,
+              }}
+            >
+              <Button variant="contained">확인</Button>
+            </Link>
+            <Button variant="contained" onClick={handleClose}>
+              취소
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </>
   );
 }

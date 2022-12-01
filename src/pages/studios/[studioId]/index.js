@@ -172,6 +172,19 @@ export default function Studio() {
             </Box>
 
             <Box>
+              <Button
+                sx={{
+                  color: "black",
+                  display: "block",
+                  backgroundColor: "yellow",
+                  "&:hover": {
+                    transform: "scale(1.1)",
+                    backgroundColor: "yellow",
+                  },
+                }}
+              >
+                카카오톡 문의로 예약하기
+              </Button>
               <Link href={`/studios/${studio.id}/reservation`}>
                 <Button
                   id="book_link"
@@ -182,11 +195,11 @@ export default function Studio() {
                     border: "1px solid black",
                     "&:hover": {
                       transform: "scale(1.1)",
-                      color: "black",
+                      backgroundColor: "black",
                     },
                   }}
                 >
-                  예약하기
+                  셔터에서 1분만에 예약하기
                 </Button>
               </Link>
               {/* {studio.naver_link && (
