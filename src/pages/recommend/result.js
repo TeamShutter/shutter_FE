@@ -20,7 +20,7 @@ export default function Result() {
     .filter((element, index) => index % 2 !== 0);
   const townList = town?.split('"').filter((element, index) => index % 2 !== 0);
   const colorList = color
-    ?.split('"')
+    ?.split("")
     .filter((element, index) => index % 2 !== 0);
   const tagList = tag?.split('"').filter((element, index) => index % 2 !== 0);
 
