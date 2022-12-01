@@ -13,13 +13,14 @@ export default function Result() {
   const town = router.query.town;
   const color = router.query.color;
   const tag = router.query.tag;
+  console.log(color);
 
   const photoTypeList = photoType
     ?.split('"')
     .filter((element, index) => index % 2 !== 0);
   const townList = town?.split('"').filter((element, index) => index % 2 !== 0);
   const colorList = color
-    ?.split('"')
+    ?.split("")
     .filter((element, index) => index % 2 !== 0);
   const tagList = tag?.split('"').filter((element, index) => index % 2 !== 0);
 

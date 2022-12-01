@@ -32,11 +32,11 @@ export default function Recommend() {
   const [colorList, setColorList] = useState([]);
   const [tagList, setTagList] = useState([]);
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!user) {
+  //     router.push("/login");
+  //   }
+  // }, [user]);
 
   const townsData = GetTowns();
   const tagsData = GetTags();
