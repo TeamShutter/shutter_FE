@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
-import { GetRelatedPhotos, GetStudioPhotos } from "../fetcher/fetcher";
+import { GetStudioPhotos } from "../fetcher/fetcher";
 
 export default function RecommendedPhotoList({ studioId }) {
   const photosData = GetStudioPhotos(studioId);
