@@ -16,7 +16,6 @@ const fetcher = async (...args) => {
 };
 
 export const GetTowns = () => {
-  // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
   const { data, error } = useSWR(`${API_URL}/town`, fetcher);
   return {
     towns: data,
@@ -44,7 +43,6 @@ export const GetPhotoTags = (photoId) => {
 };
 
 export const GetStudios = (town) => {
-  // const {data, error} = useSWR(`${BASE_URL}/studio?price=${price}&distance=${distance}&latitude=${latitude}&longitude=${longitude}`, fetcher);
   let fetchURL;
   if (town) {
     fetchURL = `${API_URL}/studio?town=${town}`;
@@ -96,6 +94,44 @@ export const GetStudioPhotos = (studioId) => {
   };
 };
 
+export const GetStudioPhotographer = (studioId) => {
+  const { data, error } = useSWR(
+    `${API_URL}/studio/${studioId}/photographer`,
+    fetcher
+  );
+  return {
+    studioPhotographersData: data,
+    studioPhotographersDataLoading: !error & !data,
+    studioPhotographersDataError: error,
+  };
+};
+
+export const GetStudioAssignedTime = (studioId) => {
+  const { data, error } = useSWR(
+    `${API_URL}/studio/${studioId}/assignedtime`,
+    fetcher
+  );
+
+  return {
+    studioAssignedTimesData: data,
+    studioAssignedTimesDataLoading: !error & !data,
+    studioAssignedTimesDataError: error,
+  };
+};
+
+export const GetStudioProduct = (studioId) => {
+  const { data, error } = useSWR(
+    `${API_URL}/studio/${studioId}/product`,
+    fetcher
+  );
+
+  return {
+    studioProductsData: data,
+    studioProductsDataLoading: !error & !data,
+    studioProductsDataError: error,
+  };
+};
+
 export const GetSearch = (q) => {
   const { data, error } = useSWR(`${API_URL}/studios/search?q=${q}`, fetcher);
   return {
@@ -105,35 +141,7 @@ export const GetSearch = (q) => {
   };
 };
 
-// export const GetPhotos = (price, photoshop, sex, tags) => {
-//     let fetchURL;
-//     if(tags && tags.length > 0) {
-//         let tagsString = "";
-//         for(let i = 0; i < tags.length; i ++) {
-//             tagsString += `tags=${tags[i]}&`;
-//         }
-//         fetchURL = `${API_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}&${tagsString}`;
-//     }   else {
-//         fetchURL = `${API_URL}/photo?price=${price}&photoshop=${photoshop}&sex=${sex}`;
-//     }
-//     const {data, error} = useSWR(fetchURL, fetcher);
-
-//     return {
-//         photos: data,
-//         photosLoading: !error & !data,
-//         photosError: error,
-//     }
-// }
-
 export const GetPhotos = (town, price, tagList, color, photoType) => {
-  // let fetchURL;
-  // if (town) {
-  //   fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}`;
-  // } else {
-  //   fetchURL = `${API_URL}/photo?min_price=${price.minPrice}&max_price=${price.maxPrice}`;
-  // }
-  // const { data, error } = useSWR(fetchURL, fetcher);
-
   let fetchURL;
   if (tagList.length > 0) {
     let tagsString = "";
@@ -208,16 +216,6 @@ export const GetPhoto = (photoId) => {
   };
 };
 
-// export const GetTags = () => {
-//   const { data, error } = useSWR(`${API_URL}/tags`, fetcher);
-
-//   return {
-//     tags: data,
-//     tagsLoading: !error & !data,
-//     tagsError: error,
-//   };
-// };
-
 export const GetProfile = (userId) => {
   const { data, error } = useSWR(
     `${API_URL}/accounts/profile/${userId}`,
@@ -230,13 +228,3 @@ export const GetProfile = (userId) => {
     profileError: error,
   };
 };
-
-// export const GetProfile = () => {
-//     const {data, error} = useSWR(`${API_URL}/accounts/profile`, fetcher);
-
-//     return {
-//         profile: data,
-//         profileLoading: !error & !data,
-//         profileError: error,
-//     }
-// }

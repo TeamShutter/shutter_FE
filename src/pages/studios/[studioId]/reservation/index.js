@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Checkbox,
@@ -9,7 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { GetStudio } from "../../../../components/fetcher/fetcher";
+import {
+  GetStudioAssignedTime,
+  GetStudioPhotographer,
+  GetStudioProduct,
+} from "../../../../components/fetcher/fetcher";
 import Layout from "../../../../layouts/Layout";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -17,75 +24,166 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import PersonIcon from "@mui/icons-material/Person";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { defaultTime } from "../../../../data";
+import Link from "next/link";
+import { defaultReservationNum } from "../../../../data";
+import { API_URL } from "../../../../config";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const fillZero = (time) => {
+  if (time < 10) {
+    const newTime = "0" + time;
+    return newTime;
+  } else {
+    return time;
+  }
+};
 
 export default function Reservation() {
   const router = useRouter();
   const { studioId } = router.query;
-  const { studioData, studioDataLoading, studioDataError } =
-    GetStudio(studioId);
-  const studio = studioData?.studio_data;
+
+  const {
+    studioPhotographersData,
+    studioPhotographersDataLoading,
+    studioPhotographersDataError,
+  } = GetStudioPhotographer(studioId);
+  const studioPhotographers = studioPhotographersData?.data;
+
+  const {
+    studioAssignedTimesData,
+    studioAssignedTimesDataLoading,
+    studioAssignedTimesDataError,
+  } = GetStudioAssignedTime(studioId);
+  const studioAssignedTimes = studioAssignedTimesData?.data;
+
+  const {
+    studioProductsData,
+    studioProductsDataLoading,
+    studioProductsDataError,
+  } = GetStudioProduct(studioId);
+  const studioProducts = studioProductsData?.data;
+
+  const [reservationCart, setReservationCart] = useState({});
+  const [cartState, setCartState] = useState(1);
+  const [reservationToPost, setReservationToPost] = useState({});
 
   const [selected, setSelected] = useState({
-    1: true,
-    2: false,
-    3: false,
-  });
-
-  const [dateNaturalValue, setDateNaturalValue] = useState();
-  const dateValue = dayjs(dateNaturalValue).format("YYYY년 MM월 DD일");
-
-  const today = new Date();
-  const tomorrow = today.setDate(today.getDate() + 1);
-  const year = today.getFullYear();
-  const month = ("0" + (today.getMonth() + 1)).slice(-2);
-  const day = ("0" + today.getDate()).slice(-2);
-  const dateString = year + "년 " + month + "월 " + day + "일";
-
-  const [timeValue, setTimeValue] = useState("");
-  const timeList = defaultTime;
-  const [timeIndex, setTimeIndex] = useState([]);
-
-  const [productValue, setProductValue] = useState({
+    0: true,
     1: false,
     2: false,
     3: false,
   });
+  const [photographerValue, setPhotographerValue] = useState("");
+  const [dateValue, setDateValue] = useState("");
 
-  const [open, setOpen] = useState(false);
+  const today = new Date();
+  const tomorrow = today.setDate(today.getDate() + 1);
 
-  const handleReservation = () => {
-    if (!dateNaturalValue) {
+  const [timeValue, setTimeValue] = useState("");
+  const [assignedTimeId, setAssignedTimeId] = useState(0);
+
+  const [productValue, setProductValue] = useState([]);
+  const [productId, setProductId] = useState(0);
+
+  const addReservationCart = () => {
+    if (!photographerValue) {
+      alert("사진작가를 선택하여야 합니다!");
+    } else if (!dateValue) {
       alert("날짜를 선택하여야 합니다!");
     } else if (!timeValue) {
       alert("시간을 선택하여야 합니다!");
     } else if (
-      productValue[1] === false &&
-      productValue[2] === false &&
-      productValue[3] === false
+      productValue.filter((product) => product.value === true).length === 0
     ) {
       alert("제품을 선택하여야 합니다!");
     } else {
+      const productNum = productValue.find(
+        (product) => product.value === true
+      ).id;
+      setReservationCart({
+        ...reservationCart,
+        [cartState]: {
+          photographerValue: photographerValue,
+          dateValue: dateValue,
+          timeValue: timeValue,
+          productValue: productNum,
+        },
+      });
+      setPhotographerValue("");
+      setDateValue("");
+      setTimeValue("");
+      setProductValue((prev) =>
+        prev.map((p) => (p.value === true ? { id: p.id, value: false } : p))
+      );
+      setSelected({ ...selected, 0: true, 3: false });
+      setReservationToPost({
+        ...reservationToPost,
+        [cartState]: {
+          assigned_time_id: assignedTimeId,
+          product_id: productId,
+        },
+      });
+      setAssignedTimeId(0);
+      setProductId(0);
+      setCartState(cartState + 1);
     }
   };
 
-  useEffect(() => {
-    if (dateNaturalValue) {
-      if (timeIndex.length === 20) {
-        setTimeIndex([]);
-      }
-      for (let i = 0; i < 20; i++) {
-        setTimeIndex((prev) => [...prev, Math.floor(Math.random() * 14)]);
-      }
-    }
-  }, [dateNaturalValue]);
+  const handleReservation = () => {
+    setOpen(true);
+  };
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
 
+  const postReservation = async () => {
+    const response = await fetch(`${API_URL}/studio/${studioId}/reservation/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+      body: JSON.stringify(reservationToPost),
+    });
+    const data = await response.json();
+  };
+
+  useEffect(() => {
+    if (studioProducts) {
+      studioProducts.map((product, i) =>
+        setProductValue((prev) => [...prev, { id: i + 1, value: false }])
+      );
+    }
+  }, [studioProducts]);
+
+  if (
+    studioPhotographersDataLoading ||
+    studioAssignedTimesDataLoading ||
+    studioProductsDataLoading
+  )
+    return <div>Loading...</div>;
+  if (
+    studioPhotographersDataError ||
+    studioAssignedTimesDataError ||
+    studioProductsDataError
+  )
+    return <div>Error!!</div>;
   return (
     <>
       <Layout>
@@ -98,18 +196,85 @@ export default function Reservation() {
               justifyContent: "space-between",
             }}
           >
+            <PersonIcon />
+            {photographerValue ? (
+              <Typography variant="h6">{photographerValue}</Typography>
+            ) : (
+              <Typography variant="h6">사진작가 선택</Typography>
+            )}
+            <ToggleButton
+              size="small"
+              value="check"
+              selected={selected[0]}
+              onChange={() => {
+                setSelected({ 0: !selected[0], 1: false, 2: false, 3: false });
+              }}
+            >
+              {selected[0] ? (
+                <KeyboardArrowUpIcon />
+              ) : (
+                <KeyboardArrowDownIcon />
+              )}
+            </ToggleButton>
+          </Box>
+          {selected[0] ? (
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexWrap: "wrap",
+                flexDirection: "row",
+                rowGap: "5px",
+                columnGap: "2%",
+                mt: "15px",
+                mb: "15px",
+              }}
+            >
+              {studioPhotographers.map((photographer) => (
+                <Button
+                  key={photographer.id}
+                  variant="outlined"
+                  sx={{
+                    width: "23%",
+                  }}
+                  onClick={() => {
+                    setPhotographerValue(photographer.name);
+                    setSelected({ ...selected, 0: false, 1: true });
+                  }}
+                >
+                  {photographer.name}
+                </Button>
+              ))}
+            </Box>
+          ) : null}
+          <Box
+            sx={{
+              width: "100%",
+              height: "5px",
+              bgcolor: "blank.main",
+            }}
+          ></Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              mt: "20px",
+            }}
+          >
             <CalendarMonthIcon />
-            {dateNaturalValue ? (
+            {dateValue ? (
               <Typography variant="h6">{dateValue}</Typography>
             ) : (
-              <Typography variant="h6">{dateString}</Typography>
+              <Typography variant="h6">날짜 선택</Typography>
             )}
             <ToggleButton
               size="small"
               value="check"
               selected={selected[1]}
               onChange={() => {
-                setSelected({ 1: !selected[1], 2: false, 3: false });
+                setSelected({ 0: false, 1: !selected[1], 2: false, 3: false });
               }}
             >
               {selected[1] ? (
@@ -123,10 +288,10 @@ export default function Reservation() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <CalendarPicker
                 displayStaticWrapperAs="Responsive"
-                value={dateNaturalValue}
+                value={dateValue}
                 minDate={tomorrow}
                 onChange={(newValue) => {
-                  setDateNaturalValue(newValue);
+                  setDateValue(dayjs(newValue).format("YYYY-MM-DD"));
                   setSelected({ ...selected, 1: false, 2: true });
                 }}
                 renderInput={(params) => <TextField {...params} />}
@@ -165,7 +330,7 @@ export default function Reservation() {
             value="check"
             selected={selected[2]}
             onChange={() => {
-              setSelected({ 1: false, 2: !selected[2], 3: false });
+              setSelected({ 0: false, 1: false, 2: !selected[2], 3: false });
             }}
           >
             {selected[2] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -173,7 +338,6 @@ export default function Reservation() {
         </Box>
         {selected[2] ? (
           <Box
-            variant="outlined"
             sx={{
               width: "100%",
               display: "flex",
@@ -185,22 +349,26 @@ export default function Reservation() {
               mb: "15px",
             }}
           >
-            {timeList.map((time) => (
-              <Button
-                key={time.id}
-                disabled={timeIndex.includes(time.id) ? true : false}
-                variant="outlined"
-                sx={{
-                  width: "23%",
-                }}
-                onClick={(e) => {
-                  setTimeValue(e.target.innerText);
-                  setSelected({ ...selected, 2: false, 3: true });
-                }}
-              >
-                {time.value}
-              </Button>
-            ))}
+            {studioAssignedTimes
+              .filter((t) => t.opened_time.date === dateValue)
+              .filter((t) => t.photographer.name === photographerValue)
+              .map((time) => (
+                <Button
+                  key={time.id}
+                  variant="outlined"
+                  sx={{
+                    width: "23%",
+                  }}
+                  onClick={(e) => {
+                    setTimeValue(e.target.innerText);
+                    setAssignedTimeId(time.id);
+                    setSelected({ ...selected, 2: false, 3: true });
+                  }}
+                >
+                  {fillZero(time.opened_time.hour)}:
+                  {fillZero(time.opened_time.minute)}
+                </Button>
+              ))}
           </Box>
         ) : null}
         <Box
@@ -227,7 +395,7 @@ export default function Reservation() {
             value="check"
             selected={selected[3]}
             onChange={() => {
-              setSelected({ 1: false, 2: false, 3: !selected[3] });
+              setSelected({ 0: false, 1: false, 2: false, 3: !selected[3] });
             }}
           >
             {selected[3] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -243,72 +411,39 @@ export default function Reservation() {
               mb: "15px",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "start",
-                alignItems: "center",
-              }}
-            >
-              <Checkbox
-                checked={productValue[1] ? true : false}
-                onClick={(e) =>
-                  setProductValue({ 1: !productValue[1], 2: false, 3: false })
-                }
-              />
-              <Box>
-                <Typography>1번 상품</Typography>
-                <Typography>증명사진</Typography>
-                <Typography>가격 : 50000원</Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "start",
-                alignItems: "center",
-              }}
-            >
-              <Checkbox
-                checked={productValue[2] ? true : false}
-                onClick={(e) =>
-                  setProductValue({ 1: false, 2: !productValue[2], 3: false })
-                }
-              />
-              <Box>
-                <Typography>2번 상품</Typography>
-                <Typography>프로필사진</Typography>
-                <Typography>가격 : 100000원</Typography>
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "start",
-                alignItems: "center",
-              }}
-            >
-              <Checkbox
-                checked={productValue[3] ? true : false}
-                onClick={(e) =>
-                  setProductValue({ 1: false, 2: false, 3: !productValue[3] })
-                }
-              />
+            {studioProducts.map((product, i) => (
               <Box
+                key={i}
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
+                  flexDirection: "row",
+                  justifyContent: "start",
+                  alignItems: "center",
                 }}
               >
-                <Typography>3번 상품</Typography>
-                <Typography>프로필사진 + 메이크업</Typography>
-                <Typography>가격 : 200000원</Typography>
+                <Checkbox
+                  checked={productValue[i].value ? true : false}
+                  onClick={() => {
+                    setProductValue((prev) =>
+                      prev.map((p) =>
+                        p.value === true
+                          ? { id: p.id, value: false }
+                          : p.id === i + 1
+                          ? { id: p.id, value: true }
+                          : p
+                      )
+                    );
+                    setProductId(product.id);
+                  }}
+                />
+                <Box>
+                  <Typography>{i + 1}번 상품</Typography>
+                  <Typography>{product.name}</Typography>
+                  <Typography>가격 : {product.price}원</Typography>
+                  <Typography>{product.description}</Typography>
+                </Box>
               </Box>
-            </Box>
+            ))}
           </Box>
         ) : null}
         <Box
@@ -318,42 +453,91 @@ export default function Reservation() {
             bgcolor: "blank.main",
           }}
         ></Box>
-        <Link
-          href={{
-            pathname: `/studios/${studioId}/reservation/check`,
-            query: {
-              sex: sex,
-              age: age,
-              photoType: JSON.stringify(photoTypeList),
-              town: JSON.stringify(townList),
-              color: JSON.stringify(colorList),
-              tag: JSON.stringify(tagList),
-            },
-          }}
+
+        <Button
+          onClick={addReservationCart}
+          variant="contained"
+          sx={{ width: "100%", mt: "20px" }}
         >
-          <Button variant="contained">제출</Button>
-        </Link>
+          {cartState}순위 추가하기
+        </Button>
+        <Box>
+          {defaultReservationNum.map((r) => (
+            <Box
+              key={r.id}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "10px",
+                mt: "15px",
+              }}
+            >
+              <Box>
+                <Typography variant="h6">{r.id}순위 예약</Typography>
+                {reservationCart[r.id] ? (
+                  <Box>
+                    <Typography>
+                      선택된 사진작가 :{" "}
+                      {reservationCart[r.id].photographerValue}
+                    </Typography>
+                    <Typography>
+                      예약 날짜 : {reservationCart[r.id].dateValue}
+                    </Typography>
+                    <Typography>
+                      예약 시간 : {reservationCart[r.id].timeValue}
+                    </Typography>
+                    <Typography>
+                      예약 상품 : {reservationCart[r.id].productValue}번 상품
+                    </Typography>
+                  </Box>
+                ) : null}
+              </Box>
+            </Box>
+          ))}
+        </Box>
+
         <Button
           onClick={handleReservation}
           variant="contained"
           sx={{ width: "100%", mt: "20px" }}
         >
-          예약 완료하기
+          예약 신청하기
         </Button>
       </Layout>
+
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h5" component="h2">
+            예약 확인
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2, display: "flex", flexDirection: "column" }}
+          >
+            <div>예약 날짜 : {dateValue}</div>
+            <div>예약 시간 : {timeValue}</div>
+            <div>예약 상품 : {productId}번 상품</div>
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              columnGap: "10px",
+              mt: "15px",
+            }}
+          >
+            <Button variant="contained" onClick={postReservation}>
+              확인
+            </Button>
+            <Button variant="contained" onClick={handleClose}>
+              취소
+            </Button>
+          </Box>
         </Box>
       </Modal>
     </>
