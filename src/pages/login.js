@@ -124,12 +124,12 @@ export default function Login() {
           alignItems="center"
         >
           {/* <p>SNS 계정 간편 로그인</p> */}
-          <Button href={KAKAO_AUTH_URL}>
+          {/* <Button href={KAKAO_AUTH_URL}>
             <img
               src="/static/kakao_login_medium_narrow.png"
               alt="Shutter Logo"
             />
-          </Button>
+          </Button> */}
         </Grid>
       </Box>
     </Layout>
