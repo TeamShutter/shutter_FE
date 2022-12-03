@@ -10,8 +10,13 @@ const postreservation = async (req, res) => {
         error: "UnAuthorized - No Access Token.",
       });
     }
+    console.log("a");
     const reservationToPost = req.body;
-    const body = JSON.stringify(reservationToPost);
+    const studioId = req.query.studioId;
+    console.log(studioId);
+    console.log(reservationToPost);
+    // const body = JSON.stringify(reservationToPost);
+    // console.log(body);
     try {
       const apiRes = await fetch(`${API_URL}/studio/${studioId}/reservation/`, {
         method: "POST",
@@ -19,9 +24,9 @@ const postreservation = async (req, res) => {
           Accept: "application/json",
           Authorization: `Bearer ${access_token}`,
         },
-        body: body,
+        body: JSON.stringify(reservationToPost),
       });
-      const data = await apiRes.json();
+      const data = apiRes.json();
       if (apiRes.status === 200) {
         return res.status(200).json("success");
       } else {
