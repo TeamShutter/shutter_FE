@@ -33,7 +33,8 @@ export default function Result() {
     const res = await fetch(`${API_URL}/studio/recommend/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${access_token}`,
       },
       withCredentials: true,
       body: JSON.stringify(formData),

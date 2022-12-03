@@ -34,18 +34,6 @@ import Link from "next/link";
 import { defaultReservationNum } from "../../../../data";
 import { API_URL } from "../../../../config";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 const fillZero = (time) => {
   if (time < 10) {
     const newTime = "0" + time;
@@ -132,7 +120,15 @@ export default function Reservation() {
       setProductValue((prev) =>
         prev.map((p) => (p.value === true ? { id: p.id, value: false } : p))
       );
-      setSelected({ ...selected, 0: true, 3: false });
+      if (cartState !== 3) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        setSelected({ ...selected, 0: true, 3: false });
+      } else {
+        setSelected({ ...selected, 3: false });
+      }
       setReservationToPost({
         ...reservationToPost,
         [cartState]: {
@@ -203,6 +199,7 @@ export default function Reservation() {
               <Typography variant="h6">사진작가 선택</Typography>
             )}
             <ToggleButton
+              disabled={cartState > 3 ? true : false}
               size="small"
               value="check"
               selected={selected[0]}
@@ -235,7 +232,7 @@ export default function Reservation() {
                   key={photographer.id}
                   variant="outlined"
                   sx={{
-                    width: "23%",
+                    width: "30%",
                   }}
                   onClick={() => {
                     setPhotographerValue(photographer.name);
@@ -270,6 +267,7 @@ export default function Reservation() {
               <Typography variant="h6">날짜 선택</Typography>
             )}
             <ToggleButton
+              disabled={cartState > 3 ? true : false}
               size="small"
               value="check"
               selected={selected[1]}
@@ -296,8 +294,6 @@ export default function Reservation() {
                 }}
                 renderInput={(params) => <TextField {...params} />}
                 dayOfWeekFormatter={(day) => `${day}.`}
-                // toolbarFormat="ddd DD MMMM"
-                // showToolbar
               />
             </LocalizationProvider>
           ) : null}
@@ -326,6 +322,7 @@ export default function Reservation() {
             <Typography variant="h6">{timeValue}</Typography>
           )}
           <ToggleButton
+            disabled={cartState > 3 ? true : false}
             size="small"
             value="check"
             selected={selected[2]}
@@ -391,6 +388,7 @@ export default function Reservation() {
           <PhotoCameraIcon />
           <Typography variant="h6">상품 선택</Typography>
           <ToggleButton
+            disabled={cartState > 3 ? true : false}
             size="small"
             value="check"
             selected={selected[3]}
@@ -453,14 +451,16 @@ export default function Reservation() {
             bgcolor: "blank.main",
           }}
         ></Box>
+        {cartState < 4 ? (
+          <Button
+            onClick={addReservationCart}
+            variant="contained"
+            sx={{ width: "100%", mt: "20px" }}
+          >
+            {cartState}순위 추가하기
+          </Button>
+        ) : null}
 
-        <Button
-          onClick={addReservationCart}
-          variant="contained"
-          sx={{ width: "100%", mt: "20px" }}
-        >
-          {cartState}순위 추가하기
-        </Button>
         <Box>
           {defaultReservationNum.map((r) => (
             <Box
@@ -511,7 +511,18 @@ export default function Reservation() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "45%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: { xs: "80%", md: 400 },
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
           <Typography id="modal-modal-title" variant="h5" component="h2">
             예약 확인
           </Typography>
@@ -519,9 +530,7 @@ export default function Reservation() {
             id="modal-modal-description"
             sx={{ mt: 2, display: "flex", flexDirection: "column" }}
           >
-            <div>예약 날짜 : {dateValue}</div>
-            <div>예약 시간 : {timeValue}</div>
-            <div>예약 상품 : {productId}번 상품</div>
+            예약을 신청하겠습니까?
           </Typography>
           <Box
             sx={{
