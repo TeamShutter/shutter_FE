@@ -1,9 +1,6 @@
 import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import {
-  GetAdminReservations,
-  GetStudios,
-} from "../../components/fetcher/fetcher";
+import { GetAdminReservations } from "../../components/fetcher/fetcher";
 import Layout from "../../layouts/Layout";
 
 export default function adminReservation() {
@@ -12,11 +9,6 @@ export default function adminReservation() {
     adminReservationsDataLoading,
     adminReservationsDataError,
   } = GetAdminReservations();
-  //   const studiosData = GetStudios();
-
-  //   const studios = studiosData.studios?.data;
-  //   const studiosLoading = studiosData.studiosLoading;
-  //   const studiosError = studiosData.studiosError;
 
   const adminReservations = adminReservationsData?.data;
   const [users, setUsers] = useState([]);
@@ -56,15 +48,13 @@ export default function adminReservation() {
       );
     }
   }, [adminReservations]);
-  console.log(adminReservations);
-  console.log(users);
-  console.log(reservationState);
+
   return (
     <Layout>
       <Box>
         {users.map((u, i) => (
           <Box key={i}>
-            <Typography>유저: {u.username}</Typography>
+            <Typography variant="h5">유저: {u.username}</Typography>
             {adminReservations
               .filter((r) => r.user.id === u.id)
               .map((r) => (
