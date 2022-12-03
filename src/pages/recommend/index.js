@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
-export default function Userinfo() {
+export default function Recommend() {
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
 

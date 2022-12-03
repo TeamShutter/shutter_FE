@@ -40,7 +40,7 @@ export default function Index() {
           justifyContent: "space-around",
         }}
       >
-        <Link href={"/recommend/userinfo"}>
+        <Link href={"/recommend"}>
           <Button
             variant="contained"
             sx={{

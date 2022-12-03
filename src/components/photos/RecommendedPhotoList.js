@@ -6,14 +6,10 @@ import {
   Typography,
 } from "@mui/material";
 import Link from "next/link";
-import { GetRelatedPhotos } from "../fetcher/fetcher";
+import { GetStudioPhotos } from "../fetcher/fetcher";
 
-export default function RelatedPhotoList({ photoId }) {
-  let photosData;
-
-  photosData = GetRelatedPhotos(photoId);
-
-  const usage = "index";
+export default function RecommendedPhotoList({ studioId }) {
+  const photosData = GetStudioPhotos(studioId);
 
   const photos = photosData.photos?.data;
   const photosLoading = photosData.photosLoading;
@@ -22,34 +18,9 @@ export default function RelatedPhotoList({ photoId }) {
   if (photosLoading) return <div>Loading...</div>;
   if (photosError) return <div>Error!!</div>;
 
-  if (photos && photos.length > 0) {
-    if(usage === "index") {
-      return (
-        <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
-            {photos.map((photo) => (
-              <Box key={photo.id}>
-                <Link href={`/photos/${photo.id}`}>
-                  <a>
-                    <ImageListItem>
-                      <Box
-                        sx={{
-                          width: "100%",
-                          paddingBottom: "120%",
-                          backgroundImage: `url(${photo.photo_url})`,
-                          backgroundPosition: "center center",
-                          backgroundRepeat: "no-repeat",
-                          backgroundSize: "cover",
-                        }}
-                      />
-                    </ImageListItem>
-                  </a>
-                </Link>
-              </Box>
-            ))}
-        </ImageList>
-      )
-    } else {
-      return (
+  return (
+    photos && (
+      <>
         <ImageList
           sx={{
             overflowX: "auto",
@@ -99,16 +70,7 @@ export default function RelatedPhotoList({ photoId }) {
             </Box>
           ))}
         </ImageList>
-      )
-    }
-  } else {
-   return (
-    <Box sx={{ mt: "10px", ml: "5px" }}>
-      <Typography variant="subtitle1" as="span">
-        조건에 맞는 사진이 없습니다
-      </Typography>
-    </Box>
-   )
-  }
-
+      </>
+    )
+  );
 }

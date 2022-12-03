@@ -35,27 +35,26 @@ import { useSelector } from "react-redux";
 export default function Studio() {
   const router = useRouter();
   const { studioId } = router.query;
-  const user = useSelector(state => state.auth.user);
+  const user = useSelector((state) => state.auth.user);
 
   const [follow, setFollow] = useState(false);
   const [follows, setFollows] = useState(0);
-  console.log("initial follows : ", follows)
+  console.log("initial follows : ", follows);
   // const [reviewList, setReviewList] = useState([]);
 
-  const { studioData, studioDataLoading, studioDataError } = GetStudio(studioId);
+  const { studioData, studioDataLoading, studioDataError } =
+    GetStudio(studioId);
   const studio = studioData?.studio_data;
-  console.log("studio : ", studio)
+  console.log("studio : ", studio);
   // const {photos, photosLoading, photosError} = GetStudioPhotos(studioId);
   // const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
 
   useEffect(() => {
     setFollows(studio?.follow_users.length);
 
-    studio?.follow_users.includes(user?.id) == true ? (
-      setFollow(true)
-    ) : (
-      setFollow(false)
-    )
+    studio?.follow_users.includes(user?.id) == true
+      ? setFollow(true)
+      : setFollow(false);
     // setReviewList(reviews);
   }, [studio]);
 
@@ -65,25 +64,28 @@ export default function Studio() {
   if (studioDataError) return <div>Error!!</div>;
 
   const handleFollow = async () => {
-
     const res = await fetch(`/api/studio/follow?studioId=${studioId}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Accept: "application/json",
-      }
+      },
     });
 
-    if(res.status === 200) {
-      follow ? (
-        setFollows((prev) => prev - 1)
-         ) : (
-           setFollows((prev) => prev + 1)
-        )
-        console.log("follows : ", follows);
-    
-        setFollow((prev) => !prev);    
+    if (res.status === 200) {
+      follow ? setFollows((prev) => prev - 1) : setFollows((prev) => prev + 1);
+      console.log("follows : ", follows);
+
+      setFollow((prev) => !prev);
     }
-  } 
+  };
+
+  const goReservation = () => {
+    if (user) {
+      router.push(`/studios/${studioId}/reservation`);
+    } else {
+      router.push("/login");
+    }
+  };
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -107,7 +109,8 @@ export default function Studio() {
   //   e.target.content.value = "";
   // };
   // return studio && photos && reviews && reviewList !== [] &&(
-  return studio && (
+  return (
+    studio && (
       <Layout>
         <Head>
           <title>{studio.name} | Shutter</title>
@@ -176,7 +179,7 @@ export default function Studio() {
             </Box>
 
             <Box>
-              {studio.naver_link && (
+              {/* {studio.naver_link && (
                 <Button
                   id="book_link"
                   onClick={() => {
@@ -208,49 +211,25 @@ export default function Studio() {
                 //   window.open(`${studio.naver_link}`)
                 // }}
                 // />
-              )}
+              )} */}
             </Box>
 
-              {user ? (
-                  <Box
-                  display= 'flex'
-                  alignItems= 'center'
-                  >
-                    <a href={studio.reservation}
-                    target="_blank" rel="noreferrer"
-                    >
-                      <Button
-                      variant="contained"
-                      color="info"
-                      >
-                        예약하기
-                      </Button>
-                    </a>
-  
-                    <Box
-                    display="flex"
-                    alignItems="center"
-                    >
-                      <IconButton
-                            sx={{ color: 'red' }}
-                            aria-label='follow'
-                            onClick={handleFollow}
-                        >
-                      {
-                      follow
-                      ?  
-                      <FavoriteIcon /> 
-                      : 
-                      <FavoriteBorderIcon />
-                      }
-                      </IconButton>
-                      <Typography>
-                        {follows}
-                      </Typography>
-  
-                    </Box>
-                  </Box>
-               ) : null}
+            <Box display="flex" alignItems="center">
+              <Button onClick={goReservation} variant="contained" color="info">
+                셔터에서 예약하기
+              </Button>
+
+              <Box display="flex" alignItems="center">
+                <IconButton
+                  sx={{ color: "red" }}
+                  aria-label="follow"
+                  onClick={handleFollow}
+                >
+                  {follow ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </IconButton>
+                <Typography>{follows}</Typography>
+              </Box>
+            </Box>
           </Box>
 
           <Box
@@ -271,7 +250,7 @@ export default function Studio() {
           </Box>
 
           <StudioInfo studio={studio} />
-          <StudioMap />
+          {/* <StudioMap /> */}
         </Box>
         <Box sx={{ mt: 3 }}>
           <Typography variant="h5">Photos</Typography>
@@ -320,5 +299,6 @@ export default function Studio() {
                
             </Box> */}
       </Layout>
+    )
   );
 }

@@ -9,7 +9,14 @@ import Link from "next/link";
 import { GetPhotos, GetStudioPhotos } from "../fetcher/fetcher";
 
 // {price, photoshop, sex, tags}
-export default function PhotoList({ studioId, town, price, tagList, color }) {
+export default function PhotoList({
+  studioId,
+  town,
+  price,
+  tagList,
+  color,
+  photoType,
+}) {
   // let photosData, photos, photosLoading, photosError, usage;
   // if ("price" in props) {
   //   photosData = GetPhotos(props.price, props.photoshop, props.sex, props.tags);
@@ -32,7 +39,7 @@ export default function PhotoList({ studioId, town, price, tagList, color }) {
   if (studioId) {
     photosData = GetStudioPhotos(studioId);
   } else {
-    photosData = GetPhotos(town, price, tagList, color);
+    photosData = GetPhotos(town, price, tagList, color, photoType);
   }
   const usage = "index";
 

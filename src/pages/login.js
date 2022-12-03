@@ -48,7 +48,7 @@ export default function Login() {
     }
   };
   if (typeof window !== "undefined" && isAuthenticated) {
-    router.push("/");
+    router.back();
   }
 
   const setGoogleLogin = () => {

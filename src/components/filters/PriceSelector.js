@@ -12,6 +12,7 @@ export default function PriceSelector({ price, setPrice }) {
       setPrice({ minPrice: minPrice, maxPrice: maxPrice });
     }
   };
+  console.log(minPrice, maxPrice);
 
   useEffect(() => {
     setMinPrice(price.minPrice);
