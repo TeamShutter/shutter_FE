@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { API_URL } from "../../config";
+// import Cookies from "js-cookie";
 
 const fetcher = async (...args) => {
   const res = await fetch(...args);
@@ -133,6 +134,12 @@ export const GetStudioProduct = (studioId) => {
 };
 
 export const GetAdminReservations = () => {
+  // const fetcher = (url, token) =>
+  //   axios
+  //     .get(url, { headers: { Authorization: "Bearer " + token } })
+  //     .then((res) => res.data);
+  // const access_token = Cookies.get("access_token");
+  // console.log(access_token);
   const { data, error } = useSWR(`${API_URL}/reservation`, fetcher);
   return {
     adminReservationsData: data,
