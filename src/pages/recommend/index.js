@@ -1,8 +1,7 @@
 import { Box, Button, ButtonGroup, Slide, Typography } from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
-import { useEffect, useRef, useState } from "react";
-import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { useEffect, useState } from "react";
 import { defaultColorList, defaultPhotoTypeList } from "../../data";
 import { GetTags, GetTowns } from "../../components/fetcher/fetcher";
 import Link from "next/link";
