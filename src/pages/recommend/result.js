@@ -5,7 +5,6 @@ import { GetRecommendedStudios } from "../../components/fetcher/fetcher";
 import Layout from "../../layouts/Layout";
 import { API_URL } from "../../config";
 import Link from "next/link";
-import StudioCarousel from "../../components/studios/StudioCarousel";
 import RecommendedPhotoList from "../../components/photos/RecommendedPhotoList";
 
 export default function Result() {
