@@ -149,15 +149,26 @@ export default function Reservation() {
   const handleClose = () => setOpen(false);
 
   const postReservation = async () => {
-    const response = await fetch(`${API_URL}/studio/${studioId}/reservation/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-      body: JSON.stringify(reservationToPost),
-    });
-    const data = await response.json();
+    try {
+      const res = await fetch("/api/reservation/postreservation", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: JSON.stringify(reservationToPost),
+      });
+      if (apiRes.status === 200) {
+        return res.status(200).json({
+          success: "Successfully post.",
+        });
+      } else {
+        return res.status(apiRes.status).json({
+          error: "post Failed",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

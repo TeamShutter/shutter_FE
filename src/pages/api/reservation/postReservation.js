@@ -1,6 +1,7 @@
 import cookie from "cookie";
+import { API_URL } from "../../../config";
 
-const postReservation = async (req, res) => {
+const postreservation = async (req, res) => {
   if (req.method === "POST") {
     const cookies = cookie.parse(req.headers.cookie ?? "");
     const access_token = cookies.access_token ?? false;
@@ -35,3 +36,5 @@ const postReservation = async (req, res) => {
     }
   }
 };
+
+export default postreservation;
