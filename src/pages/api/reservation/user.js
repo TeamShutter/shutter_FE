@@ -1,7 +1,7 @@
 import cookie from "cookie";
 import { API_URL } from "../../../config";
 
-const postreservation = async (req, res) => {
+const user = async (req, res) => {
   if (req.method === "POST") {
     const cookies = cookie.parse(req.headers.cookie ?? "");
     const access_token = cookies.access_token ?? false;
@@ -39,4 +39,4 @@ const postreservation = async (req, res) => {
   }
 };
 
-export default postreservation;
+export default user;

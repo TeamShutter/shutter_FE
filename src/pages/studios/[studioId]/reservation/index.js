@@ -146,17 +146,14 @@ export default function Reservation() {
 
   const postReservation = async () => {
     try {
-      const res = await fetch(
-        `/api/reservation/postreservation?studioId=${studioId}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reservationToPost),
-        }
-      );
+      const res = await fetch(`/api/reservation/user?studioId=${studioId}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reservationToPost),
+      });
       if (res.status === 201) {
         router.push(`/studio/${studioId}/reservation/success`);
       } else {
@@ -188,40 +185,176 @@ export default function Reservation() {
   )
     return <div>Error!!</div>;
   return (
-    <>
-      <Layout>
-        <Box>
+    studioAssignedTimes &&
+    studioPhotographers &&
+    studioProducts && (
+      <>
+        <Layout>
+          <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <PersonIcon />
+              {photographerValue ? (
+                <Typography variant="h6">{photographerValue}</Typography>
+              ) : (
+                <Typography variant="h6">사진작가 선택</Typography>
+              )}
+              <ToggleButton
+                disabled={cartState > 3 ? true : false}
+                size="small"
+                value="check"
+                selected={selected[0]}
+                onChange={() => {
+                  setSelected({
+                    0: !selected[0],
+                    1: false,
+                    2: false,
+                    3: false,
+                  });
+                }}
+              >
+                {selected[0] ? (
+                  <KeyboardArrowUpIcon />
+                ) : (
+                  <KeyboardArrowDownIcon />
+                )}
+              </ToggleButton>
+            </Box>
+            {selected[0] ? (
+              <Box
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                  rowGap: "5px",
+                  columnGap: "2%",
+                  mt: "15px",
+                  mb: "15px",
+                }}
+              >
+                {studioPhotographers.map((photographer) => (
+                  <Button
+                    key={photographer.id}
+                    variant="outlined"
+                    sx={{
+                      width: "30%",
+                    }}
+                    onClick={() => {
+                      setPhotographerValue(photographer.name);
+                      setSelected({ ...selected, 0: false, 1: true });
+                    }}
+                  >
+                    {photographer.name}
+                  </Button>
+                ))}
+              </Box>
+            ) : null}
+            <Box
+              sx={{
+                width: "100%",
+                height: "5px",
+                bgcolor: "blank.main",
+              }}
+            ></Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                mt: "20px",
+              }}
+            >
+              <CalendarMonthIcon />
+              {dateValue ? (
+                <Typography variant="h6">{dateValue}</Typography>
+              ) : (
+                <Typography variant="h6">날짜 선택</Typography>
+              )}
+              <ToggleButton
+                disabled={cartState > 3 ? true : false}
+                size="small"
+                value="check"
+                selected={selected[1]}
+                onChange={() => {
+                  setSelected({
+                    0: false,
+                    1: !selected[1],
+                    2: false,
+                    3: false,
+                  });
+                }}
+              >
+                {selected[1] ? (
+                  <KeyboardArrowUpIcon />
+                ) : (
+                  <KeyboardArrowDownIcon />
+                )}
+              </ToggleButton>
+            </Box>
+            {selected[1] ? (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <CalendarPicker
+                  displayStaticWrapperAs="Responsive"
+                  value={dateValue}
+                  minDate={tomorrow}
+                  onChange={(newValue) => {
+                    setDateValue(dayjs(newValue).format("YYYY-MM-DD"));
+                    setSelected({ ...selected, 1: false, 2: true });
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                  dayOfWeekFormatter={(day) => `${day}.`}
+                />
+              </LocalizationProvider>
+            ) : null}
+          </Box>
+          <Box
+            sx={{
+              width: "100%",
+              height: "5px",
+              bgcolor: "blank.main",
+            }}
+          ></Box>
           <Box
             sx={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
+
+              mt: "20px",
             }}
           >
-            <PersonIcon />
-            {photographerValue ? (
-              <Typography variant="h6">{photographerValue}</Typography>
+            <AccessTimeIcon />
+            {!timeValue ? (
+              <Typography variant="h6">시간 선택</Typography>
             ) : (
-              <Typography variant="h6">사진작가 선택</Typography>
+              <Typography variant="h6">{timeValue}</Typography>
             )}
             <ToggleButton
               disabled={cartState > 3 ? true : false}
               size="small"
               value="check"
-              selected={selected[0]}
+              selected={selected[2]}
               onChange={() => {
-                setSelected({ 0: !selected[0], 1: false, 2: false, 3: false });
+                setSelected({ 0: false, 1: false, 2: !selected[2], 3: false });
               }}
             >
-              {selected[0] ? (
+              {selected[2] ? (
                 <KeyboardArrowUpIcon />
               ) : (
                 <KeyboardArrowDownIcon />
               )}
             </ToggleButton>
           </Box>
-          {selected[0] ? (
+          {selected[2] ? (
             <Box
               sx={{
                 width: "100%",
@@ -234,21 +367,26 @@ export default function Reservation() {
                 mb: "15px",
               }}
             >
-              {studioPhotographers.map((photographer) => (
-                <Button
-                  key={photographer.id}
-                  variant="outlined"
-                  sx={{
-                    width: "30%",
-                  }}
-                  onClick={() => {
-                    setPhotographerValue(photographer.name);
-                    setSelected({ ...selected, 0: false, 1: true });
-                  }}
-                >
-                  {photographer.name}
-                </Button>
-              ))}
+              {studioAssignedTimes
+                .filter((t) => t.opened_time.date === dateValue)
+                .filter((t) => t.photographer.name === photographerValue)
+                .map((time) => (
+                  <Button
+                    key={time.id}
+                    variant="outlined"
+                    sx={{
+                      width: "23%",
+                    }}
+                    onClick={(e) => {
+                      setTimeValue(e.target.innerText);
+                      setAssignedTimeId(time.id);
+                      setSelected({ ...selected, 2: false, 3: true });
+                    }}
+                  >
+                    {fillZero(time.opened_time.hour)}:
+                    {fillZero(time.opened_time.minute)}
+                  </Button>
+                ))}
             </Box>
           ) : null}
           <Box
@@ -264,312 +402,193 @@ export default function Reservation() {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
+
               mt: "20px",
             }}
           >
-            <CalendarMonthIcon />
-            {dateValue ? (
-              <Typography variant="h6">{dateValue}</Typography>
-            ) : (
-              <Typography variant="h6">날짜 선택</Typography>
-            )}
+            <PhotoCameraIcon />
+            <Typography variant="h6">상품 선택</Typography>
             <ToggleButton
               disabled={cartState > 3 ? true : false}
               size="small"
               value="check"
-              selected={selected[1]}
+              selected={selected[3]}
               onChange={() => {
-                setSelected({ 0: false, 1: !selected[1], 2: false, 3: false });
+                setSelected({ 0: false, 1: false, 2: false, 3: !selected[3] });
               }}
             >
-              {selected[1] ? (
+              {selected[3] ? (
                 <KeyboardArrowUpIcon />
               ) : (
                 <KeyboardArrowDownIcon />
               )}
             </ToggleButton>
           </Box>
-          {selected[1] ? (
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <CalendarPicker
-                displayStaticWrapperAs="Responsive"
-                value={dateValue}
-                minDate={tomorrow}
-                onChange={(newValue) => {
-                  setDateValue(dayjs(newValue).format("YYYY-MM-DD"));
-                  setSelected({ ...selected, 1: false, 2: true });
-                }}
-                renderInput={(params) => <TextField {...params} />}
-                dayOfWeekFormatter={(day) => `${day}.`}
-              />
-            </LocalizationProvider>
+          {selected[3] ? (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "20px",
+                mt: "15px",
+                mb: "15px",
+              }}
+            >
+              {studioProducts.map((product, i) => (
+                <Box
+                  key={i}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "start",
+                    alignItems: "center",
+                  }}
+                >
+                  <Checkbox
+                    checked={productValue[i].value ? true : false}
+                    onClick={() => {
+                      setProductValue((prev) =>
+                        prev.map((p) =>
+                          p.value === true
+                            ? { id: p.id, value: false }
+                            : p.id === i + 1
+                            ? { id: p.id, value: true }
+                            : p
+                        )
+                      );
+                      setProductId(product.id);
+                    }}
+                  />
+                  <Box>
+                    <Typography>{i + 1}번 상품</Typography>
+                    <Typography>{product.name}</Typography>
+                    <Typography>가격 : {product.price}원</Typography>
+                    <Typography>{product.description}</Typography>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
           ) : null}
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-            height: "5px",
-            bgcolor: "blank.main",
-          }}
-        ></Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-
-            mt: "20px",
-          }}
-        >
-          <AccessTimeIcon />
-          {!timeValue ? (
-            <Typography variant="h6">시간 선택</Typography>
-          ) : (
-            <Typography variant="h6">{timeValue}</Typography>
-          )}
-          <ToggleButton
-            disabled={cartState > 3 ? true : false}
-            size="small"
-            value="check"
-            selected={selected[2]}
-            onChange={() => {
-              setSelected({ 0: false, 1: false, 2: !selected[2], 3: false });
-            }}
-          >
-            {selected[2] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </ToggleButton>
-        </Box>
-        {selected[2] ? (
           <Box
             sx={{
               width: "100%",
-              display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "row",
-              rowGap: "5px",
-              columnGap: "2%",
-              mt: "15px",
-              mb: "15px",
+              height: "5px",
+              bgcolor: "blank.main",
             }}
-          >
-            {studioAssignedTimes
-              .filter((t) => t.opened_time.date === dateValue)
-              .filter((t) => t.photographer.name === photographerValue)
-              .map((time) => (
-                <Button
-                  key={time.id}
-                  variant="outlined"
-                  sx={{
-                    width: "23%",
-                  }}
-                  onClick={(e) => {
-                    setTimeValue(e.target.innerText);
-                    setAssignedTimeId(time.id);
-                    setSelected({ ...selected, 2: false, 3: true });
-                  }}
-                >
-                  {fillZero(time.opened_time.hour)}:
-                  {fillZero(time.opened_time.minute)}
-                </Button>
-              ))}
-          </Box>
-        ) : null}
-        <Box
-          sx={{
-            width: "100%",
-            height: "5px",
-            bgcolor: "blank.main",
-          }}
-        ></Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
+          ></Box>
+          {cartState < 4 ? (
+            <Button
+              onClick={addReservationCart}
+              variant="contained"
+              sx={{ width: "100%", mt: "20px" }}
+            >
+              {cartState}순위 추가하기
+            </Button>
+          ) : null}
 
-            mt: "20px",
-          }}
-        >
-          <PhotoCameraIcon />
-          <Typography variant="h6">상품 선택</Typography>
-          <ToggleButton
-            disabled={cartState > 3 ? true : false}
-            size="small"
-            value="check"
-            selected={selected[3]}
-            onChange={() => {
-              setSelected({ 0: false, 1: false, 2: false, 3: !selected[3] });
-            }}
-          >
-            {selected[3] ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </ToggleButton>
-        </Box>
-        {selected[3] ? (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              rowGap: "20px",
-              mt: "15px",
-              mb: "15px",
-            }}
-          >
-            {studioProducts.map((product, i) => (
+          <Box>
+            {defaultReservationNum.map((r) => (
               <Box
-                key={i}
+                key={r.id}
                 sx={{
                   display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "start",
-                  alignItems: "center",
+                  flexDirection: "column",
+                  rowGap: "10px",
+                  mt: "15px",
                 }}
               >
-                <Checkbox
-                  checked={productValue[i].value ? true : false}
-                  onClick={() => {
-                    setProductValue((prev) =>
-                      prev.map((p) =>
-                        p.value === true
-                          ? { id: p.id, value: false }
-                          : p.id === i + 1
-                          ? { id: p.id, value: true }
-                          : p
-                      )
-                    );
-                    setProductId(product.id);
-                  }}
-                />
                 <Box>
-                  <Typography>{i + 1}번 상품</Typography>
-                  <Typography>{product.name}</Typography>
-                  <Typography>가격 : {product.price}원</Typography>
-                  <Typography>{product.description}</Typography>
+                  <Typography variant="h6">{r.id}순위 예약</Typography>
+                  {reservationCart[r.id] ? (
+                    <Box>
+                      <Typography>
+                        선택된 사진작가 :{" "}
+                        {reservationCart[r.id].photographerValue}
+                      </Typography>
+                      <Typography>
+                        예약 날짜 : {reservationCart[r.id].dateValue}
+                      </Typography>
+                      <Typography>
+                        예약 시간 : {reservationCart[r.id].timeValue}
+                      </Typography>
+                      <Typography>
+                        예약 상품 : {reservationCart[r.id].productValue}번 상품
+                      </Typography>
+                    </Box>
+                  ) : null}
                 </Box>
               </Box>
             ))}
           </Box>
-        ) : null}
-        <Box
-          sx={{
-            width: "100%",
-            height: "5px",
-            bgcolor: "blank.main",
-          }}
-        ></Box>
-        {cartState < 4 ? (
+          <Box sx={{ mt: "20px" }}>
+            <TextField
+              sx={{ width: "100%" }}
+              required
+              id="outlined-required"
+              label="전화번호를 입력해주세요"
+              onChange={(e) => {
+                setPhoneNum(e.target.value);
+              }}
+            />
+            <Typography>
+              예약 확정 여부 전달을 위해 전화번호를 반드시 입력해주세요!
+            </Typography>
+          </Box>
+
           <Button
-            onClick={addReservationCart}
+            onClick={handleReservation}
             variant="contained"
             sx={{ width: "100%", mt: "20px" }}
           >
-            {cartState}순위 추가하기
+            예약 신청하기
           </Button>
-        ) : null}
+        </Layout>
 
-        <Box>
-          {defaultReservationNum.map((r) => (
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "45%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: { xs: "80%", md: 400 },
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography id="modal-modal-title" variant="h5" component="h2">
+              예약 확인
+            </Typography>
+            <Typography
+              id="modal-modal-description"
+              sx={{ mt: 2, display: "flex", flexDirection: "column" }}
+            >
+              예약을 신청하겠습니까?
+            </Typography>
             <Box
-              key={r.id}
               sx={{
                 display: "flex",
-                flexDirection: "column",
-                rowGap: "10px",
+                flexDirection: "row",
+                columnGap: "10px",
                 mt: "15px",
               }}
             >
-              <Box>
-                <Typography variant="h6">{r.id}순위 예약</Typography>
-                {reservationCart[r.id] ? (
-                  <Box>
-                    <Typography>
-                      선택된 사진작가 :{" "}
-                      {reservationCart[r.id].photographerValue}
-                    </Typography>
-                    <Typography>
-                      예약 날짜 : {reservationCart[r.id].dateValue}
-                    </Typography>
-                    <Typography>
-                      예약 시간 : {reservationCart[r.id].timeValue}
-                    </Typography>
-                    <Typography>
-                      예약 상품 : {reservationCart[r.id].productValue}번 상품
-                    </Typography>
-                  </Box>
-                ) : null}
-              </Box>
+              <Button variant="contained" onClick={postReservation}>
+                확인
+              </Button>
+              <Button variant="contained" onClick={handleClose}>
+                취소
+              </Button>
             </Box>
-          ))}
-        </Box>
-        <Box sx={{ mt: "20px" }}>
-          <TextField
-            sx={{ width: "100%" }}
-            required
-            id="outlined-required"
-            label="전화번호를 입력해주세요"
-            onChange={(e) => {
-              setPhoneNum(e.target.value);
-            }}
-          />
-          <Typography>
-            예약 확정 여부 전달을 위해 전화번호를 반드시 입력해주세요!
-          </Typography>
-        </Box>
-
-        <Button
-          onClick={handleReservation}
-          variant="contained"
-          sx={{ width: "100%", mt: "20px" }}
-        >
-          예약 신청하기
-        </Button>
-      </Layout>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "45%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: { xs: "80%", md: 400 },
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <Typography id="modal-modal-title" variant="h5" component="h2">
-            예약 확인
-          </Typography>
-          <Typography
-            id="modal-modal-description"
-            sx={{ mt: 2, display: "flex", flexDirection: "column" }}
-          >
-            예약을 신청하겠습니까?
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              columnGap: "10px",
-              mt: "15px",
-            }}
-          >
-            <Button variant="contained" onClick={postReservation}>
-              확인
-            </Button>
-            <Button variant="contained" onClick={handleClose}>
-              취소
-            </Button>
           </Box>
-        </Box>
-      </Modal>
-    </>
+        </Modal>
+      </>
+    )
   );
 }

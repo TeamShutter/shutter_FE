@@ -18,7 +18,6 @@ export default function SelectedFilter({
 
   const handleDelete = (e) => {
     const filterDeleted = e.target.parentNode.parentNode.children[0].innerText;
-    console.log(filterDeleted);
     if (town === filterDeleted) {
       setTown("");
     } else if (
