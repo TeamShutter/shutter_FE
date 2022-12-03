@@ -8,6 +8,7 @@ import {
   FormControlLabel,
   FormGroup,
   Modal,
+  TextField,
   ToggleButton,
   Typography,
 } from "@mui/material";
@@ -142,7 +143,10 @@ export default function Reservation() {
     }
   };
 
+  const [phoneNum, setPhoneNum] = useState("");
+
   const handleReservation = () => {
+    setReservationToPost({ ...reservationToPost, phone_num: phoneNum });
     setOpen(true);
   };
   const [open, setOpen] = useState(false);
@@ -156,11 +160,16 @@ export default function Reservation() {
           method: "POST",
           headers: {
             Accept: "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(reservationToPost),
         }
       );
-      console.log(res);
+      if (res.status === 201) {
+        router.push(`/studio/${studioId}/reservation/success`);
+      } else {
+        console.log(res);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -500,6 +509,20 @@ export default function Reservation() {
               </Box>
             </Box>
           ))}
+        </Box>
+        <Box sx={{ mt: "20px" }}>
+          <TextField
+            sx={{ width: "100%" }}
+            required
+            id="outlined-required"
+            label="전화번호를 입력해주세요"
+            onChange={(e) => {
+              setPhoneNum(e.target.value);
+            }}
+          />
+          <Typography>
+            예약 확정 여부 전달을 위해 전화번호를 반드시 입력해주세요!
+          </Typography>
         </Box>
 
         <Button
