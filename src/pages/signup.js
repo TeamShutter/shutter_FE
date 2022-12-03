@@ -23,22 +23,22 @@ export default function Signup() {
   const loading = useSelector((state) => state.auth.loading);
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
     username: "",
     email: "",
+    name: "",
     password: "",
     re_password: "",
+    phone: "",
     checked: false,
   });
 
   const {
-    first_name,
-    last_name,
     username,
     email,
+    name,
     password,
     re_password,
+    phone,
     checked,
   } = formData;
 
@@ -52,11 +52,19 @@ export default function Signup() {
 
   // form 전송
   const handleSubmit = async (e) => {
+    if(!checked) {
+      window.alert("회원가입 약관에 동의해주세요.");
+    }
+
+    if(password !== re_password) {
+      window.alert("비밀번호를 정확히 입력해주세요.");
+    }
+
     e.preventDefault();
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(
-        signup(email, first_name, last_name, username, password, re_password)
+        signup(username, email, name, phone, password, re_password)
       );
     }
   };
@@ -101,52 +109,31 @@ export default function Signup() {
                 label="이메일 주소"
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 onChange={handleChange}
                 required
                 autoFocus
                 fullWidth
-                type="first_name"
-                id="first_name"
-                name="first_name"
+                type="name"
+                id="name"
+                name="name"
                 label="이름"
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 onChange={handleChange}
                 required
                 autoFocus
                 fullWidth
-                type="last_name"
-                id="last_name"
-                name="last_name"
-                label="성"
+                type="tel"
+                pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+                id="phone"
+                name="phone"
+                label="전화번호"
               />
             </Grid>
-            {/* <Grid item xs={6}>
-                  <TextField
-                    required
-                    autoFocus
-                    fullWidth
-                    type="sex"
-                    id="sex"
-                    name="sex"
-                    label="성별"
-                  />
-                </Grid> */}
-            {/* <Grid item xs={6}>
-                  <TextField
-                    required
-                    autoFocus
-                    fullWidth
-                    type="town"
-                    id="town"
-                    name="town"
-                    label="동네 - '구' 단위로 적어주세요 ex) 관악구"
-                  />
-                </Grid> */}
             <Grid item xs={12}>
               <TextField
                 onChange={handleChange}
@@ -155,7 +142,7 @@ export default function Signup() {
                 type="password"
                 id="password"
                 name="password"
-                label="비밀번호 (숫자+영문자+특수문자 8자리 이상)"
+                label="비밀번호"
               />
             </Grid>
             <Grid item xs={12}>
