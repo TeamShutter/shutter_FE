@@ -34,14 +34,6 @@ export default function Profile() {
   console.log("Profile: ", profile);
 
   const [reservatedStudios, setReservatedStudios] = useState([]);
-  console.log(defaultReservationState);
-
-  profile?.reservation.map((r) => {
-    const value = defaultReservationState.find((s) => {
-      return s.id === r.state;
-    });
-    console.log(value);
-  });
 
   useEffect(() => {
     if (profile) {

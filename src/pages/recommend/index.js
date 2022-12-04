@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Slide, Typography } from "@mui/material";
+import { Box, Button, Slide, Typography } from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import { GetTags, GetTowns } from "../../components/fetcher/fetcher";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import AlertModal from "../../components/alert/AlertModal";
 
 export default function Recommend() {
   const user = useSelector((state) => state.auth.user);
@@ -26,6 +27,9 @@ export default function Recommend() {
   const [photoTypeList, setPhotoTypeList] = useState([]);
   const [colorList, setColorList] = useState([]);
   const [tagList, setTagList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const [alertDesc, setAlertDesc] = useState("");
 
   useEffect(() => {
     if (!user) {
@@ -52,15 +56,20 @@ export default function Recommend() {
     const QNum = Number(e.target.id.substring(0, 1));
     if (QDirection === "next") {
       if (QNum === 1 && sex.length === 0) {
-        alert("성별을 선택하여야 합니다!");
+        setAlertDesc("성별을");
+        setOpen(true);
       } else if (QNum === 2 && age.length === 0) {
-        alert("나이를 선택하여야 합니다!");
+        setAlertDesc("나이를");
+        setOpen(true);
       } else if (QNum === 3 && photoTypeList.length === 0) {
-        alert("사진 종류를 1개 이상 선택하여야 합니다!");
+        setAlertDesc("사진종류를");
+        setOpen(true);
       } else if (QNum === 4 && townList.length === 0) {
-        alert("지역을 1개 이상 선택하여야 합니다!");
+        setAlertDesc("지역을");
+        setOpen(true);
       } else if (QNum === 5 && colorList.length === 0) {
-        alert("색감을 1개 이상 선택하여야 합니다!");
+        setAlertDesc("색감을");
+        setOpen(true);
       } else {
         setChecked({ ...checked, [QNum]: false, [QNum + 1]: true });
       }
@@ -574,6 +583,12 @@ export default function Recommend() {
           </Box>
         </Slide>
       </Box>
+      <AlertModal
+        open={open}
+        title="추천 선택 오류"
+        description={alertDesc + " 선택하여야 합니다!"}
+        cancelFunc={handleClose}
+      />
     </Layout>
   );
 }

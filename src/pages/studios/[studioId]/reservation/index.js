@@ -26,6 +26,7 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { defaultReservationNum } from "../../../../data";
+import AlertModal from "../../../../components/alert/AlertModal";
 
 const fillZero = (time) => {
   if (time < 10) {
@@ -544,50 +545,13 @@ export default function Reservation() {
           </Button>
         </Layout>
 
-        <Modal
+        <AlertModal
           open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "45%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: { xs: "80%", md: 400 },
-              bgcolor: "background.paper",
-              boxShadow: 24,
-              p: 4,
-            }}
-          >
-            <Typography id="modal-modal-title" variant="h5" component="h2">
-              예약 확인
-            </Typography>
-            <Typography
-              id="modal-modal-description"
-              sx={{ mt: 2, display: "flex", flexDirection: "column" }}
-            >
-              예약을 신청하겠습니까?
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                columnGap: "10px",
-                mt: "15px",
-              }}
-            >
-              <Button variant="contained" onClick={postReservation}>
-                확인
-              </Button>
-              <Button variant="contained" onClick={handleClose}>
-                취소
-              </Button>
-            </Box>
-          </Box>
-        </Modal>
+          title="예약 확인"
+          description="예약을 신청하시겠습니까?"
+          confirmFunc={postReservation}
+          cancelFunc={handleClose}
+        />
       </>
     )
   );
