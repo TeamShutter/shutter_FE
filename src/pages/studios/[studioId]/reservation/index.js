@@ -389,7 +389,9 @@ export default function Reservation() {
                   </Button>
                 ))}
             </Box>
-          ) : null}
+          ) : (
+            <Typography>예약 가능한 시간대가 없습니다</Typography>
+          )}
           <Box
             sx={{
               width: "100%",

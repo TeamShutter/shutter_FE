@@ -23,20 +23,20 @@ export default function Signup() {
   const loading = useSelector((state) => state.auth.loading);
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
     username: "",
+    name: "",
     email: "",
+    phone_number: "",
     password: "",
     re_password: "",
     checked: false,
   });
 
   const {
-    first_name,
-    last_name,
     username,
+    name,
     email,
+    phone_number,
     password,
     re_password,
     checked,
@@ -56,7 +56,7 @@ export default function Signup() {
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(
-        signup(email, first_name, last_name, username, password, re_password)
+        signup(username, name, email, phone_number, password, re_password)
       );
     }
   };
@@ -95,36 +95,37 @@ export default function Signup() {
                 required
                 autoFocus
                 fullWidth
+                type="name"
+                id="name"
+                name="name"
+                label="성함"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                required
+                autoFocus
+                fullWidth
                 type="email"
                 id="email"
                 name="email"
                 label="이메일 주소"
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 onChange={handleChange}
                 required
                 autoFocus
                 fullWidth
-                type="first_name"
-                id="first_name"
-                name="first_name"
-                label="이름"
+                type="phone_number"
+                id="phone_number"
+                name="phone_number"
+                label="전화번호"
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                onChange={handleChange}
-                required
-                autoFocus
-                fullWidth
-                type="last_name"
-                id="last_name"
-                name="last_name"
-                label="성"
-              />
-            </Grid>
+
             {/* <Grid item xs={6}>
                   <TextField
                     required
