@@ -28,7 +28,8 @@ const user = async (req, res) => {
         return res.status(200).json({
           user: data.user_profile,
           like_photos: data.photo,
-          follow_studios: data.studio
+          follow_studios: data.studio,
+          reservation: data.reservation,
         });
       } else {
         return res.status(apiRes.status).json({

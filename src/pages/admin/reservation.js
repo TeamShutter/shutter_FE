@@ -1,6 +1,7 @@
 import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { GetAdminReservations } from "../../components/fetcher/fetcher";
+import { defaultReservationState } from "../../data";
 import Layout from "../../layouts/Layout";
 // import Cookies from "js-cookie";
 // import cookie from "cookie";
@@ -132,11 +133,11 @@ export default function adminReservation() {
                             value={reservationState[r.id]}
                             onChange={(e) => handleChange(e, r.id)}
                           >
-                            <MenuItem value={1}>예약전</MenuItem>
-                            <MenuItem value={2}>예약완료</MenuItem>
-                            <MenuItem value={3}>예약취소</MenuItem>
-                            <MenuItem value={4}>입금완료</MenuItem>
-                            <MenuItem value={5}>예약반려</MenuItem>
+                            {defaultReservationState.map((s) => (
+                              <MenuItem key={s.id} value={s.id}>
+                                {s.value}
+                              </MenuItem>
+                            ))}
                           </Select>
                           <Button
                             variant="contained"

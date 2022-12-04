@@ -15,6 +15,14 @@ export const defaultReservationNum = [
   { id: 3, value: "3순위 예약" },
 ];
 
+export const defaultReservationState = [
+  { id: 1, value: "예약전" },
+  { id: 2, value: "예약완료" },
+  { id: 3, value: "예약취소" },
+  { id: 4, value: "입금완료" },
+  { id: 5, value: "예약반려" },
+];
+
 export const defaultFilters = [
   { id: 1, name: "동네" },
   { id: 2, name: "가격" },
