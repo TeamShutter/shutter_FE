@@ -226,14 +226,14 @@ export default function Photo() {
           <PhotoList studioId={studioId} />
         </Box>
 
-        <Box
+        {/* <Box
           sx={{
             mt: "8px",
             mb: "5px",
           }}
         >
           <Typography variant="h6">Related Photos</Typography>
-        </Box>
+        </Box> */}
 
         {/* {user ? (
                     <Box
