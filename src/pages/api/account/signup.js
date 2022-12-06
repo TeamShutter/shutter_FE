@@ -2,14 +2,14 @@ import { API_URL } from "../../../config";
 
 const signup = async (req, res) => {
   if (req.method == "POST") {
-    const { first_name, last_name, username, email, password, re_password } =
+    const { username, name, email, phone_number, password, re_password } =
       req.body;
 
     const body = JSON.stringify({
-      first_name,
-      last_name,
       username,
+      name,
       email,
+      phone_number,
       password,
       re_password,
     });

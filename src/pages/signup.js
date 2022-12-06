@@ -24,8 +24,9 @@ export default function Signup() {
 
   const [formData, setFormData] = useState({
     username: "",
-    email: "",
     name: "",
+    email: "",
+    phone_number: "",
     password: "",
     re_password: "",
     phone: "",
@@ -34,8 +35,9 @@ export default function Signup() {
 
   const {
     username,
-    email,
     name,
+    email,
+    phone_number,
     password,
     re_password,
     phone,
@@ -64,7 +66,7 @@ export default function Signup() {
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
       dispatch(
-        signup(username, email, name, phone, password, re_password)
+        signup(username, name, email, phone_number, password, re_password)
       );
     }
   };
@@ -103,6 +105,18 @@ export default function Signup() {
                 required
                 autoFocus
                 fullWidth
+                type="name"
+                id="name"
+                name="name"
+                label="성함"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                required
+                autoFocus
+                fullWidth
                 type="email"
                 id="email"
                 name="email"
@@ -115,25 +129,13 @@ export default function Signup() {
                 required
                 autoFocus
                 fullWidth
-                type="name"
-                id="name"
-                name="name"
-                label="이름"
+                type="phone_number"
+                id="phone_number"
+                name="phone_number"
+                label="전화번호"
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                onChange={handleChange}
-                required
-                autoFocus
-                fullWidth
-                type="tel"
-                pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-                id="phone"
-                name="phone"
-                label="전화번호"
-              />
-            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 onChange={handleChange}

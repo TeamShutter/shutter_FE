@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { API_URL } from "../../config";
+// import Cookies from "js-cookie";
 
 const fetcher = async (...args) => {
   const res = await fetch(...args);
@@ -132,6 +133,21 @@ export const GetStudioProduct = (studioId) => {
   };
 };
 
+export const GetAdminReservations = () => {
+  // const fetcher = (url, token) =>
+  //   axios
+  //     .get(url, { headers: { Authorization: "Bearer " + token } })
+  //     .then((res) => res.data);
+  // const access_token = Cookies.get("access_token");
+  // console.log(access_token);
+  const { data, error } = useSWR(`${API_URL}/reservation`, fetcher);
+  return {
+    adminReservationsData: data,
+    adminReservationsDataLoading: !error & !data,
+    adminReservationsDataError: error,
+  };
+};
+
 export const GetSearch = (q) => {
   const { data, error } = useSWR(`${API_URL}/studios/search?q=${q}`, fetcher);
   return {
@@ -153,19 +169,6 @@ export const GetPhotos = (town, price, tagList, color, photoType) => {
     fetchURL = `${API_URL}/photo?town=${town}&min_price=${price.minPrice}&max_price=${price.maxPrice}&color=${color}&photoType=${photoType}`;
   }
   const { data, error } = useSWR(fetchURL, fetcher);
-
-  return {
-    photos: data,
-    photosLoading: !error & !data,
-    photosError: error,
-  };
-};
-
-export const GetRelatedPhotos = (photoId) => {
-  const { data, error } = useSWR(
-    `${API_URL}/photo/${photoId}/related_photos`,
-    fetcher
-  );
 
   return {
     photos: data,
@@ -217,10 +220,7 @@ export const GetPhoto = (photoId) => {
 };
 
 export const GetProfile = (userId) => {
-  const { data, error } = useSWR(
-    '/api/account/user',
-    fetcher
-  );
+  const { data, error } = useSWR("/api/account/user", fetcher);
 
   return {
     profile: data,

@@ -6,7 +6,6 @@ const user = async (req, res) => {
     const cookies = cookie.parse(req.headers.cookie ?? "");
     const access_token = cookies.access_token ?? false;
     const photoId = req.query.photoId ?? "";
-    console.log("PhotoId: ", photoId);
 
     if (access_token === false) {
       return res.status(401).json({

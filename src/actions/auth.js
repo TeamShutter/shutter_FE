@@ -110,7 +110,6 @@ export const login = (username, password) => async (dispatch) => {
 };
 
 export const kakaologin = (code) => async (dispatch) => {
-
   dispatch({
     type: SET_AUTH_LOADING,
   });
@@ -119,9 +118,9 @@ export const kakaologin = (code) => async (dispatch) => {
     const res = await fetch(`/api/account/kakaologin?code=${code}`, {
       method: "GET",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
-      }
+      },
     });
 
     if (res.status === 200) {
@@ -135,7 +134,7 @@ export const kakaologin = (code) => async (dispatch) => {
       });
     }
   } catch (err) {
-    console.log("err : ", err)
+    console.log("err : ", err);
     dispatch({
       type: LOGIN_FAIL,
     });
@@ -172,13 +171,13 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signup =
-  (email, first_name, last_name, username, password, re_password) =>
+  (username, name, email, phone_number, password, re_password) =>
   async (dispatch) => {
     const body = JSON.stringify({
-      email,
-      first_name,
-      last_name,
       username,
+      name,
+      email,
+      phone_number,
       password,
       re_password,
     });

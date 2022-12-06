@@ -1,7 +1,8 @@
+import { CompressOutlined } from "@mui/icons-material";
 import cookie from "cookie";
 import { API_URL } from "../../../config";
 
-const postreservation = async (req, res) => {
+const user = async (req, res) => {
   if (req.method === "POST") {
     const cookies = cookie.parse(req.headers.cookie ?? "");
     const access_token = cookies.access_token ?? false;
@@ -10,18 +11,18 @@ const postreservation = async (req, res) => {
         error: "UnAuthorized - No Access Token.",
       });
     }
-    const reservationToPost = req.body;
-    const studioId = req.query.studioId;
+    const stateChange = req.body;
+    const reservationId = req.query.reservationId;
 
     try {
-      const apiRes = await fetch(`${API_URL}/studio/${studioId}/reservation/`, {
-        method: "POST",
+      const apiRes = await fetch(`${API_URL}/reservation/${reservationId}/`, {
+        method: "PATCH",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: `Bearer ${access_token}`,
         },
-        body: reservationToPost,
+        body: JSON.stringify(stateChange),
       });
       const data = apiRes.json();
       if (apiRes.status === 200) {
@@ -33,10 +34,10 @@ const postreservation = async (req, res) => {
       }
     } catch (err) {
       return res.status(500).json({
-        error: "Something went wrong post reservation.",
+        error: "Something went wrong patch reservation state.",
       });
     }
   }
 };
 
-export default postreservation;
+export default user;
