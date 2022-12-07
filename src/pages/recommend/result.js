@@ -6,6 +6,7 @@ import Layout from "../../layouts/Layout";
 import { API_URL } from "../../config";
 import Link from "next/link";
 import RecommendedPhotoList from "../../components/photos/RecommendedPhotoList";
+import Head from "next/head";
 
 export default function Result() {
   const router = useRouter();

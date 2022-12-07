@@ -27,6 +27,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { defaultReservationNum } from "../../../../data";
 import AlertModal from "../../../../components/alert/AlertModal";
+import Head from "next/head";
 
 const fillZero = (time) => {
   if (time < 10) {
