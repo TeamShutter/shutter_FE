@@ -42,16 +42,18 @@ export default function TagSelector({ tagList, setTagList }) {
   return (
     tags && (
       <>
-        <TextField
-          hiddenLabel
-          placeholder="찾으시는 사진 키워드를 입력해보세요"
-          variant="filled"
-          size="small"
-          sx={{ width: { md: "300px", xs: "90%" }, mb: "10px" }}
-          value={tagSearchInput}
-          onChange={(e) => setTagSearchInput(e.target.value)}
-          onKeyPress={handleTagInputKeyPress}
-        />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <TextField
+            hiddenLabel
+            placeholder="찾으시는 사진 키워드를 입력해보세요"
+            variant="filled"
+            size="small"
+            sx={{ width: { md: "300px", xs: "90%" }, mb: "10px" }}
+            value={tagSearchInput}
+            onChange={(e) => setTagSearchInput(e.target.value)}
+            onKeyPress={handleTagInputKeyPress}
+          />
+        </Box>
         {/* <Box>
           <KeyboardArrowLeftIcon fontSize="small" />
           <Box sx={{ ml: "10px", mr: "15px" }}> */}
