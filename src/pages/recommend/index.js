@@ -14,7 +14,8 @@ export default function Recommend() {
   const router = useRouter();
 
   const [checked, setChecked] = useState({
-    1: true,
+    0: true,
+    1: false,
     2: false,
     3: false,
     4: false,
@@ -162,7 +163,40 @@ export default function Recommend() {
           width: "90%",
         }}
       >
-        <Slide direction="up" in={checked[1]} mountOnEnter unmountOnExit>
+        <Slide direction="down" in={checked[0]} mountOnEnter unmountOnExit>
+          <Box
+            sx={{
+              height: "450px",
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "20px",
+            }}
+          >
+            <Typography variant="h5">사진관 추천 소개</Typography>
+            <Typography>
+              주어진 설문에 따라서 본인의 정보를 입력해주세요!
+            </Typography>
+            <Typography>
+              보다 정확한 추천을 위해 원하시는 사진을 정확하게 입력해주세요!
+            </Typography>
+
+            <Box
+              sx={{
+                mt: "15px",
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "30px",
+                width: "100%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button variant="contained" id="0 next" onClick={handleQ}>
+                추천 받으러가기
+              </Button>
+            </Box>
+          </Box>
+        </Slide>
+        <Slide direction="down" in={checked[1]} mountOnEnter unmountOnExit>
           <Box
             sx={{
               height: "450px",
@@ -210,6 +244,9 @@ export default function Recommend() {
                 justifyContent: "space-between",
               }}
             >
+              <Button variant="contained" id="1 before" onClick={handleQ}>
+                이전
+              </Button>
               <Button variant="contained" id="1 next" onClick={handleQ}>
                 다음
               </Button>

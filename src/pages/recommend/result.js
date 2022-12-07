@@ -55,7 +55,7 @@ export default function Result() {
   const studiosError = recommendedStudiosData.studiosError;
 
   if (studiosLoading) return <div>Loading...</div>;
-  if (studiosError) console.log(studiosError);
+  if (studiosError) return <div>Error!</div>;
 
   // Post 형식으로 gender랑 age 보냄
 
@@ -63,6 +63,9 @@ export default function Result() {
     <div>Loading...</div>
   ) : (
     <Layout>
+      <Head>
+        <title>사진관 추천 | Shutter</title>
+      </Head>
       <Typography variant="h4">가장 추천하는 사진관</Typography>
       <Box sx={{ mb: 10, width: "100%" }}>
         <RecommendedPhotoList studioId={studios[0].id} />

@@ -12,7 +12,6 @@ const user = async (req, res) => {
     }
     const reservationToPost = req.body;
     const studioId = req.query.studioId;
-    console.log(JSON.stringify(reservationToPost));
 
     try {
       const apiRes = await fetch(`${API_URL}/studio/${studioId}/reservation/`, {
@@ -22,7 +21,7 @@ const user = async (req, res) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${access_token}`,
         },
-        body: reservationToPost,
+        body: JSON.stringify(reservationToPost),
       });
       const data = apiRes.json();
       if (apiRes.status === 200) {
