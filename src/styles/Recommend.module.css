@@ -1,0 +1,22 @@
+.RecommendEnter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.RecommendEnterActive {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 300ms, transform 300ms;
+}
+.RecommendExit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.RecommendExitActive {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms, transform 300ms;
+}
+.RecommendSelectBox {
+  position: absolute;
+  top: 18%;
+}

@@ -17,7 +17,6 @@ export default function adminReservation() {
     adminReservationsDataLoading,
     adminReservationsDataError,
   } = GetAdminReservations();
-  console.log(adminReservationsData);
   const adminReservations = adminReservationsData?.data;
   const [users, setUsers] = useState([]);
   const [reservationState, setReservationState] = useState({});
@@ -39,9 +38,11 @@ export default function adminReservation() {
         },
         body: JSON.stringify(stateChange),
       });
-      console.log(res);
+      if (res.status === 200) {
+        alert("state 변경 완료!");
+      }
     } catch (err) {
-      console.log(err);
+      alert("에러!!!!");
     }
   };
   useEffect(() => {
@@ -71,7 +72,6 @@ export default function adminReservation() {
       );
     }
   }, [adminReservations]);
-  console.log(reservatedStudios);
 
   return (
     <Layout>

@@ -59,11 +59,10 @@ export default function Home() {
       ></Box>
       <Box
         sx={{
-          display: "inline-block",
-          overflowX: "scroll",
-          whiteSpace: "nowrap",
+          display: "flex",
           height: "40px",
           width: "100%",
+          justifyContent: "center",
           mt: "15px",
           mb: "10px",
           "&::-webkit-scrollbar": {

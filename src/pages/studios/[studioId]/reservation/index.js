@@ -191,6 +191,9 @@ export default function Reservation() {
     studioProducts && (
       <>
         <Layout>
+          <Head>
+            <title>사진관 예약 | Shutter</title>
+          </Head>
           <Box>
             <Box
               sx={{
@@ -368,30 +371,39 @@ export default function Reservation() {
                 mb: "15px",
               }}
             >
-              {studioAssignedTimes
-                .filter((t) => t.opened_time.date === dateValue)
-                .filter((t) => t.photographer.name === photographerValue)
-                .map((time) => (
-                  <Button
-                    key={time.id}
-                    variant="outlined"
-                    sx={{
-                      width: "23%",
-                    }}
-                    onClick={(e) => {
-                      setTimeValue(e.target.innerText);
-                      setAssignedTimeId(time.id);
-                      setSelected({ ...selected, 2: false, 3: true });
-                    }}
-                  >
-                    {fillZero(time.opened_time.hour)}:
-                    {fillZero(time.opened_time.minute)}
-                  </Button>
-                ))}
+              {studioAssignedTimes.filter(
+                (t) =>
+                  t.opened_time.date === dateValue &&
+                  t.photographer.name === photographerValue
+              ).length > 0 ? (
+                studioAssignedTimes
+                  .filter(
+                    (t) =>
+                      t.opened_time.date === dateValue &&
+                      t.photographer.name === photographerValue
+                  )
+                  .map((time) => (
+                    <Button
+                      key={time.id}
+                      variant="outlined"
+                      sx={{
+                        width: "23%",
+                      }}
+                      onClick={(e) => {
+                        setTimeValue(e.target.innerText);
+                        setAssignedTimeId(time.id);
+                        setSelected({ ...selected, 2: false, 3: true });
+                      }}
+                    >
+                      {fillZero(time.opened_time.hour)}:
+                      {fillZero(time.opened_time.minute)}
+                    </Button>
+                  ))
+              ) : (
+                <Typography>예약 가능한 시간대가 없습니다</Typography>
+              )}
             </Box>
-          ) : (
-            <Typography>예약 가능한 시간대가 없습니다</Typography>
-          )}
+          ) : null}
           <Box
             sx={{
               width: "100%",

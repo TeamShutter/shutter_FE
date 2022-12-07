@@ -117,72 +117,81 @@ export default function Profile() {
           <Typography variant="h5" sx={{ mt: 3, mb: 2 }}>
             관심 사진
           </Typography>
-
-          <ImageList sx={{ width: "100%" }} cols={2} gap={10}>
-            {profile.like_photos.map((photo) => (
-              <Link href={`photos/${photo.id}`} key={photo.name}>
-                <a>
-                  <ImageListItem>
-                    <Box
-                      sx={{
-                        paddingBottom: "120%",
-                        backgroundImage: `url(${photo.photo_url})`,
-                        borderRadius: "15px",
-                        backgroundPosition: "center center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                      }}
-                    />
-                  </ImageListItem>
-                </a>
-              </Link>
-            ))}
-          </ImageList>
+          {profile.like_photos.length > 0 ? (
+            <ImageList sx={{ width: "100%" }} cols={2} gap={10}>
+              {profile.like_photos.map((photo) => (
+                <Link href={`photos/${photo.id}`} key={photo.name}>
+                  <a>
+                    <ImageListItem>
+                      <Box
+                        sx={{
+                          paddingBottom: "120%",
+                          backgroundImage: `url(${photo.photo_url})`,
+                          borderRadius: "15px",
+                          backgroundPosition: "center center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                        }}
+                      />
+                    </ImageListItem>
+                  </a>
+                </Link>
+              ))}
+            </ImageList>
+          ) : (
+            <Typography>관심 사진이 없습니다.</Typography>
+          )}
         </Box>
 
         <Box>
           <Typography variant="h5" sx={{ mt: 3, mb: 2 }}>
             관심 매장
           </Typography>
-          {profile.follow_studios.map((studio) => (
-            <Link key={studio.id} href={`/studios/${studio.id}`}>
-              <a>
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  sx={{ mb: 2, cursor: "pointer" }}
-                >
-                  <div>
+          {profile.follow_studios.length > 0 ? (
+            <Box>
+              {profile.follow_studios.map((studio) => (
+                <Link key={studio.id} href={`/studios/${studio.id}`}>
+                  <a>
                     <Box
-                      sx={{
-                        width: "200px",
-                        paddingBottom: "100%",
-                        backgroundImage: `url(${studio.thumbnail})`,
-                        borderRadius: "25px",
-                        backgroundPosition: "center center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        marginRight: "20px",
-                      }}
-                    />
-                  </div>
+                      display="flex"
+                      alignItems="center"
+                      sx={{ mb: 2, cursor: "pointer" }}
+                    >
+                      <div>
+                        <Box
+                          sx={{
+                            width: "200px",
+                            paddingBottom: "100%",
+                            backgroundImage: `url(${studio.thumbnail})`,
+                            borderRadius: "25px",
+                            backgroundPosition: "center center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            marginRight: "20px",
+                          }}
+                        />
+                      </div>
 
-                  <div>
-                    <Typography variant="h6">{studio.name}</Typography>
-                    <Typography variant="subtitle1">
-                      {studio.description.substr(0, 20)}...
-                    </Typography>
-                    <Rating
-                      name="read-only"
-                      value={3}
-                      precision={0.5}
-                      readOnly
-                    />
-                  </div>
-                </Box>
-              </a>
-            </Link>
-          ))}
+                      <div>
+                        <Typography variant="h6">{studio.name}</Typography>
+                        <Typography variant="subtitle1">
+                          {studio.description.substr(0, 20)}...
+                        </Typography>
+                        <Rating
+                          name="read-only"
+                          value={3}
+                          precision={0.5}
+                          readOnly
+                        />
+                      </div>
+                    </Box>
+                  </a>
+                </Link>
+              ))}
+            </Box>
+          ) : (
+            <Typography>관심 매장이 없습니다.</Typography>
+          )}
         </Box>
         <Box>
           <Typography variant="h5" sx={{ mt: 3, mb: 2 }}>
