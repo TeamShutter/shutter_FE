@@ -19,7 +19,6 @@ import Layout from "../../layouts/Layout";
 import PhotoList from "../../components/photos/PhotoList";
 import { useSelector } from "react-redux";
 import { API_URL } from "../../config";
-import RelatedPhotoList from "../../components/photos/RelatedPhotoList";
 
 export default function Photo() {
   const router = useRouter();
@@ -234,9 +233,6 @@ export default function Photo() {
           }}
         >
           <Typography variant="h6">Related Photos</Typography>
-        </Box>
-        <Box>
-          <RelatedPhotoList photoId={photoId} />
         </Box>
 
         {/* {user ? (

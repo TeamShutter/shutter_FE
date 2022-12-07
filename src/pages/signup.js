@@ -29,6 +29,7 @@ export default function Signup() {
     phone_number: "",
     password: "",
     re_password: "",
+    phone: "",
     checked: false,
   });
 
@@ -39,6 +40,7 @@ export default function Signup() {
     phone_number,
     password,
     re_password,
+    phone,
     checked,
   } = formData;
 
@@ -52,6 +54,14 @@ export default function Signup() {
 
   // form 전송
   const handleSubmit = async (e) => {
+    if(!checked) {
+      window.alert("회원가입 약관에 동의해주세요.");
+    }
+
+    if(password !== re_password) {
+      window.alert("비밀번호를 정확히 입력해주세요.");
+    }
+
     e.preventDefault();
 
     if (dispatch && dispatch !== null && dispatch !== undefined) {
@@ -126,28 +136,6 @@ export default function Signup() {
               />
             </Grid>
 
-            {/* <Grid item xs={6}>
-                  <TextField
-                    required
-                    autoFocus
-                    fullWidth
-                    type="sex"
-                    id="sex"
-                    name="sex"
-                    label="성별"
-                  />
-                </Grid> */}
-            {/* <Grid item xs={6}>
-                  <TextField
-                    required
-                    autoFocus
-                    fullWidth
-                    type="town"
-                    id="town"
-                    name="town"
-                    label="동네 - '구' 단위로 적어주세요 ex) 관악구"
-                  />
-                </Grid> */}
             <Grid item xs={12}>
               <TextField
                 onChange={handleChange}
@@ -156,7 +144,7 @@ export default function Signup() {
                 type="password"
                 id="password"
                 name="password"
-                label="비밀번호 (숫자+영문자+특수문자 8자리 이상)"
+                label="비밀번호"
               />
             </Grid>
             <Grid item xs={12}>
