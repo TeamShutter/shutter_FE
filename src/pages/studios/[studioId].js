@@ -78,7 +78,7 @@ export default function Studio() {
 
   const goReservation = () => {
     if (user) {
-      router.push(`/studios/${studioId}/reservation`);
+      router.push(`/studios/${studioId}/reservation/home`);
     } else {
       router.push("/login");
     }
