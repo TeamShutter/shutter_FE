@@ -166,7 +166,7 @@ export default function Recommend() {
         <Slide direction="down" in={checked[0]} mountOnEnter unmountOnExit>
           <Box
             sx={{
-              height: "450px",
+              height: "600px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -199,7 +199,7 @@ export default function Recommend() {
         <Slide direction="down" in={checked[1]} mountOnEnter unmountOnExit>
           <Box
             sx={{
-              height: "450px",
+              height: "600px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -256,7 +256,7 @@ export default function Recommend() {
         <Slide direction="down" in={checked[2]} mountOnEnter unmountOnExit>
           <Box
             sx={{
-              height: "450px",
+              height: "600px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -350,7 +350,7 @@ export default function Recommend() {
         <Slide direction="down" in={checked[3]} mountOnEnter unmountOnExit>
           <Box
             sx={{
-              height: "450px",
+              height: "600px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -417,7 +417,7 @@ export default function Recommend() {
         <Slide direction="down" in={checked[4]} mountOnEnter unmountOnExit>
           <Box
             sx={{
-              height: "450px",
+              height: "600px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -481,7 +481,7 @@ export default function Recommend() {
         <Slide direction="down" in={checked[5]} mountOnEnter unmountOnExit>
           <Box
             sx={{
-              height: "450px",
+              height: "600px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -543,7 +543,7 @@ export default function Recommend() {
         <Slide direction="down" in={checked[6]} mountOnEnter unmountOnExit>
           <Box
             sx={{
-              height: "450px",
+              height: "600px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -614,7 +614,9 @@ export default function Recommend() {
                   },
                 }}
               >
-                <Button variant="contained">제출</Button>
+                <Button id="recommend" variant="contained">
+                  제출
+                </Button>
               </Link>
             </Box>
           </Box>

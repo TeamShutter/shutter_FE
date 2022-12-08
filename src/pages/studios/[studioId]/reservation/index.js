@@ -157,7 +157,7 @@ export default function Reservation() {
         body: JSON.stringify(reservationToPost),
       });
       if (res.status === 201) {
-        router.push(`/studio/${studioId}/reservation/success`);
+        router.push(`/studios/${studioId}/reservation/success`);
       } else {
         console.log(res);
       }

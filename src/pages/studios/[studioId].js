@@ -39,13 +39,11 @@ export default function Studio() {
 
   const [follow, setFollow] = useState(false);
   const [follows, setFollows] = useState(0);
-  console.log("initial follows : ", follows);
   // const [reviewList, setReviewList] = useState([]);
 
   const { studioData, studioDataLoading, studioDataError } =
     GetStudio(studioId);
   const studio = studioData?.studio_data;
-  console.log("studio : ", studio);
   // const {photos, photosLoading, photosError} = GetStudioPhotos(studioId);
   // const {reviews, reviewsLoading, reviewsError} = GetStudioReviews(studioId);
 
@@ -73,7 +71,6 @@ export default function Studio() {
 
     if (res.status === 200) {
       follow ? setFollows((prev) => prev - 1) : setFollows((prev) => prev + 1);
-      console.log("follows : ", follows);
 
       setFollow((prev) => !prev);
     }
