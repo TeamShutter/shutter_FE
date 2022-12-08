@@ -22,7 +22,6 @@ const user = async (req, res) => {
       });
 
       const data = await apiRes.json();
-      console.log("Data: ", data);
 
       if (apiRes.status === 200) {
         return res.status(200).json({

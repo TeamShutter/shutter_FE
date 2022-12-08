@@ -33,8 +33,6 @@ const signup = async (req, res) => {
         });
       }
     } catch (err) {
-      console.log("ERROR: ", err);
-
       return res.status(500).json({
         error: "Something went wrong when registering account.",
       });

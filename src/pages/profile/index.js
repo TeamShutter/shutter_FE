@@ -31,8 +31,6 @@ import { defaultReservationState } from "../../data";
 export default function Profile() {
   const { profile, profileLoading, profileError } = GetProfile();
 
-  console.log("Profile: ", profile);
-
   const [reservatedStudios, setReservatedStudios] = useState([]);
 
   useEffect(() => {

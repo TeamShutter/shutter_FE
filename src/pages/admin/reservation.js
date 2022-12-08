@@ -1,4 +1,5 @@
 import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { GetAdminReservations } from "../../components/fetcher/fetcher";
 import { defaultReservationState } from "../../data";
@@ -45,6 +46,8 @@ export default function adminReservation() {
       alert("에러!!!!");
     }
   };
+  console.log(adminReservations);
+  console.log(reservatedStudios);
   useEffect(() => {
     if (adminReservations) {
       adminReservations.map((r) => {
@@ -75,10 +78,14 @@ export default function adminReservation() {
 
   return (
     <Layout>
+      <Head>
+        <title>예약 관리 | Shutter</title>
+      </Head>
       <Box>
         {users.map((u, i) => (
           <Box key={i}>
             <Typography variant="h5">유저: {u.username}</Typography>
+            <Typography variant="h6">전화번호: {u.phone}</Typography>
             <Box
               sx={{
                 width: "100%",
@@ -94,7 +101,11 @@ export default function adminReservation() {
                     스튜디오 : {s.studio.name}
                   </Typography>
                   {adminReservations
-                    .filter((r) => r.user.id === u.id)
+                    .filter(
+                      (r) =>
+                        r.user.id === u.id &&
+                        r.assigned_time.opened_time.studio.id === s.studio.id
+                    )
                     .map((r) => (
                       <Box
                         key={r.id}

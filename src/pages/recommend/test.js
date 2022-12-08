@@ -1,15 +1,17 @@
 import { Box, Button, Slide, Typography } from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { defaultColorList, defaultPhotoTypeList } from "../../data";
 import { GetTags, GetTowns } from "../../components/fetcher/fetcher";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import AlertModal from "../../components/alert/AlertModal";
+import { CSSTransition } from "react-transition-group";
+import styles from "../../styles/Recommend.module.css";
 
-export default function Recommend() {
+export default function RecommendTest() {
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
 
@@ -32,11 +34,24 @@ export default function Recommend() {
   const handleClose = () => setOpen(false);
   const [alertDesc, setAlertDesc] = useState("");
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user]);
+  const firstRef = useRef(null);
+  const secondRef = useRef(null);
+  const thridRef = useRef(null);
+  const fourthRef = useRef(null);
+  const fifthRef = useRef(null);
+  const sixthRef = useRef(null);
+
+  const nodeRef = checked[0]
+    ? firstRef
+    : checked[1]
+    ? secondRef
+    : checked[2]
+    ? thridRef
+    : checked[3]
+    ? fourthRef
+    : checked[4]
+    ? fifthRef
+    : sixthRef;
 
   const townsData = GetTowns();
   const tagsData = GetTags();
@@ -158,15 +173,29 @@ export default function Recommend() {
         sx={{
           display: "flex",
           alignItems: "center",
-          ml: "5%",
           mr: "5%",
+          ml: { xs: "0", md: "5%" },
           width: "90%",
+          height: "70vh",
         }}
       >
-        <Slide direction="down" in={checked[0]} mountOnEnter unmountOnExit>
+        <CSSTransition
+          in={checked[0]}
+          timeout={500}
+          mountOnEnter
+          unmountOnExit
+          classNames={{
+            enter: styles.RecommendEnter,
+            enterActive: styles.RecommendEnterActive,
+            exit: styles.RecommendExit,
+            exitActive: styles.RecommendExitActive,
+          }}
+        >
           <Box
+            ref={nodeRef}
+            className={styles.RecommendSelectBox}
             sx={{
-              height: "600px",
+              height: "450px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -195,11 +224,23 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[1]} mountOnEnter unmountOnExit>
+        </CSSTransition>
+        <CSSTransition
+          in={checked[1]}
+          timeout={500}
+          mountOnEnter
+          unmountOnExit
+          classNames={{
+            enter: styles.RecommendEnter,
+            enterActive: styles.RecommendEnterActive,
+            exit: styles.RecommendExit,
+            exitActive: styles.RecommendExitActive,
+          }}
+        >
           <Box
+            className={styles.RecommendSelectBox}
             sx={{
-              height: "600px",
+              height: "450px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -252,11 +293,23 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[2]} mountOnEnter unmountOnExit>
+        </CSSTransition>
+        <CSSTransition
+          in={checked[2]}
+          timeout={500}
+          mountOnEnter
+          unmountOnExit
+          classNames={{
+            enter: styles.RecommendEnter,
+            enterActive: styles.RecommendEnterActive,
+            exit: styles.RecommendExit,
+            exitActive: styles.RecommendExitActive,
+          }}
+        >
           <Box
+            className={styles.RecommendSelectBox}
             sx={{
-              height: "600px",
+              height: "450px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -346,11 +399,23 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[3]} mountOnEnter unmountOnExit>
+        </CSSTransition>
+        <CSSTransition
+          in={checked[3]}
+          timeout={500}
+          mountOnEnter
+          unmountOnExit
+          classNames={{
+            enter: styles.RecommendEnter,
+            enterActive: styles.RecommendEnterActive,
+            exit: styles.RecommendExit,
+            exitActive: styles.RecommendExitActive,
+          }}
+        >
           <Box
+            className={styles.RecommendSelectBox}
             sx={{
-              height: "600px",
+              height: "450px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -413,11 +478,24 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[4]} mountOnEnter unmountOnExit>
+        </CSSTransition>
+
+        <CSSTransition
+          in={checked[4]}
+          timeout={500}
+          mountOnEnter
+          unmountOnExit
+          classNames={{
+            enter: styles.RecommendEnter,
+            enterActive: styles.RecommendEnterActive,
+            exit: styles.RecommendExit,
+            exitActive: styles.RecommendExitActive,
+          }}
+        >
           <Box
+            className={styles.RecommendSelectBox}
             sx={{
-              height: "600px",
+              height: "450px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
@@ -477,18 +555,31 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[5]} mountOnEnter unmountOnExit>
+        </CSSTransition>
+
+        <CSSTransition
+          in={checked[5]}
+          timeout={100}
+          mountOnEnter
+          unmountOnExit
+          classNames={{
+            enter: styles.RecommendEnter,
+            enterActive: styles.RecommendEnterActive,
+            exit: styles.RecommendExit,
+            exitActive: styles.RecommendExitActive,
+          }}
+        >
           <Box
+            className={styles.RecommendSelectBox}
             sx={{
-              height: "600px",
+              height: "450px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
             }}
           >
             <Typography variant="h5">
-              5.어떤 색감의 사진을 찍고 싶으신가요?
+              5.어떤 색감의 사진을 원하시나요?
             </Typography>
             <Typography>원하시는 사진의 색감을 모두 골라주세요!</Typography>
             <Box
@@ -539,18 +630,31 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[6]} mountOnEnter unmountOnExit>
+        </CSSTransition>
+
+        <CSSTransition
+          in={checked[6]}
+          timeout={500}
+          mountOnEnter
+          unmountOnExit
+          classNames={{
+            enter: styles.RecommendEnter,
+            enterActive: styles.RecommendEnterActive,
+            exit: styles.RecommendExit,
+            exitActive: styles.RecommendExitActive,
+          }}
+        >
           <Box
+            className={styles.RecommendSelectBox}
             sx={{
-              height: "600px",
+              height: "450px",
               display: "flex",
               flexDirection: "column",
               rowGap: "20px",
             }}
           >
             <Typography variant="h5">
-              6.어떤 분위기의 사진을 찍고 싶으신가요?
+              6.어떤 분위기의 사진을 원하시나요?
             </Typography>
             <Typography>원하는 분위기의 태그를 모두 골라주세요!</Typography>
             <Box
@@ -614,13 +718,11 @@ export default function Recommend() {
                   },
                 }}
               >
-                <Button id="recommend" variant="contained">
-                  제출
-                </Button>
+                <Button variant="contained">제출</Button>
               </Link>
             </Box>
           </Box>
-        </Slide>
+        </CSSTransition>
       </Box>
       <AlertModal
         open={open}
