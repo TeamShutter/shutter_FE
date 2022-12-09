@@ -128,24 +128,40 @@ export default function Recommend() {
     const type = e.target.id;
 
     if (type === "photoType") {
-      setPhotoTypeList([]);
-      for (let i = 0; i < defaultPhotoTypeList.length; i++) {
-        setPhotoTypeList((prev) => [...prev, defaultPhotoTypeList[i].name]);
+      if (photoTypeList.length === defaultPhotoTypeList.length) {
+        setPhotoTypeList([]);
+      } else {
+        setPhotoTypeList([]);
+        defaultPhotoTypeList.map((p) => {
+          setPhotoTypeList((prev) => [...prev, p.name]);
+        });
       }
     } else if (type === "town") {
-      setTownList([]);
-      for (let i = 0; i < towns.length; i++) {
-        setTownList((prev) => [...prev, towns[i]]);
+      if (townList.length === towns.length) {
+        setTownList([]);
+      } else {
+        setTownList([]);
+        towns.map((t) => {
+          setTownList((prev) => [...prev, t]);
+        });
       }
     } else if (type === "color") {
-      setColorList([]);
-      for (let i = 0; i < defaultColorList.length; i++) {
-        setColorList((prev) => [...prev, defaultColorList[i].id]);
+      if (colorList.length === defaultColorList.length) {
+        setColorList([]);
+      } else {
+        setColorList([]);
+        defaultColorList.map((c) => {
+          setColorList((prev) => [...prev, c.id]);
+        });
       }
     } else if (type === "tag") {
-      setTagList([]);
-      for (let i = 0; i < tags.length; i++) {
-        setTagList((prev) => [...prev, tags[i].name]);
+      if (tagList.length === tags.length) {
+        setTagList([]);
+      } else {
+        setTagList([]);
+        tags.map((t) => {
+          setTagList((prev) => [...prev, t.name]);
+        });
       }
     }
   };
@@ -445,7 +461,7 @@ export default function Recommend() {
                   onClick={handleChangeTown}
                   key={town}
                   name="town"
-                  sx={{ width: "30%", minWidth: "50px" }}
+                  sx={{ width: "30%", minWidth: "50px", pl: 0, pr: 0 }}
                 >
                   {town}
                 </Button>
@@ -573,7 +589,7 @@ export default function Recommend() {
                   onClick={handleChangeTag}
                   key={tag.id}
                   name="tag"
-                  sx={{ width: "30%", minWidth: "45px" }}
+                  sx={{ width: "30%", minWidth: "45px", pl: 0, pr: 0 }}
                 >
                   #{tag.name}
                 </Button>
