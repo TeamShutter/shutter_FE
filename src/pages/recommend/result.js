@@ -132,7 +132,7 @@ export default function Result() {
         <RecommendedPhotoList studioId={studios[0].id} />
       </Box>
       <Box
-        sx={{ mb: 3, display: "flex", justifyContent: "end", height: "30px" }}
+        sx={{ mb: 3, display: "flex", justifyContent: "end", height: "50px" }}
       >
         <Link href={`/studios/${studios[0].id}`}>
           <Button variant="contained">스튜디오 알아보기</Button>
@@ -223,7 +223,7 @@ export default function Result() {
                   mb: 3,
                   display: "flex",
                   justifyContent: "end",
-                  height: "30px",
+                  height: "50px",
                 }}
               >
                 <Link href={`/studios/${s.id}`}>
