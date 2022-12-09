@@ -78,9 +78,9 @@ export default function SelectedFilter({
     selectedFilter.length > 0 && (
       <Box
         sx={{
-          display: "inline-block",
+          display: "flex",
           overflowX: "scroll",
-          whiteSpace: "nowrap",
+          flexWrap: "nowrap",
           width: "100%",
           "&::-webkit-scrollbar": {
             width: 0,
@@ -90,7 +90,7 @@ export default function SelectedFilter({
       >
         {selectedFilter.map((s) => (
           <Chip
-            sx={{ mr: "10px" }}
+            sx={{ mr: "10px", flex: "0 0 auto" }}
             color="hashtag"
             variant="filled"
             key={s}

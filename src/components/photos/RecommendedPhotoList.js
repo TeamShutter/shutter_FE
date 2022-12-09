@@ -30,19 +30,19 @@ export default function RecommendedPhotoList({ studioId }) {
               "repeat(auto-fill,minmax(160px,1fr)) !important",
             gridAutoColumns: "minmax(160px, 1fr)",
             "::-webkit-scrollbar": {
-              width: "3px",
+              height: "8px",
             },
             "::-webkit-scrollbar-button": {},
             "::-webkit-scrollbar-thumb": {
               backgroundColor: "#2f3542",
-              borderRadius: 10,
+              borderRadius: 5,
               backgroundClip: "padding-box",
               border: "1px solid transparent",
             },
             "::-webkit-scrollbar-thumb:hover": {},
             "::-webkit-scrollbar-track": {
               backgroundColor: "grey",
-              borderRadius: 10,
+              borderRadius: 5,
             },
             "::-webkit-scrollbar-track-piece": {},
             "::-webkit-scrollbar-corner": {},

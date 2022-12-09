@@ -81,8 +81,9 @@ export default function Recommend() {
 
   const handleChangePhotoType = (e) => {
     const newPhotoType = defaultPhotoTypeList.find(
-      (photoType) => photoType.name === e.target.innerText
+      (photoType) => photoType.name === e.target.innerText.trim()
     );
+    console.log(newPhotoType);
     if (photoTypeList.includes(newPhotoType.name)) {
       setPhotoTypeList((prev) =>
         prev.filter((photoType) => photoType !== newPhotoType.name)
@@ -93,7 +94,7 @@ export default function Recommend() {
   };
 
   const handleChangeTown = (e) => {
-    const newTown = towns.find((town) => town === e.target.innerText);
+    const newTown = towns.find((town) => town === e.target.innerText.trim());
     if (townList.includes(newTown)) {
       setTownList((prev) => prev.filter((town) => town !== newTown));
     } else {
@@ -103,7 +104,7 @@ export default function Recommend() {
 
   const handleChangeColor = (e) => {
     const newColor = defaultColorList.find(
-      (color) => color.name === e.target.innerText
+      (color) => color.name === e.target.innerText.trim()
     );
     if (colorList.includes(newColor.id)) {
       setColorList((prev) => prev.filter((color) => color !== newColor.id));

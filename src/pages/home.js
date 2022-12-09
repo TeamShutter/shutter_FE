@@ -65,10 +65,6 @@ export default function Home() {
           justifyContent: "center",
           mt: "15px",
           mb: "10px",
-          "&::-webkit-scrollbar": {
-            // width: 0,
-            height: "1px",
-          },
         }}
       >
         {defaultFilters.map((filter) => (

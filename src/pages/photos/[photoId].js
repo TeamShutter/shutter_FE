@@ -180,11 +180,11 @@ export default function Photo() {
         </Box>
         <Box
           sx={{
-            display: "inline-block",
+            display: "flex",
             overflowX: "scroll",
-            whiteSpace: "nowrap",
-            width: "100%",
+            flexWrap: "nowrap",
             mt: "15px",
+            width: "100%",
             "&::-webkit-scrollbar": {
               width: 0,
               height: 0,
@@ -193,7 +193,7 @@ export default function Photo() {
         >
           {photoTags.map((photoTag) => (
             <Typography
-              sx={{ display: "inline-block", mr: "10px" }}
+              sx={{ flex: "0 0 auto", mr: "10px" }}
               key={photoTag.id}
               variant="subtitle2"
             >
@@ -202,7 +202,15 @@ export default function Photo() {
           ))}
         </Box>
 
-        {user ? <PhotoLike like={like} setLike={setLike} likes={likes} setLikes={setLikes} photoId={photoId} /> : null}
+        {user ? (
+          <PhotoLike
+            like={like}
+            setLike={setLike}
+            likes={likes}
+            setLikes={setLikes}
+            photoId={photoId}
+          />
+        ) : null}
 
         {/* 중간선 */}
         <Box

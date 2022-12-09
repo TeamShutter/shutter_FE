@@ -59,9 +59,9 @@ export default function TagSelector({ tagList, setTagList }) {
           <Box sx={{ ml: "10px", mr: "15px" }}> */}
         <Box
           sx={{
-            display: "inline-block",
+            display: "flex",
             overflowX: "scroll",
-            whiteSpace: "nowrap",
+            flexWrap: "nowrap",
             height: "40px",
             width: "100%",
             "&::-webkit-scrollbar": {
@@ -74,6 +74,7 @@ export default function TagSelector({ tagList, setTagList }) {
             t.name.includes(tagSearchInput) ? (
               <Button
                 sx={{
+                  flex: "0 0 auto",
                   ":hover": {
                     color: "hashtag.main",
                   },
