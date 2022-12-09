@@ -212,7 +212,11 @@ export default function Studio() {
             </Box>
 
             <Box display="flex" alignItems="center">
-              <Button onClick={goReservation} variant="contained" color="info">
+              <Button 
+              id="reservation_page_btn"
+              onClick={goReservation}
+              variant="contained"
+              color="info">
                 셔터에서 예약하기
               </Button>
 

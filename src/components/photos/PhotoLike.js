@@ -12,7 +12,6 @@ export default function PhotoLike ({ like, setLike, likes, setLikes, photoId }) 
             Accept: "application/json",
           }
       });
-      console.log(res);
 
       like ? (
       setLikes((prev) => prev - 1)
