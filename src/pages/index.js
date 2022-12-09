@@ -15,6 +15,7 @@ export default function Index() {
       >
         <Link href={"/home"}>
           <Button
+          id='home_search_btn'
             variant="contained"
             sx={{
               width: "50%",
@@ -42,6 +43,7 @@ export default function Index() {
       >
         <Link href={"/recommend"}>
           <Button
+          id='home_recommend_btn'
             variant="contained"
             sx={{
               width: "50%",
