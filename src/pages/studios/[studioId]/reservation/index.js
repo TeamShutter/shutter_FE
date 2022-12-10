@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  CircularProgress,
   Modal,
   TextField,
   ToggleButton,
@@ -179,7 +180,13 @@ export default function Reservation() {
     studioAssignedTimesDataLoading ||
     studioProductsDataLoading
   )
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (
     studioPhotographersDataError ||
     studioAssignedTimesDataError ||
@@ -547,8 +554,8 @@ export default function Reservation() {
                 setPhoneNum(e.target.value);
               }}
             />
-            <Typography>
-              예약 확정 여부 전달을 위해 전화번호를 반드시 입력해주세요!
+            <Typography sx={{ mt: 1 }}>
+              예약 확정을 위해 예약자 분의 정확한 전화번호를 입력해주세요!
             </Typography>
           </Box>
 

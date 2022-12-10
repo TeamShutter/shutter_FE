@@ -1,8 +1,6 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import { useState } from "react";
 import { GetTags } from "../fetcher/fetcher";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export default function TagSelector({ tagList, setTagList }) {
   const [tagSearchInput, setTagSearchInput] = useState("");
@@ -13,7 +11,12 @@ export default function TagSelector({ tagList, setTagList }) {
   const tagsLoading = tagsData.tagsLoading;
   const tagsError = tagsData.tagsError;
 
-  if (tagsLoading) return <div>Loading...</div>;
+  if (tagsLoading)
+    return (
+      <Box>
+        <CircularProgress />
+      </Box>
+    );
   if (tagsError) return <div>Error!!</div>;
 
   const handleChangeTag = (e) => {

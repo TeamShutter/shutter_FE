@@ -1,4 +1,4 @@
-import { Box, Chip } from "@mui/material";
+import { Box, Chip, CircularProgress } from "@mui/material";
 import { GetTowns } from "../fetcher/fetcher";
 
 export default function TownSelector({ town, setTown }) {
@@ -8,7 +8,14 @@ export default function TownSelector({ town, setTown }) {
   const townsLoading = townsData.townsLoading;
   const townsError = townsData.townsError;
 
-  if (townsLoading) return <div>Loading...</div>;
+  if (townsLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (townsError) return <div>Error!!</div>;
 
   const handleChangeTown = (e) => {

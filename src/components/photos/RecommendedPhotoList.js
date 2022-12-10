@@ -1,5 +1,6 @@
 import {
   Box,
+  CircularProgress,
   ImageList,
   ImageListItem,
   Pagination,
@@ -15,7 +16,14 @@ export default function RecommendedPhotoList({ studioId }) {
   const photosLoading = photosData.photosLoading;
   const photosError = photosData.photosError;
 
-  if (photosLoading) return <div>Loading...</div>;
+  if (photosLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (photosError) return <div>Error!!</div>;
 
   return (

@@ -1,4 +1,10 @@
-import { Avatar, Box, Button, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { GetRecommendedStudios } from "../../components/fetcher/fetcher";
@@ -60,13 +66,24 @@ export default function Result() {
   const studiosLoading = recommendedStudiosData.studiosLoading;
   const studiosError = recommendedStudiosData.studiosError;
 
-  if (studiosLoading) return <div>Loading...</div>;
+  if (studiosLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (studiosError) return <div>Error!</div>;
 
   // Post 형식으로 gender랑 age 보냄
 
   return !studios ? (
-    <div>Loading...</div>
+    <Box
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <CircularProgress />
+    </Box>
   ) : (
     <Layout>
       <Head>
@@ -135,10 +152,7 @@ export default function Result() {
         sx={{ mb: 3, display: "flex", justifyContent: "end", height: "50px" }}
       >
         <Link href={`/studios/${studios[0].id}`}>
-          <Button 
-          id="recommend_result_studio_btn"
-          variant="contained"
-          >
+          <Button id="recommend_result_studio_btn" variant="contained">
             스튜디오 알아보기
           </Button>
         </Link>
@@ -232,9 +246,9 @@ export default function Result() {
                 }}
               >
                 <Link href={`/studios/${s.id}`}>
-                  <Button 
-                  variant="contained"
-                  className="recommend_related_studio_btn"
+                  <Button
+                    variant="contained"
+                    className="recommend_related_studio_btn"
                   >
                     스튜디오 알아보기
                   </Button>

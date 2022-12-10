@@ -1,6 +1,6 @@
 // import Head from "next/head";
 // import { GetTags } from "../components/fetcher/fetcher";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import PhotoList from "../components/photos/PhotoList";
 

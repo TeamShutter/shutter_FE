@@ -16,6 +16,7 @@ import {
   Avatar,
   Divider,
   Chip,
+  CircularProgress,
 } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
@@ -53,7 +54,14 @@ export default function Profile() {
       );
     }
   }, [profile]);
-  if (profileLoading) return <div>Loading...</div>;
+  if (profileLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (profileError) return <div>Error!!</div>;
 
   return (
@@ -143,7 +151,7 @@ export default function Profile() {
 
         <Box>
           <Typography variant="h5" sx={{ mt: 3, mb: 2 }}>
-            관심 매장
+            관심 스튜디오
           </Typography>
           {profile.follow_studios.length > 0 ? (
             <Box>
@@ -173,14 +181,14 @@ export default function Profile() {
                       <div>
                         <Typography variant="h6">{studio.name}</Typography>
                         <Typography variant="subtitle1">
-                          {studio.description.substr(0, 20)}...
+                          {studio.description.substr(0, 25)}...
                         </Typography>
-                        <Rating
+                        {/* <Rating
                           name="read-only"
                           value={3}
                           precision={0.5}
                           readOnly
-                        />
+                        /> */}
                       </div>
                     </Box>
                   </a>

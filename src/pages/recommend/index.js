@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
@@ -51,7 +51,14 @@ export default function Recommend() {
   const tagsLoading = tagsData.tagsLoading;
   const tagsError = tagsData.tagsError;
 
-  if (townsLoading || tagsLoading) return <div>Loading...</div>;
+  if (townsLoading || tagsLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (townsError || tagsError) return <div>Error!!</div>;
 
   const handleQ = (e) => {
@@ -192,12 +199,19 @@ export default function Recommend() {
             }}
           >
             <Typography variant="h5">사진관 추천 소개</Typography>
+            <Typography>내 마음에 쏙 드는 스튜디오 찾기, 힘드셨죠?</Typography>
             <Typography>
-              주어진 설문에 따라서 본인의 정보 및<br></br>
-              원하시는 사진 종류를 입력해주세요!
+              셔터에서는 자체 개발 AI 기술을 이용해,<br></br>
+              {user?.username}님이 가장 좋아하실 스튜디오를 추천해드려요!
+              <br></br>
+              이제 인스타그램에서 헤매지말고, <br></br>
+              셔터에서 인생 스튜디오를 추천 받으세요!
             </Typography>
-            <Typography>
-              셔터에서 제공하는 AI 기술을 이용한 정교한 추천을 해드립니다!
+            <Typography>자, 이제 시작해볼까요?</Typography>
+            <Typography sx={{ fontSize: "14px", color: "gray" }}>
+              사진관을 추천받으시기 위해서는 성별, 나이 정보가 필요합니다.
+              <br></br>
+              모든 정보는 오직 저희의 내부 데이터로만 활용됩니다. 안심하세요!
             </Typography>
 
             <Box
