@@ -36,7 +36,7 @@ const Header = () => {
   const pages = [
     {
       title: "사진",
-      link: "/home",
+      link: "/",
     },
     {
       title: "스튜디오",

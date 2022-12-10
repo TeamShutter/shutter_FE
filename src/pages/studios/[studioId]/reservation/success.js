@@ -10,10 +10,10 @@ export default function Success() {
       <Head>
         <title>사진관 예약 | Shutter</title>
       </Head>
-      <Box sx={{ height: "60vh" }}>
+      <Box sx={{ height: "500px" }}>
         <Box
           sx={{
-            mt: 20,
+            mt: "150px",
             width: "100%",
             display: "flex",
             flexDirection: "column",
@@ -23,9 +23,9 @@ export default function Success() {
         >
           <CheckCircleIcon
             color="hashtag"
-            sx={{ width: "20%", height: "20%", mb: "10px" }}
+            sx={{ width: "20%", height: "10%", mb: "15px" }}
           />
-          <Typography sx={{ fontSize: "35px", fontWeight: "900", mb: 30 }}>
+          <Typography sx={{ fontSize: "30px", fontWeight: "900", mb: "200px" }}>
             예약 신청 완료!
           </Typography>
           <Box

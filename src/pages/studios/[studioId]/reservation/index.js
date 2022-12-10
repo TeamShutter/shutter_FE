@@ -458,36 +458,51 @@ export default function Reservation() {
               }}
             >
               {studioProducts.map((product, i) => (
-                <Box
-                  key={i}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "start",
-                    alignItems: "center",
-                  }}
-                >
-                  <Checkbox
-                    checked={productValue[i].value ? true : false}
-                    onClick={() => {
-                      setProductValue((prev) =>
-                        prev.map((p) =>
-                          p.value === true
-                            ? { id: p.id, value: false }
-                            : p.id === i + 1
-                            ? { id: p.id, value: true }
-                            : p
-                        )
-                      );
-                      setProductId(product.id);
+                <Box key={i}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "start",
+                      alignItems: "center",
                     }}
-                  />
-                  <Box>
-                    <Typography>{i + 1}번 상품</Typography>
-                    <Typography>{product.name}</Typography>
-                    <Typography>가격 : {product.price}원</Typography>
-                    <Typography>{product.description}</Typography>
+                  >
+                    <Checkbox
+                      checked={productValue[i].value ? true : false}
+                      onClick={() => {
+                        setProductValue((prev) =>
+                          prev.map((p) =>
+                            p.value === true
+                              ? { id: p.id, value: false }
+                              : p.id === i + 1
+                              ? { id: p.id, value: true }
+                              : p
+                          )
+                        );
+                        setProductId(product.id);
+                      }}
+                    />
+                    <Box>
+                      <Typography
+                        sx={{ borderBottom: "1px solid black", width: "60px" }}
+                      >
+                        {i + 1}번 상품
+                      </Typography>
+                      <Typography sx={{ fontWeight: "900" }}>
+                        {product.name}
+                      </Typography>
+                      <Typography>가격 : {product.price}원</Typography>
+                      <Typography>{product.description}</Typography>
+                    </Box>
                   </Box>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      height: "2px",
+                      bgcolor: "blank.main",
+                      mt: "10px",
+                    }}
+                  ></Box>
                 </Box>
               ))}
             </Box>
@@ -539,7 +554,11 @@ export default function Reservation() {
                         예약 상품 : {reservationCart[r.id].productValue}번 상품
                       </Typography>
                     </Box>
-                  ) : null}
+                  ) : (
+                    <Typography sx={{ fontSize: "13px", color: "gray" }}>
+                      신청하신 예약이 아직 없어요!
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             ))}
