@@ -46,8 +46,6 @@ export default function adminReservation() {
       alert("에러!!!!");
     }
   };
-  console.log(adminReservations);
-  console.log(reservatedStudios);
   useEffect(() => {
     if (adminReservations) {
       adminReservations.map((r) => {

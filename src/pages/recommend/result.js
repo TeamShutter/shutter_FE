@@ -135,7 +135,12 @@ export default function Result() {
         sx={{ mb: 3, display: "flex", justifyContent: "end", height: "50px" }}
       >
         <Link href={`/studios/${studios[0].id}`}>
-          <Button variant="contained">스튜디오 알아보기</Button>
+          <Button 
+          id="recommend_result_studio_btn"
+          variant="contained"
+          >
+            스튜디오 알아보기
+          </Button>
         </Link>
       </Box>
       <Box
@@ -227,7 +232,12 @@ export default function Result() {
                 }}
               >
                 <Link href={`/studios/${s.id}`}>
-                  <Button variant="contained">스튜디오 알아보기</Button>
+                  <Button 
+                  variant="contained"
+                  className="recommend_related_studio_btn"
+                  >
+                    스튜디오 알아보기
+                  </Button>
                 </Link>
               </Box>
             </Box>

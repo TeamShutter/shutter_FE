@@ -497,6 +497,7 @@ export default function Reservation() {
               onClick={addReservationCart}
               variant="contained"
               sx={{ width: "100%", mt: "20px" }}
+              id="reservation_add_btn"
             >
               {cartState}순위 추가하기
             </Button>
@@ -555,6 +556,7 @@ export default function Reservation() {
             onClick={handleReservation}
             variant="contained"
             sx={{ width: "100%", mt: "20px" }}
+            id="reservation_apply_btn"
           >
             예약 신청하기
           </Button>

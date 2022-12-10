@@ -85,7 +85,6 @@ export default function Recommend() {
     const newPhotoType = defaultPhotoTypeList.find(
       (photoType) => photoType.name === e.target.innerText.trim()
     );
-    console.log(newPhotoType);
     if (photoTypeList.includes(newPhotoType.name)) {
       setPhotoTypeList((prev) =>
         prev.filter((photoType) => photoType !== newPhotoType.name)

@@ -29,7 +29,12 @@ export default function ReservationHome() {
           신청하러가기' 버튼을 눌러주세요!
         </Typography>
         <Link href={`/studios/${studioId}/reservation`}>
-          <Button variant="contained">예약 신청하러가기</Button>
+          <Button 
+          variant="contained"
+          id="reservation_start_btn"
+          >
+            예약 신청하러가기
+          </Button>
         </Link>
       </Box>
     </Layout>
