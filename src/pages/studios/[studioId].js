@@ -7,6 +7,7 @@ import {
   IconButton,
   FormControl,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
@@ -56,9 +57,14 @@ export default function Studio() {
     // setReviewList(reviews);
   }, [studio]);
 
-  // if(studioLoading || photosLoading || reviewsLoading) return <div>Loading...</div>
-  if (studioDataLoading) return <div>Loading...</div>;
-  // if(studioError || photosError || reviewsError) return <div>Error!!</div>
+  if (studioDataLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (studioDataError) return <div>Error!!</div>;
 
   const handleFollow = async () => {
@@ -131,8 +137,11 @@ export default function Studio() {
             sx={{
               display: "flex",
               width: "100%",
+              flexDirection: { md: "row", xs: "column" },
+              rowGap: { md: 0, xs: 1 },
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: { md: "space-between", xs: "center" },
+              mb: 3,
             }}
           >
             <Box
@@ -157,22 +166,6 @@ export default function Studio() {
                   precision={0.5} 
                   readOnly 
                   /> */}
-              {studio.instagram_link && (
-                <img
-                  id="instagram_link"
-                  src="/static/icons/instagram_icon.png"
-                  alt="instagram icon"
-                  width={35}
-                  height={35}
-                  style={{
-                    cursor: "pointer",
-                    marginRight: "10px",
-                  }}
-                  onClick={() => {
-                    window.open(`${studio.instagram_link}`);
-                  }}
-                />
-              )}
             </Box>
 
             <Box>
@@ -211,24 +204,63 @@ export default function Studio() {
               )} */}
             </Box>
 
-            <Box display="flex" alignItems="center">
-              <Button 
-              id="reservation_page_btn"
-              onClick={goReservation}
-              variant="contained"
-              color="info">
-                셔터에서 예약하기
-              </Button>
-
-              <Box display="flex" alignItems="center">
-                <IconButton
-                  sx={{ color: "red" }}
-                  aria-label="follow"
-                  onClick={handleFollow}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                width: { xs: "100%", md: "70%" },
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  columnGap: "15px",
+                }}
+              >
+                {studio.instagram_link && (
+                  <img
+                    id="instagram_link"
+                    src="/static/icons/instagram_icon.png"
+                    alt="instagram icon"
+                    width={35}
+                    height={35}
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      window.open(`${studio.instagram_link}`);
+                    }}
+                  />
+                )}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    columnGap: "5px",
+                  }}
                 >
-                  {follow ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>
-                <Typography>{follows}</Typography>
+                  <IconButton
+                    sx={{ color: "red", width: "18px", height: "18px" }}
+                    aria-label="follow"
+                    onClick={handleFollow}
+                  >
+                    {follow ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  </IconButton>
+                  <Typography>{follows}</Typography>
+                </Box>
+              </Box>
+              <Box>
+                <Button
+                  id="reservation_page_btn"
+                  onClick={goReservation}
+                  variant="contained"
+                  color="info"
+                >
+                  셔터에서 예약하기
+                </Button>
               </Box>
             </Box>
           </Box>

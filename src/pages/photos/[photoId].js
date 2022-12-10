@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Container,
   IconButton,
   ImageListItem,
@@ -58,7 +59,14 @@ export default function Photo() {
   //   setLike((prev) => !prev);
   // };
 
-  if (photoDataLoading || photoTagsLoading) return <div>Loading...</div>;
+  if (photoDataLoading || photoTagsLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (photoDataError || photoTagsError) return <div>Error!!</div>;
 
   return (

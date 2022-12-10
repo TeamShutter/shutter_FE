@@ -1,4 +1,4 @@
-import { Box, Button, Slide, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import AlertModal from "../../components/alert/AlertModal";
+import Transition from "../../components/recommend/Transition";
 
 export default function Recommend() {
   const user = useSelector((state) => state.auth.user);
@@ -20,6 +21,7 @@ export default function Recommend() {
     3: false,
     4: false,
     5: false,
+    6: false,
   });
 
   const [sex, setSex] = useState("");
@@ -49,7 +51,14 @@ export default function Recommend() {
   const tagsLoading = tagsData.tagsLoading;
   const tagsError = tagsData.tagsError;
 
-  if (townsLoading || tagsLoading) return <div>Loading...</div>;
+  if (townsLoading || tagsLoading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (townsError || tagsError) return <div>Error!!</div>;
 
   const handleQ = (e) => {
@@ -174,12 +183,13 @@ export default function Recommend() {
         sx={{
           display: "flex",
           alignItems: "center",
-          ml: "5%",
           mr: "5%",
+          ml: { xs: "0", md: "5%" },
           width: "90%",
+          height: "70vh",
         }}
       >
-        <Slide direction="down" in={checked[0]} mountOnEnter unmountOnExit>
+        <Transition in={checked[0]}>
           <Box
             sx={{
               height: "600px",
@@ -189,11 +199,19 @@ export default function Recommend() {
             }}
           >
             <Typography variant="h5">사진관 추천 소개</Typography>
+            <Typography>내 마음에 쏙 드는 스튜디오 찾기, 힘드셨죠?</Typography>
             <Typography>
-              주어진 설문에 따라서 본인의 정보를 입력해주세요!
+              셔터에서는 자체 개발 AI 기술을 이용해,<br></br>
+              {user?.username}님이 가장 좋아하실 스튜디오를 추천해드려요!
+              <br></br>
+              이제 인스타그램에서 헤매지말고, <br></br>
+              셔터에서 인생 스튜디오를 추천 받으세요!
             </Typography>
-            <Typography>
-              보다 정확한 추천을 위해 원하시는 사진을 정확하게 입력해주세요!
+            <Typography>자, 이제 시작해볼까요?</Typography>
+            <Typography sx={{ fontSize: "14px", color: "gray" }}>
+              사진관을 추천받으시기 위해서는 성별, 나이 정보가 필요합니다.
+              <br></br>
+              모든 정보는 오직 저희의 내부 데이터로만 활용됩니다. 안심하세요!
             </Typography>
 
             <Box
@@ -211,8 +229,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[1]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[1]}>
           <Box
             sx={{
               height: "600px",
@@ -268,8 +286,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[2]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[2]}>
           <Box
             sx={{
               height: "600px",
@@ -362,8 +380,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[3]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[3]}>
           <Box
             sx={{
               height: "600px",
@@ -429,8 +447,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[4]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[4]}>
           <Box
             sx={{
               height: "600px",
@@ -493,8 +511,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[5]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[5]}>
           <Box
             sx={{
               height: "600px",
@@ -555,8 +573,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[6]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[6]}>
           <Box
             sx={{
               height: "600px",
@@ -636,7 +654,7 @@ export default function Recommend() {
               </Link>
             </Box>
           </Box>
-        </Slide>
+        </Transition>
       </Box>
       <AlertModal
         open={open}
