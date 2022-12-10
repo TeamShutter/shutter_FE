@@ -1,4 +1,4 @@
-import { Box, Button, Slide, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import AlertModal from "../../components/alert/AlertModal";
+import Transition from "../../components/recommend/Transition";
 
 export default function Recommend() {
   const user = useSelector((state) => state.auth.user);
@@ -20,6 +21,7 @@ export default function Recommend() {
     3: false,
     4: false,
     5: false,
+    6: false,
   });
 
   const [sex, setSex] = useState("");
@@ -175,12 +177,13 @@ export default function Recommend() {
         sx={{
           display: "flex",
           alignItems: "center",
-          ml: "5%",
           mr: "5%",
+          ml: { xs: "0", md: "5%" },
           width: "90%",
+          height: "70vh",
         }}
       >
-        <Slide direction="down" in={checked[0]} mountOnEnter unmountOnExit>
+        <Transition in={checked[0]}>
           <Box
             sx={{
               height: "600px",
@@ -191,10 +194,11 @@ export default function Recommend() {
           >
             <Typography variant="h5">사진관 추천 소개</Typography>
             <Typography>
-              주어진 설문에 따라서 본인의 정보를 입력해주세요!
+              주어진 설문에 따라서 본인의 정보 및<br></br>
+              원하시는 사진 종류를 입력해주세요!
             </Typography>
             <Typography>
-              보다 정확한 추천을 위해 원하시는 사진을 정확하게 입력해주세요!
+              셔터에서 제공하는 AI 기술을 이용한 정교한 추천을 해드립니다!
             </Typography>
 
             <Box
@@ -212,8 +216,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[1]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[1]}>
           <Box
             sx={{
               height: "600px",
@@ -269,8 +273,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[2]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[2]}>
           <Box
             sx={{
               height: "600px",
@@ -363,8 +367,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[3]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[3]}>
           <Box
             sx={{
               height: "600px",
@@ -430,8 +434,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[4]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[4]}>
           <Box
             sx={{
               height: "600px",
@@ -494,8 +498,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[5]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[5]}>
           <Box
             sx={{
               height: "600px",
@@ -556,8 +560,8 @@ export default function Recommend() {
               </Button>
             </Box>
           </Box>
-        </Slide>
-        <Slide direction="down" in={checked[6]} mountOnEnter unmountOnExit>
+        </Transition>
+        <Transition in={checked[6]}>
           <Box
             sx={{
               height: "600px",
@@ -637,7 +641,7 @@ export default function Recommend() {
               </Link>
             </Box>
           </Box>
-        </Slide>
+        </Transition>
       </Box>
       <AlertModal
         open={open}
