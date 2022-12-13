@@ -40,11 +40,37 @@ export default function PriceSelector({ price, setPrice }) {
                 color: "hashtag.main",
               },
             }}
-            color={price.maxPrice === 100000 ? "hashtag" : "primary"}
-            onClick={() => setPrice({ minPrice: 0, maxPrice: 100000 })}
+            color={price.maxPrice === 50000 ? "hashtag" : "primary"}
+            onClick={() => setPrice({ minPrice: 0, maxPrice: 50000 })}
             className="filter_btn price_btn"
           >
-            10만원 이하
+            5만원 이하
+          </Button>
+          <Button
+            sx={{
+              width: "40%",
+              ":hover": {
+                color: "hashtag.main",
+              },
+            }}
+            color={price.maxPrice === 100000 ? "hashtag" : "primary"}
+            onClick={() => setPrice({ minPrice: 50000, maxPrice: 100000 })}
+            className="filter_btn price_btn"
+          >
+            5만원 ~ 10만원
+          </Button>
+          <Button
+            sx={{
+              width: "40%",
+              ":hover": {
+                color: "hashtag.main",
+              },
+            }}
+            color={price.maxPrice === 150000 ? "hashtag" : "primary"}
+            onClick={() => setPrice({ minPrice: 100000, maxPrice: 150000 })}
+            className="filter_btn price_btn"
+          >
+            10만원 ~ 15만원
           </Button>
           <Button
             sx={{
@@ -54,10 +80,10 @@ export default function PriceSelector({ price, setPrice }) {
               },
             }}
             color={price.maxPrice === 200000 ? "hashtag" : "primary"}
-            onClick={() => setPrice({ minPrice: 100000, maxPrice: 200000 })}
+            onClick={() => setPrice({ minPrice: 150000, maxPrice: 200000 })}
             className="filter_btn price_btn"
           >
-            10만원 ~ 20만원
+            15만원 ~ 20만원
           </Button>
           <Button
             sx={{
@@ -66,11 +92,11 @@ export default function PriceSelector({ price, setPrice }) {
                 color: "hashtag.main",
               },
             }}
-            color={price.maxPrice === 300000 ? "hashtag" : "primary"}
-            onClick={() => setPrice({ minPrice: 200000, maxPrice: 300000 })}
+            color={price.maxPrice === 250000 ? "hashtag" : "primary"}
+            onClick={() => setPrice({ minPrice: 200000, maxPrice: 250000 })}
             className="filter_btn price_btn"
           >
-            20만원 ~ 30만원
+            20만원 ~ 25만원
           </Button>
           <Button
             sx={{
@@ -79,37 +105,11 @@ export default function PriceSelector({ price, setPrice }) {
                 color: "hashtag.main",
               },
             }}
-            color={price.maxPrice === 400000 ? "hashtag" : "primary"}
-            onClick={() => setPrice({ minPrice: 300000, maxPrice: 400000 })}
+            color={price.minPrice === 250000 ? "hashtag" : "primary"}
+            onClick={() => setPrice({ minPrice: 250000, maxPrice: "" })}
             className="filter_btn price_btn"
           >
-            30만원 ~ 40만원
-          </Button>
-          <Button
-            sx={{
-              width: "40%",
-              ":hover": {
-                color: "hashtag.main",
-              },
-            }}
-            color={price.maxPrice === 500000 ? "hashtag" : "primary"}
-            onClick={() => setPrice({ minPrice: 400000, maxPrice: 500000 })}
-            className="filter_btn price_btn"
-          >
-            40만원 ~ 50만원
-          </Button>
-          <Button
-            sx={{
-              width: "40%",
-              ":hover": {
-                color: "hashtag.main",
-              },
-            }}
-            color={price.minPrice === 500000 ? "hashtag" : "primary"}
-            onClick={() => setPrice({ minPrice: 500000, maxPrice: "" })}
-            className="filter_btn price_btn"
-          >
-            50만원 이상
+            25만원 이상
           </Button>
         </Box>
         <Box

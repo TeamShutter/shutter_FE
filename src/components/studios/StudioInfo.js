@@ -1,25 +1,61 @@
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import RoomIcon from '@mui/icons-material/Room';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import { styled } from '@mui/styles';
+import {
+  Box,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import RoomIcon from "@mui/icons-material/Room";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { styled } from "@mui/styles";
+import { GetStudioProduct } from "../fetcher/fetcher";
 
 const StyledTableHead = styled(TableCell)({
-    backgroundColor: "black",
-    color: "white",
-    fontSize: 15,
-  });
+  backgroundColor: "black",
+  color: "white",
+  fontSize: 15,
+});
 
 const StyledTableBody = styled(TableCell)({
-    backgroundColor: "white",
-    color: "black",
-    fontSize: 13,
-  });
+  backgroundColor: "white",
+  color: "black",
+  fontSize: 13,
+});
 export default function StudioInfo({ studio }) {
-    return (
-        <TableContainer component={Paper} sx={{ my: 3, borderRadius: 5 }}>
-            <Table aria-label="customized table" >
-                {/* <TableHead>
+  const {
+    studioProductsData,
+    studioProductsDataLoading,
+    studioProductsDataError,
+  } = GetStudioProduct(studio.id);
+  const studioProducts = studioProductsData?.data;
+
+  //   if (
+  //     studioPhotographersDataLoading ||
+  //     studioAssignedTimesDataLoading ||
+  //     studioProductsDataLoading
+  //   )
+  //     return (
+  //       <Box
+  //         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+  //       >
+  //         <CircularProgress />
+  //       </Box>
+  //     );
+  //   if (
+  //     studioPhotographersDataError ||
+  //     studioAssignedTimesDataError ||
+  //     studioProductsDataError
+  //   )
+  //     return <div>Error!!</div>;
+  return (
+    <TableContainer component={Paper} sx={{ my: 3, borderRadius: 5 }}>
+      <Table aria-label="customized table">
+        {/* <TableHead>
                     <TableRow>
                         <StyledTableHead align="center">영업시간</StyledTableHead>
                         <StyledTableHead align="center">주소</StyledTableHead>
@@ -44,106 +80,128 @@ export default function StudioInfo({ studio }) {
                     </TableRow>
                 </TableBody> */}
 
-                <TableRow>
-                    <StyledTableHead variant="head" align="center">영업시간</StyledTableHead>
-                    <StyledTableBody align="center">
-                            <AccessTimeIcon sx={{ mr: 1, transform: "translateY(8px)" }} />
-                            {studio.open_time} ~ {studio.close_time}
-                    </StyledTableBody>
-                </TableRow>
-                <TableRow>
-                    <StyledTableHead variant="head" align="center">주소</StyledTableHead>
-                    <StyledTableBody align="center">
-                            <RoomIcon sx={{ mr: 1, transform: "translateY(8px)" }} />
-                            {studio.address}
-                    </StyledTableBody>
-                </TableRow>
-                {studio.phone && (
-                    <TableRow>
-                        <StyledTableHead variant="head" align="center">전화번호</StyledTableHead>                   
-                        <StyledTableBody align="center" >
-                            <a 
-                                href={`tel:${studio.phone}`}
-                                style={{ cursor: 'pointer', display:'block', width: '100%', height: '100%' }}
-                            >
-                            <LocalPhoneIcon sx={{ mr: 1, transform: "translateY(8px)" }} />
-                            {studio.phone}
-                            </a>
-                        </StyledTableBody>
-                    </TableRow>
-                )}
-            </Table>
-        </TableContainer>
+        <TableRow>
+          <StyledTableHead variant="head" align="center">
+            영업시간
+          </StyledTableHead>
+          <StyledTableBody align="center">
+            <AccessTimeIcon sx={{ mr: 1, transform: "translateY(8px)" }} />
+            {studio.open_time} ~ {studio.close_time}
+          </StyledTableBody>
+        </TableRow>
+        <TableRow>
+          <StyledTableHead variant="head" align="center">
+            주소
+          </StyledTableHead>
+          <StyledTableBody align="center">
+            <RoomIcon sx={{ mr: 1, transform: "translateY(8px)" }} />
+            {studio.address}
+          </StyledTableBody>
+        </TableRow>
+        {studio.phone && (
+          <TableRow>
+            <StyledTableHead variant="head" align="center">
+              전화번호
+            </StyledTableHead>
+            <StyledTableBody align="center">
+              <a
+                href={`tel:${studio.phone}`}
+                style={{
+                  cursor: "pointer",
+                  display: "block",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <LocalPhoneIcon sx={{ mr: 1, transform: "translateY(8px)" }} />
+                {studio.phone}
+              </a>
+            </StyledTableBody>
+          </TableRow>
+        )}
+        <TableRow>
+          <StyledTableHead variant="head" align="center">
+            상품 가격
+          </StyledTableHead>
+          <StyledTableBody align="start" sx={{ pl: 5 }}>
+            {studioProducts?.map((p) => (
+              <Box key={p.id}>
+                {p.name} : {p.price}원
+              </Box>
+            ))}
+          </StyledTableBody>
+        </TableRow>
+      </Table>
+    </TableContainer>
 
+    // <Box
+    // sx={{
+    //     display: 'flex',
+    //     margin: 'auto',
+    //     justifyContent: 'space-between',
+    //     width: '70%',
+    // }}
+    // >
+    //     <Box
+    //     sx={{
+    //     mb: 3,
+    //     }}>
 
-        // <Box
-        // sx={{
-        //     display: 'flex',
-        //     margin: 'auto',
-        //     justifyContent: 'space-between',
-        //     width: '70%',
-        // }}
-        // >
-        //     <Box
-        //     sx={{
-        //     mb: 3,
-        //     }}>
+    //     <Box
+    //     sx={{
+    //         display: 'flex',
+    //     }}>
+    //         <AccessTimeIcon sx={{ mr: 1 }} />
+    //         <Typography>
+    //         영업시간
+    //         </Typography>
+    //     </Box>
 
-        //     <Box
-        //     sx={{
-        //         display: 'flex',
-        //     }}>
-        //         <AccessTimeIcon sx={{ mr: 1 }} />
-        //         <Typography>
-        //         영업시간
-        //         </Typography>
-        //     </Box>
-            
-        //     <Typography>
-        //         {studio.open_time} ~ {studio.close_time}
-        //     </Typography>
+    //     <Typography>
+    //         {studio.open_time} ~ {studio.close_time}
+    //     </Typography>
 
-        //     </Box>
+    //     </Box>
 
-        //     <Box
-        //         sx={{
-        //             mb: 3,
-        //         }}>
+    //     <Box
+    //         sx={{
+    //             mb: 3,
+    //         }}>
 
-        //             <Box
-        //             sx={{
-        //             display: 'flex',
-        //             }}>
-        //             <RoomIcon sx={{ mr: 1 }} />
-        //             <Typography>
-        //                 위치
-        //             </Typography>
-        //             </Box>
-                    
-        //             <Typography>
-        //             {studio.address}
-        //             </Typography>
-        //     </Box>
+    //             <Box
+    //             sx={{
+    //             display: 'flex',
+    //             }}>
+    //             <RoomIcon sx={{ mr: 1 }} />
+    //             <Typography>
+    //                 위치
+    //             </Typography>
+    //             </Box>
 
-        //     <Box
-        //         sx={{
-        //           mb: 3,
-        //         }}>
-        //           <Box
-        //            sx={{
-        //             display: 'flex',
-        //           }}
-        //           >
-        //             <LocalPhoneIcon sx={{mr: 1}} />
-        //             <Typography>
-        //               전화번호
-        //             </Typography>
-        //           </Box>
-                  
-        //           <Typography>
-        //             {studio.phone}
-        //           </Typography>
-        //         </Box>
-        // </Box>
-    )
+    //             <Typography>
+    //             {studio.address}
+    //             </Typography>
+    //     </Box>
+
+    //     <Box
+    //         sx={{
+    //           mb: 3,
+    //         }}>
+    //           <Box
+    //            sx={{
+    //             display: 'flex',
+    //           }}
+    //           >
+    //             <LocalPhoneIcon sx={{mr: 1}} />
+    //             <Typography>
+    //               전화번호
+    //             </Typography>
+    //           </Box>
+
+    //           <Typography>
+    //             {studio.phone}
+    //           </Typography>
+    //         </Box>
+    // </Box>
+  );
 }

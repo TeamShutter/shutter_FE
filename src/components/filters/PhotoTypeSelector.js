@@ -29,6 +29,8 @@ export default function ColorSelector({ photoType, setPhotoType }) {
       {defaultPhotoTypeList.map((p) => (
         <Chip
           sx={{
+            pl: 0,
+            pr: 0,
             width: "30%",
             minWidth: "45px",
             marginBottom: "8px",

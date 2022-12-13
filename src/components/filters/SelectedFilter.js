@@ -1,6 +1,11 @@
 import { Box, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
-import { defaultColorList, defaultPhotoTypeList } from "../../data";
+import {
+  defaultColorList,
+  defaultPhotoTypeList,
+  defaultColorListTest,
+} from "../../data";
+import CircleIcon from "@mui/icons-material/Circle";
 
 export default function SelectedFilter({
   town,
@@ -15,19 +20,30 @@ export default function SelectedFilter({
   setPhotoType,
 }) {
   const [selectedFilter, setSelectedFilter] = useState([]);
+  selectedFilter.map((s) => {
+    defaultColorListTest.filter((c) => c.name === s).length > 0
+      ? console.log(s)
+      : null;
+  });
 
   const handleDelete = (e) => {
     const filterDeleted = e.target.parentNode.parentNode.children[0].innerText;
+
     if (town === filterDeleted) {
       setTown("");
     } else if (
-      filterDeleted.includes("~") ||
-      filterDeleted.includes("이하") ||
-      filterDeleted.includes("이상")
+      filterDeleted !== undefined &&
+      (filterDeleted.includes("~") ||
+        filterDeleted.includes("이하") ||
+        filterDeleted.includes("이상"))
     ) {
       setPrice({ minPrice: "", maxPrice: "" });
     } else if (
-      color === defaultColorList.find((c) => c.name === filterDeleted)?.id
+      // color === defaultColorList.find((c) => c.name === filterDeleted)?.id
+      color ===
+      defaultColorListTest.find(
+        (c) => c.name === e.target.parentNode.parentNode.id
+      )?.id
     ) {
       setColor("");
     } else if (
@@ -58,7 +74,8 @@ export default function SelectedFilter({
       }
     }
     if (color) {
-      const colorName = defaultColorList.find((c) => c.id === color).name;
+      // const colorName = defaultColorList.find((c) => c.id === color).name;
+      const colorName = defaultColorListTest.find((c) => c.id === color).name;
       setSelectedFilter((prev) => [...prev, colorName]);
     }
     if (photoType) {
@@ -90,13 +107,27 @@ export default function SelectedFilter({
       >
         {selectedFilter.map((s) => (
           <Chip
-            sx={{ mr: "10px", flex: "0 0 auto" }}
+            sx={{ mr: "10px", flex: "0 0 auto", color: s }}
             color="hashtag"
             variant="filled"
             key={s}
-            // onClick={handleDelete}
             onDelete={handleDelete}
-            label={s}
+            // label={s}
+            label={
+              defaultColorListTest.filter((c) => c.name === s).length > 0
+                ? null
+                : s
+            }
+            icon={
+              defaultColorListTest.filter((c) => c.name === s).length > 0 ? (
+                <CircleIcon />
+              ) : null
+            }
+            id={
+              defaultColorListTest.filter((c) => c.name === s).length > 0
+                ? s
+                : null
+            }
           />
         ))}
       </Box>
