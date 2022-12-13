@@ -1,18 +1,27 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import Head from "next/head";
 import Layout from "../../layouts/Layout";
 import { useEffect, useState } from "react";
-import { defaultColorList, defaultPhotoTypeList } from "../../data";
+import {
+  defaultColorList,
+  defaultColorListTest,
+  defaultPhotoTypeList,
+} from "../../data";
 import { GetTags, GetTowns } from "../../components/fetcher/fetcher";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
 import AlertModal from "../../components/alert/AlertModal";
 import Transition from "../../components/recommend/Transition";
+import CircleIcon from "@mui/icons-material/Circle";
 
 export default function Recommend() {
   const user = useSelector((state) => state.auth.user);
-  const router = useRouter();
 
   const [checked, setChecked] = useState({
     0: true,
@@ -33,12 +42,6 @@ export default function Recommend() {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const [alertDesc, setAlertDesc] = useState("");
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user]);
 
   const townsData = GetTowns();
   const tagsData = GetTags();
@@ -110,10 +113,8 @@ export default function Recommend() {
     }
   };
 
-  const handleChangeColor = (e) => {
-    const newColor = defaultColorList.find(
-      (color) => color.name === e.target.innerText.trim()
-    );
+  const handleChangeColor = (name) => {
+    const newColor = defaultColorListTest.find((color) => color.name === name);
     if (colorList.includes(newColor.id)) {
       setColorList((prev) => prev.filter((color) => color !== newColor.id));
     } else {
@@ -154,11 +155,11 @@ export default function Recommend() {
         });
       }
     } else if (type === "color") {
-      if (colorList.length === defaultColorList.length) {
+      if (colorList.length === defaultColorListTest.length) {
         setColorList([]);
       } else {
         setColorList([]);
-        defaultColorList.map((c) => {
+        defaultColorListTest.map((c) => {
           setColorList((prev) => [...prev, c.id]);
         });
       }
@@ -202,7 +203,8 @@ export default function Recommend() {
             <Typography>내 마음에 쏙 드는 스튜디오 찾기, 힘드셨죠?</Typography>
             <Typography>
               셔터에서는 자체 개발 AI 기술을 이용해,<br></br>
-              {user?.username}님이 가장 좋아하실 스튜디오를 추천해드려요!
+              {user ? user.username : "고객"}님이 가장 좋아하실 스튜디오를
+              추천해드려요!
               <br></br>
               이제 인스타그램에서 헤매지말고, <br></br>
               셔터에서 인생 스튜디오를 추천 받으세요!
@@ -240,7 +242,7 @@ export default function Recommend() {
             }}
           >
             <Typography variant="h5">1. 성별을 알려주세요!</Typography>
-            <Typography>성별에 알맞는 추천을 위해 필요합니다 ^^</Typography>
+            <Typography>성별에 알맞는 추천을 위해 필요합니다</Typography>
             <Box
               sx={{
                 display: "flex",
@@ -458,7 +460,7 @@ export default function Recommend() {
             }}
           >
             <Typography variant="h5">
-              4.사진관 위치는 어디가 좋으신가요?
+              4.사진관 위치는 어디가 좋으세요?
             </Typography>
             <Typography>원하시는 스튜디오 위치를 모두 골라주세요!</Typography>
             <Box
@@ -522,10 +524,10 @@ export default function Recommend() {
             }}
           >
             <Typography variant="h5">
-              5.어떤 색감의 사진을 찍고 싶으신가요?
+              5.어떤 배경 색감을 찾고 계신가요?
             </Typography>
             <Typography>원하시는 사진의 색감을 모두 골라주세요!</Typography>
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -554,6 +556,52 @@ export default function Recommend() {
               >
                 모두 선택
               </Button>
+            </Box> */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                columnGap: "2%",
+                rowGap: "10px",
+                width: "100%",
+                flexWrap: "wrap",
+              }}
+            >
+              {defaultColorListTest.map((c) => (
+                <Button
+                  key={c.id}
+                  variant={colorList.includes(c.id) ? "contained" : "outlined"}
+                  color={colorList.includes(c.id) ? "hashtag" : "primary"}
+                  onClick={() => handleChangeColor(c.name)}
+                  name="color"
+                  sx={{
+                    color: c.name,
+                    width: "30%",
+                    minWidth: "45px",
+                    pl: 0,
+                    pr: 0,
+                  }}
+                >
+                  <CircleIcon
+                    variant="outlined"
+                    sx={{
+                      stroke: "black",
+                      strokeWidth: 0.1,
+                      width: "35px",
+                      height: "35px",
+                    }}
+                  />
+                </Button>
+              ))}
+              <Button
+                variant="contained"
+                color="selectall"
+                id="color"
+                onClick={selectAll}
+                sx={{ width: "30%", minWidth: "45px" }}
+              >
+                모두 선택
+              </Button>
             </Box>
             <Box
               sx={{
@@ -561,7 +609,7 @@ export default function Recommend() {
                 display: "flex",
                 flexDirection: "row",
                 columnGap: "30px",
-                width: "100%",
+                width: { md: "95%", xs: "95%" },
                 justifyContent: "space-between",
               }}
             >
@@ -584,7 +632,7 @@ export default function Recommend() {
             }}
           >
             <Typography variant="h5">
-              6.어떤 분위기의 사진을 찍고 싶으신가요?
+              6.어떤 분위기의 사진을 찍고 싶으세요?
             </Typography>
             <Typography>원하는 분위기의 태그를 모두 골라주세요!</Typography>
             <Box
@@ -593,7 +641,7 @@ export default function Recommend() {
                 flexDirection: "row",
                 columnGap: "2%",
                 rowGap: "10px",
-                width: "100%",
+                width: { md: "90%", xs: "100%" },
                 flexWrap: "wrap",
               }}
             >
@@ -627,8 +675,7 @@ export default function Recommend() {
                 mt: "15px",
                 display: "flex",
                 flexDirection: "row",
-                columnGap: "30px",
-                width: "100%",
+                width: { md: "85%", xs: "95%" },
                 justifyContent: "space-between",
               }}
             >

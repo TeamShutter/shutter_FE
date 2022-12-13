@@ -87,10 +87,10 @@ export default function Reservation() {
   const [productId, setProductId] = useState(0);
 
   const addReservationCart = () => {
-    if (!photographerValue) {
-      alert("사진작가를 선택하여야 합니다!");
-    } else if (!dateValue) {
+    if (!dateValue) {
       alert("날짜를 선택하여야 합니다!");
+    } else if (!photographerValue) {
+      alert("사진작가를 선택하여야 합니다!");
     } else if (!timeValue) {
       alert("시간을 선택하여야 합니다!");
     } else if (
@@ -209,19 +209,20 @@ export default function Reservation() {
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
+                mt: "20px",
               }}
             >
-              <PersonIcon />
-              {photographerValue ? (
-                <Typography variant="h6">{photographerValue}</Typography>
+              <CalendarMonthIcon />
+              {dateValue ? (
+                <Typography variant="h6">{dateValue}</Typography>
               ) : (
-                <Typography variant="h6">사진작가 선택</Typography>
+                <Typography variant="h6">날짜 선택</Typography>
               )}
               <ToggleButton
                 disabled={cartState > 3 ? true : false}
                 size="small"
                 value="check"
-                selected={selected[0]}
+                selected={selected[1]}
                 onChange={() => {
                   setSelected({
                     0: !selected[0],
@@ -239,79 +240,6 @@ export default function Reservation() {
               </ToggleButton>
             </Box>
             {selected[0] ? (
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  flexDirection: "row",
-                  rowGap: "5px",
-                  columnGap: "2%",
-                  mt: "15px",
-                  mb: "15px",
-                }}
-              >
-                {studioPhotographers.map((photographer) => (
-                  <Button
-                    key={photographer.id}
-                    variant="outlined"
-                    sx={{
-                      width: "30%",
-                    }}
-                    onClick={() => {
-                      setPhotographerValue(photographer.name);
-                      setSelected({ ...selected, 0: false, 1: true });
-                    }}
-                  >
-                    {photographer.name}
-                  </Button>
-                ))}
-              </Box>
-            ) : null}
-            <Box
-              sx={{
-                width: "100%",
-                height: "5px",
-                bgcolor: "blank.main",
-              }}
-            ></Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                mt: "20px",
-              }}
-            >
-              <CalendarMonthIcon />
-              {dateValue ? (
-                <Typography variant="h6">{dateValue}</Typography>
-              ) : (
-                <Typography variant="h6">날짜 선택</Typography>
-              )}
-              <ToggleButton
-                disabled={cartState > 3 ? true : false}
-                size="small"
-                value="check"
-                selected={selected[1]}
-                onChange={() => {
-                  setSelected({
-                    0: false,
-                    1: !selected[1],
-                    2: false,
-                    3: false,
-                  });
-                }}
-              >
-                {selected[1] ? (
-                  <KeyboardArrowUpIcon />
-                ) : (
-                  <KeyboardArrowDownIcon />
-                )}
-              </ToggleButton>
-            </Box>
-            {selected[1] ? (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <CalendarPicker
                   displayStaticWrapperAs="Responsive"
@@ -319,7 +247,7 @@ export default function Reservation() {
                   minDate={tomorrow}
                   onChange={(newValue) => {
                     setDateValue(dayjs(newValue).format("YYYY-MM-DD"));
-                    setSelected({ ...selected, 1: false, 2: true });
+                    setSelected({ ...selected, 0: false, 1: true });
                   }}
                   renderInput={(params) => <TextField {...params} />}
                   dayOfWeekFormatter={(day) => `${day}.`}
@@ -327,6 +255,79 @@ export default function Reservation() {
               </LocalizationProvider>
             ) : null}
           </Box>
+
+          <Box
+            sx={{
+              width: "100%",
+              height: "5px",
+              bgcolor: "blank.main",
+            }}
+          ></Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <PersonIcon />
+            {photographerValue ? (
+              <Typography variant="h6">{photographerValue}</Typography>
+            ) : (
+              <Typography variant="h6">사진작가 선택</Typography>
+            )}
+            <ToggleButton
+              disabled={cartState > 3 ? true : false}
+              size="small"
+              value="check"
+              selected={selected[1]}
+              onChange={() => {
+                setSelected({
+                  0: false,
+                  1: !selected[1],
+                  2: false,
+                  3: false,
+                });
+              }}
+            >
+              {selected[1] ? (
+                <KeyboardArrowUpIcon />
+              ) : (
+                <KeyboardArrowDownIcon />
+              )}
+            </ToggleButton>
+          </Box>
+          {selected[1] ? (
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexWrap: "wrap",
+                flexDirection: "row",
+                rowGap: "5px",
+                columnGap: "2%",
+                mt: "15px",
+                mb: "30px",
+              }}
+            >
+              {studioPhotographers.map((photographer) => (
+                <Button
+                  key={photographer.id}
+                  variant="outlined"
+                  sx={{
+                    width: "30%",
+                  }}
+                  onClick={() => {
+                    setPhotographerValue(photographer.name);
+                    setSelected({ ...selected, 1: false, 2: true });
+                  }}
+                >
+                  {photographer.name}
+                </Button>
+              ))}
+            </Box>
+          ) : null}
           <Box
             sx={{
               width: "100%",
@@ -521,7 +522,7 @@ export default function Reservation() {
               sx={{ width: "100%", mt: "20px" }}
               id="reservation_add_btn"
             >
-              {cartState}순위 추가하기
+              {cartState}순위로 예약신청하기
             </Button>
           ) : null}
 

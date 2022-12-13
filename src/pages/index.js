@@ -60,17 +60,24 @@ export default function Index() {
       <Box
         sx={{
           display: "flex",
+          overflowX: "scroll",
+          flexWrap: "nowrap",
           height: "40px",
           width: "100%",
-          justifyContent: "center",
+          columnGap: "20px",
+          justifyContent: { md: "center", xs: "start" },
           mt: "15px",
           mb: "10px",
+          "&::-webkit-scrollbar": {
+            width: 0,
+            height: 0,
+          },
         }}
       >
         {defaultFilters.map((filter) => (
           <Button
             sx={{
-              mr: "15px",
+              flex: "0 0 auto",
               ":hover": {
                 backgroundColor: "hashtag.main",
                 color: "white",

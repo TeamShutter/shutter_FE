@@ -1,14 +1,3 @@
-export const defaultTime = [
-  { id: 1, value: "08:00" },
-  { id: 2, value: "09:00" },
-  { id: 3, value: "10:00" },
-  { id: 4, value: "11:00" },
-  { id: 5, value: "12:00" },
-  { id: 6, value: "13:00" },
-  { id: 7, value: "14:00" },
-  { id: 8, value: "15:00" },
-];
-
 export const defaultReservationNum = [
   { id: 1, value: "1순위 예약" },
   { id: 2, value: "2순위 예약" },
@@ -27,7 +16,7 @@ export const defaultFilters = [
   { id: 1, name: "동네" },
   { id: 2, name: "가격" },
   { id: 3, name: "색감" },
-  // { id: 4, name: "사진종류" },
+  { id: 4, name: "사진종류" },
 ];
 
 export const defaultColorList = [
@@ -38,10 +27,28 @@ export const defaultColorList = [
   { id: 5, name: "흑백" },
 ];
 
+export const defaultColorListTest = [
+  { id: 1, name: "white" },
+  { id: 2, name: "gray" },
+  { id: 3, name: "black" },
+  { id: 4, name: "pink" },
+  { id: 5, name: "red" },
+  { id: 6, name: "wheat" },
+  { id: 7, name: "orange" },
+  { id: 8, name: "yellow" },
+  { id: 9, name: "greenyellow" },
+  { id: 10, name: "olive" },
+  { id: 11, name: "skyblue" },
+  { id: 12, name: "navy" },
+  { id: 13, name: "saddlebrown" },
+  { id: 14, name: "purple" },
+];
+
 export const defaultPhotoTypeList = [
-  { id: 1, name: "증명 사진" },
-  { id: 2, name: "프로필 사진" },
+  { id: 1, name: "프로필 사진" },
+  { id: 2, name: "증명 사진" },
   { id: 3, name: "단체 사진" },
+  { id: 4, name: "컨셉 사진" },
 ];
 
 export const defaultTownList = [
