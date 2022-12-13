@@ -8,6 +8,7 @@ import {
   Pagination,
   TextField,
   InputAdornment,
+  Button,
 } from "@mui/material";
 import Link from "next/link";
 import StudioCarousel from "../../components/studios/StudioCarousel";
@@ -27,7 +28,6 @@ export default function Studioindex() {
   // const [page, setPage] = useState(1);
   // const [latitude, setLatitude] = useState("");
   // const [longitude, setLongitude] = useState("");
-
 
   // const changePage = (e) => {
   //   setPage(e.target.innerText);
@@ -50,7 +50,7 @@ export default function Studioindex() {
   //     setLongitude(longitude);
   //   });
   // };
-  const [town, setTown] = useState('');
+  const [town, setTown] = useState("");
 
   return (
     <Layout>
@@ -87,6 +87,23 @@ export default function Studioindex() {
           <StudioList price={price} distance={distance} latitude={latitude} longitude={longitude} />
         </Container> */}
         <TownSelector town={town} setTown={setTown} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            rowGap: "10px",
+            mt: 2,
+            mb: 5,
+          }}
+        >
+          <Typography variant="h6">원하는 사진관 찾기가 어렵다면?</Typography>
+          <Link href={`/recommend`}>
+            <Button id="recommend_from_main" size="small" variant="contained">
+              스튜디오 추천받으러 가기
+            </Button>
+          </Link>
+        </Box>
         <StudioList town={town} />
       </Box>
     </Layout>
