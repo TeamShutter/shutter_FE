@@ -1,6 +1,6 @@
 // import Head from "next/head";
 // import { GetTags } from "../components/fetcher/fetcher";
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useState } from "react";
 import PhotoList from "../components/photos/PhotoList";
 
@@ -16,6 +16,7 @@ import ColorSelector from "../components/filters/ColorSelector";
 import PhotoTypeSelector from "../components/filters/PhotoTypeSelector";
 
 import { defaultFilters } from "../data";
+import Link from "next/link";
 
 export default function Index() {
   const [town, setTown] = useState("");
@@ -42,12 +43,28 @@ export default function Index() {
           display: "flex",
           position: "relative",
           justifyContent: "center",
-          mb: 10,
+          mb: 7,
         }}
       >
         <img src="/static/logo_long.png" alt="Shutter Logo" width={300} />
       </Box>
       <Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            rowGap: "10px",
+            mb: 5,
+          }}
+        >
+          <Typography variant="h6">원하는 사진관 찾기가 어렵다면?</Typography>
+          <Link href={`/recommend`}>
+            <Button id="recommend_from_main" size="small" variant="contained">
+              스튜디오 추천받으러 가기
+            </Button>
+          </Link>
+        </Box>
         <TagSelector tagList={tagList} setTagList={setTagList} />
       </Box>
       <Box
