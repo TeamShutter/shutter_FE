@@ -185,7 +185,7 @@ export const GetRecommendedStudios = (
 ) => {
   let photoTypesString = "";
   for (let i = 0; i < photoTypeList?.length; i++) {
-    photoTypesString += `photo_types=${photoTypeList[i]}`;
+    photoTypesString += `&photo_types=${photoTypeList[i]}`;
   }
   let townsString = "";
   for (let i = 0; i < townList?.length; i++) {
