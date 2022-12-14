@@ -142,7 +142,7 @@ export default function Recommend() {
       } else {
         setPhotoTypeList([]);
         defaultPhotoTypeList.map((p) => {
-          setPhotoTypeList((prev) => [...prev, p.name]);
+          setPhotoTypeList((prev) => [...prev, p.id]);
         });
       }
     } else if (type === "town") {
@@ -467,7 +467,7 @@ export default function Recommend() {
                 flexDirection: "row",
                 rowGap: "10px",
                 columnGap: "2%",
-                width: "100%",
+                width: { md: "80%", xs: "100%" },
                 flexWrap: "wrap",
               }}
             >
@@ -499,7 +499,7 @@ export default function Recommend() {
                 display: "flex",
                 flexDirection: "row",
                 columnGap: "30px",
-                width: "100%",
+                width: { md: "80%", xs: "100%" },
                 justifyContent: "space-between",
               }}
             >
@@ -607,7 +607,7 @@ export default function Recommend() {
                 display: "flex",
                 flexDirection: "row",
                 columnGap: "30px",
-                width: { md: "95%", xs: "95%" },
+                width: { md: "85%", xs: "95%" },
                 justifyContent: "space-between",
               }}
             >
@@ -639,7 +639,7 @@ export default function Recommend() {
                 flexDirection: "row",
                 columnGap: "2%",
                 rowGap: "10px",
-                width: { md: "90%", xs: "100%" },
+                width: { md: "80%", xs: "100%" },
                 flexWrap: "wrap",
               }}
             >
@@ -673,7 +673,7 @@ export default function Recommend() {
                 mt: "15px",
                 display: "flex",
                 flexDirection: "row",
-                width: { md: "85%", xs: "95%" },
+                width: { md: "80%", xs: "95%" },
                 justifyContent: "space-between",
               }}
             >
