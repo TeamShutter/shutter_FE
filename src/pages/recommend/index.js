@@ -95,12 +95,12 @@ export default function Recommend() {
     const newPhotoType = defaultPhotoTypeList.find(
       (photoType) => photoType.name === e.target.innerText.trim()
     );
-    if (photoTypeList.includes(newPhotoType.name)) {
+    if (photoTypeList.includes(newPhotoType.id)) {
       setPhotoTypeList((prev) =>
-        prev.filter((photoType) => photoType !== newPhotoType.name)
+        prev.filter((photoType) => photoType !== newPhotoType.id)
       );
     } else {
-      setPhotoTypeList((prev) => [...prev, newPhotoType.name]);
+      setPhotoTypeList((prev) => [...prev, newPhotoType.id]);
     }
   };
 
@@ -408,14 +408,12 @@ export default function Recommend() {
                   key={photoType.id}
                   name="photoType"
                   variant={
-                    photoTypeList.includes(photoType.name)
+                    photoTypeList.includes(photoType.id)
                       ? "contained"
                       : "outlined"
                   }
                   color={
-                    photoTypeList.includes(photoType.name)
-                      ? "hashtag"
-                      : "primary"
+                    photoTypeList.includes(photoType.id) ? "hashtag" : "primary"
                   }
                 >
                   {photoType.name}
