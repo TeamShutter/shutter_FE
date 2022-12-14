@@ -27,12 +27,18 @@ export default function Result() {
   const tag = router.query.tag;
 
   const photoTypeList = photoType
-    ?.split('"')
+    ?.split("")
     .filter((element, index) => index % 2 !== 0);
   const townList = town?.split('"').filter((element, index) => index % 2 !== 0);
   const colorList = color
-    ?.split("")
-    .filter((element, index) => index % 2 !== 0);
+    ?.split(",")
+    .map((element, index) =>
+      index === 0
+        ? element.slice(1)
+        : index === color.split(",").length - 1
+        ? element.slice(0, -1)
+        : element
+    );
   const tagList = tag?.split('"').filter((element, index) => index % 2 !== 0);
 
   const formData = {
