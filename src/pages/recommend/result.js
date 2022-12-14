@@ -105,7 +105,7 @@ export default function Result() {
             alignContent: "end",
           }}
         >
-          {user?.username}
+          {user ? user.username : "고객"}
         </Typography>
         <Typography
           sx={{
