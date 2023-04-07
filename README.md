@@ -12,7 +12,7 @@
 - 태그별로 모아보는 기능
 - 원하는 조건에 따라 필터링 (가격, 위치, 색감)
 
-### [profile](./src/pages/profile/)
+### [profile](./src/pages/profile/index.js)
 - 유저프로필 페이지 
 
 ### [recommend](./src/pages/recommend/index.js)
